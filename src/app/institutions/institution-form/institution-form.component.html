@@ -1,0 +1,218 @@
+<div class="container pl-20 pr-20">
+  <div class="mb-12">
+
+    <h4 class="mt-4"> {{isNewInstitution ? "Add" : "Edit"}} Institution </h4>
+  </div>
+
+  <!-- <div> {{institution|json}} </div> -->
+  <form #fData="ngForm" (ngSubmit)="saveForm(fData)" novalidate>
+
+    <div class="card">
+      <div class="p-grid p-fluid col-sm-12">
+
+        <!--Type-->
+        <div class="row p-2">
+          <div class="col-12 col-md-6">
+            <div class="p-field">
+              <label for="type">Type*</label>
+              <p-dropdown placeholder="" [(ngModel)]="institution.type" [options]="selectedTypeList" name="type"
+                optionLabel="name"></p-dropdown>
+
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row p-2">
+          <div class="col-12 col-md-6">
+            <div class="p-field">
+              <label for="projScope">Name*</label>
+              <input type="text" placeholder="" name="projScope" #ffn="ngModel"
+                [(ngModel)]="institution.name" class="p-inputtext" pInputText />
+                <p
+                class="info-message text-danger"
+                *ngIf="
+                  !institution.name &&
+                  (fData.submitted || ffn.touched || ffn.dirty)
+                "
+              >
+                This is a mandatory field
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row p-2">
+          <div class="col-12 col-md-12">
+            <div class="p-field">
+              <label for="description">Description</label>
+              <textarea type="text" name="description" placeholder="" [(ngModel)]="institution.description" rows="5"
+                cols="130" pInputTextarea autoResize="autoResize" class="p-inputtext"
+                #fInstitution="ngModel"></textarea>
+
+              <!-- <p
+                class="info-message text-danger"
+                *ngIf="
+                  (!institution.description || fInstitution.invalid) &&
+                  (fData.submitted ||
+                  fInstitution.touched ||
+                  fInstitution.dirty)
+                "
+              >
+                This is a mandatory field
+              </p> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row p-2">
+          <div class="col-12 col-md-12">
+            <div class="p-field">
+              <label for="objective">Assign countries</label>
+              <p-multiSelect name="countries" [options]="listc" [(ngModel)]="institution.countries"
+                #fcountries="ngModel" [filter]="true" optionLabel="name" (ngModelChange)="getSelectedApproach()">
+              </p-multiSelect>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row p-2">
+          <div class="col-12 col-md-12">
+            <div class="p-field">
+              <label for="objective">Address* </label>
+              <textarea type="text" placeholder=""  #ffa="ngModel" name="insaddress" #insaddress="ngModel" class="p-inputtext"
+                [(ngModel)]="institution.address" rows="5" cols="130" autoResize="autoResize" pInputTextarea
+                required></textarea>
+                <p
+                class="info-message text-danger"
+                *ngIf="
+                  !institution.name &&
+                  (fData.submitted || ffa.touched || ffa.dirty)
+                "
+              >
+                This is a mandatory field
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row p-2">
+          <div class="col-12 col-md-12">
+            <div class="p-field">
+              <label for="objective">Contact Number*</label>
+              <!-- <input type="text" placeholder="+xx xxx xxxx xxx" name="telephoneNumber" #telephoneNumber="ngModel"
+                class="p-inputtext" [(ngModel)]="institution.contactNumber" #ffc="ngModel" pInputText required /> -->
+                <p-inputMask
+                type="text"
+                name="mobile"
+                mask="+99 99-999-9999"
+                [autoClear]="false"
+                placeholder="+99 999 999-999"
+                [(ngModel)]="institution.contactNumber"
+                [styleClass]="'form-control'"
+                #fmobile="ngModel"
+              ></p-inputMask>
+                <p
+                class="info-message text-danger"
+                *ngIf="
+                  !institution.name &&
+                  (fData.submitted || fmobile.touched || fmobile.dirty)
+                "
+              >
+                This is a mandatory field
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="d-flex flex-row-reverse mt-3 mb-2">
+
+      <button class="btn btn-primary btn-block text-uppercase  ml-10" (click)="onBackClick()">
+        Back
+      </button>
+  
+      <button pRipple class="btn btn-primary btn-block text-uppercase  ml-10" type="submit">
+        Save
+      </button>
+    </div>
+
+    <div class="col-4">
+      <!-- <div class="col-4-flex align-items-center"></div> -->
+      <div class="col" *ngIf="!isNewInstitution">
+        <button  pRipple class="btn btn-primary btn-block text-uppercase  ml-10"
+          (click)="activateInstitution(institution)">
+          {{institution.status == 1 ? "Activate" : "Deactivate"}}
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- <div class="col-4">
+        <div class="col-4 d-flex align-items-center">
+          <button class="btn btn-primary btn-block text-uppercase" (click)="onBackClick()">
+            Back
+          </button>
+
+        </div>
+      </div> -->
+
+      <!-- <div class="col-4">
+        <div class="col-4 d-flex align-items-center">
+          <button pRipple class="btn btn-primary btn-block text-uppercase" type="submit">
+            Save
+          </button>
+
+        </div>
+
+      </div> -->
+
+      
+
+    </div>
+
+
+
+
+    <div class="d-flex flex-row-reverse mt-2 mb-2">
+      <!-- <p-confirmDialog header="Deactivation" icon="pi pi-exclamation-triangle"></p-confirmDialog> -->
+      <!-- <button
+        pButton
+        pRipple
+        class="btn btn-primary btn-block text-uppercase"
+      >
+      Deactivate
+      </button> -->
+
+    </div>
+
+    <!-- <div class="d-flex flex-row-reverse mt-2 mb-2">
+        <button
+          pRipple
+          class="btn btn-primary btn-block text-uppercase"
+          type="edit"
+        >
+          Edit
+        </button>
+  
+      </div> -->
+  </form>
+
+  <p-toast position="top-right"></p-toast>
+  <p-toast position="bottom-center" key="c" [baseZIndex]="5000">
+
+  </p-toast>
+
+
+</div>
+<p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+
+<p-overlayPanel #op [showCloseIcon]="true" [style]="{ width: '50vw' }"></p-overlayPanel>

@@ -1,0 +1,21 @@
+.p-inputtext{
+    margin: 10px;
+}
+
+img{
+    position: absolute;
+    width: 257px;
+    height: 169px;
+    right: 25px;
+    top: 5px;
+}
+
+.card {
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+#ndc,
+#ss{
+    width: 50%;
+}

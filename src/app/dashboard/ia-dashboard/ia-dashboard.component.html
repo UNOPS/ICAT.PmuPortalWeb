@@ -1,0 +1,127 @@
+<div>
+  <div class="dahsboard-header">
+    <h1>Hello Institute Admin !</h1>
+    <h2>We are on a mission to help take actions against climate change.</h2>
+  </div>
+  <div class="dashboard-wrapper container pl-20 pr-20">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <h6>Bar</h6>
+
+          <h5>Proposed projects</h5>
+          <!-- <p-chart
+            type="bar"
+            [data]="basicData"
+            [options]="horizontalOptions"
+          ></p-chart> -->
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+          <h6>Table</h6>
+
+          <div class="row p-2">
+            <p-table>
+              <ng-template pTemplate="header">
+                <!-- <tr> 
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                      <input *ngSwitchCase="'climateActionName'" pInputText type="text"
+                        (input)="dt.filter($event.target.value, col.field, 'contains')" />
+                    </th>
+                  </tr> -->
+
+                <tr>
+                  <th>
+                    <div class="col-sm-2" style="width: 70.666667%">
+                      <!-- </button> -->
+                    </div>
+                  </th>
+                  <th>Climate Action</th>
+                  <th>Sector</th>
+                  <th>Type of Mitigation Action</th>
+                </tr>
+              </ng-template>
+              <!-- <ng-template pTemplate="body" let-climateactions>
+                    <tr>
+                      <td>
+                        <i
+                          class="pi pi-eye"
+                          style="font-size: 1.5rem; color: #000; margin-left: 17%"
+                          (click)="detail()"
+                        ></i>
+                      </td>
+          
+                      <td>{{ climateactions.climateActionName }}</td>
+                      <td>{{ climateactions.sector?.name }}</td>
+                      <td>{{ climateactions.mitigationAction?.name }}</td>
+                      <td>{{ climateactions.projectStatus?.name }}</td>
+                      <td>{{ climateactions.contactPersoFullName }}</td>
+                      <td>{{ climateactions.editedOn | date: "dd-MM-yyyy " }}</td>
+                    </tr>
+                  </ng-template> -->
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <h6>Table2</h6>
+
+          <div class="row p-2">
+            <p-table>
+              <ng-template pTemplate="header">
+                <!-- <tr> 
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                      <input *ngSwitchCase="'climateActionName'" pInputText type="text"
+                        (input)="dt.filter($event.target.value, col.field, 'contains')" />
+                    </th>
+                  </tr> -->
+
+                <tr>
+                  <th>
+                    <div class="col-sm-2" style="width: 70.666667%">
+                      <!-- </button> -->
+                    </div>
+                  </th>
+                  <th>Climate Action</th>
+                  <th>Sector</th>
+                  <th>Type of Mitigation Action</th>
+                </tr>
+              </ng-template>
+              <!-- <ng-template pTemplate="body" let-climateactions>
+                    <tr>
+                      <td>
+                        <i
+                          class="pi pi-eye"
+                          style="font-size: 1.5rem; color: #000; margin-left: 17%"
+                          (click)="detail()"
+                        ></i>
+                      </td>
+          
+                      <td>{{ climateactions.climateActionName }}</td>
+                      <td>{{ climateactions.sector?.name }}</td>
+                      <td>{{ climateactions.mitigationAction?.name }}</td>
+                      <td>{{ climateactions.projectStatus?.name }}</td>
+                      <td>{{ climateactions.contactPersoFullName }}</td>
+                      <td>{{ climateactions.editedOn | date: "dd-MM-yyyy " }}</td>
+                    </tr>
+                  </ng-template> -->
+            </p-table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <h6>Progress graph</h6>
+
+          <h5>Line Styles</h5>
+          <!-- <p-chart type="line" [data]="lineStylesData" [options]="basicOptions"></p-chart> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

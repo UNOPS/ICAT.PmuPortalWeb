@@ -1,0 +1,198 @@
+<div>
+  <div class="dahsboard-header">
+    <h1>Hello {{userName}}!</h1>
+    <h2>We are on a mission to help take actions against climate change.</h2>
+  </div>
+  <div class="dashboard-wrapper container pl-20 pr-20">
+    <div class="row">
+
+      <div class="col-md-12">
+        <div class="card">
+          <!-- <img src="{{src}}" alt="cc"> -->
+          <countries-map class="demo-maps" [data]="mapData1" maxColor='#046312' countryLabel="ICAT Transport Tool"
+            minColor="blue" backgroundColor='white' [showCaption]="false" [captionBelow]="false"
+            (chartSelect)="selectedCountry($event)">
+          </countries-map>
+
+          <!-- <p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'320px'}" ></p-gmap> -->
+        </div>
+        <div>
+          <p-dialog  [(visible)]="displayPosition" [style]="{width: '25vw'}">
+            <ng-container *ngIf="selectedCountryCode != null; else elseBlock1 ">
+              <div class="row p-2">
+                <label for="countryname" readonly>
+                  <b>{{selectedMapCountry?.name}}</b>
+                </label>
+                <!-- <div class="col-12 col-md-6">
+                          <label for="countryname" readonly>
+                            <b>Country </b>
+                          </label>
+                        </div> -->
+                <div class="col-12 col-md-6">
+
+                  <img src="{{selectedMapCountry?.flagPath}}" style="height: 15px; width: 30px;">
+
+                </div>
+              </div>
+
+              <!-- <div class="row p-2">
+                        <div class="col-12 col-md-6">
+                          <label for="countrystatys" readonly>
+                            <b>Country Status</b>
+                          </label>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <p>{{selectedMapCountry?.countryStatus}}</p>
+                        </div>
+                      </div> -->
+
+              <div class="row p-2">
+                <div class="col-12 col-md-6">
+                  <label for="registeredDate" readonly>
+                    <b>Registered Date</b>
+                  </label>
+                </div>
+                <div class="col-12 col-md-6">
+                  <p>{{selectedMapCountry?.registeredDate | date: "yyyy-MM-dd "}}</p>
+                </div>
+              </div>
+
+              <!-- <div class="row p-2">
+                        <div class="col-12 col-md-6">
+                          <label for="countryemiisiison" readonly>
+                            <b>Country EmissionSummary</b>
+                          </label>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <p>{{selectedMapCountry?.emissionSummary}}</p>
+                        </div>
+                      </div> -->
+
+              <div class="row p-2">
+                <div class="col-12 col-md-6">
+                  <label for="isMember" readonly>
+                    <b>Sectors</b>
+                  </label>
+                </div>
+                <div class="col-12 col-md-6">
+                  <p>Transport</p>
+                </div>
+              </div>
+
+              <!-- <div class="row p-2">
+                        <div class="col-12 col-md-6">
+                          <label for="isSystemUser" readonly>
+                            <b>System User</b>
+                          </label>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <p>{{selectedMapCountry?.isSystemUse?'yes':'No'}}</p>
+                        </div>
+                      </div>
+           -->
+
+            </ng-container>
+            <ng-template #elseBlock1>
+              <h6>Not a Registered Country</h6>
+            </ng-template>
+
+
+          </p-dialog>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+
+            <h5>Users of the tool</h5>
+            <p-chart type="bar" width="500" [data]="basicData" [options]="horizontalOptions"></p-chart>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6">
+          <div class="card">
+
+            <h5>Login Frequency</h5>
+            <div class="row">
+              <div class="col-2 d-flex align-items-center">
+                <label class="font-weight-bold">Country</label>
+              </div>
+              <div class="col-6">
+                <!-- {{user.userType | json}} -->
+                <p-dropdown [options]="countries" name="country" [(ngModel)]="slectedCountryForUsertype"
+                  placeholder="All" optionLabel="name" [showClear]="true"
+                  (onChange)="getUserUsageChart(slectedCountryForUsertype?slectedCountryForUsertype.id:0)">
+                </p-dropdown>
+                <!-- {{fut.errors | json}} {{fLogin.errors | json}} -->
+              </div>
+            </div>
+            <p-chart type="pie" [data]="userChartData" [style]="{'width': '100%', 'padding-left': '10px'}"></p-chart>
+    
+          </div>
+          <div *ngIf="this.isuse" class="col">
+            <p-messages severity="warn" >
+              <ng-template pTemplate>
+                  <!-- <img src="assets/showcase/images/primeng.svg" width="32" /> -->
+                  <i class="pi pi-info-circle mr-20" style="font-size: 2rem"></i>
+                  <div class="ml-2">There are no  active user data to show.</div>
+              </ng-template>
+          </p-messages>
+           </div>
+
+        </div>
+        <div class="col-6">
+          <div class="card">
+
+            <h5>Methodology Usage</h5>
+    
+            <div class="row">
+              <div class="col-2 d-flex align-items-center">
+                <label class="font-weight-bold">Country</label>
+              </div>
+              <div class="col-6">
+                <!-- {{user.userType | json}} -->
+                <p-dropdown [options]="countries" name="country" [(ngModel)]="selectedCountryForMethology"
+                  placeholder="All" optionLabel="name" [showClear]="true"
+                  (onChange)="getMethologyUsageChart(selectedCountryForMethology?selectedCountryForMethology.id:0)">
+                </p-dropdown>
+                <!-- {{fut.errors | json}} {{fLogin.errors | json}} -->
+              </div>
+            </div>
+            
+            <div class="row" >
+              <p-chart type="pie" [data]="methologyChartData" [options]="methologychartOptions" [style]="{'width': '100%'}"></p-chart>
+            </div>
+            <div *ngIf="this.isusemeth" class="col">
+              <p-messages severity="warn" >
+                <ng-template pTemplate>
+                    <!-- <img src="assets/showcase/images/primeng.svg" width="32" /> -->
+                    <i class="pi pi-info-circle mr-20" style="font-size: 2rem"></i>
+                    <div class="ml-2">There are no  methodology data to show.</div>
+                </ng-template>
+            </p-messages> 
+             </div>
+            
+          </div>
+        </div>
+      </div>
+
+      
+
+
+
+
+      
+
+
+
+
+    </div>
+  </div>
+</div>

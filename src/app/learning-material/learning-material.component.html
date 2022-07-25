@@ -1,0 +1,174 @@
+<div class="container pl-20 pr-20">
+  <h4 class="mt-4">Learning Material</h4>
+  <p-toast position="top-left" key="tl"></p-toast>
+  <div class="p-grid p-fluid card" style="min-height:10cm;">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="col-12">
+          <label for="projStatus">Sort By </label>
+          <div class="p-field">
+            <p-dropdown [options]="sortOptions" [(ngModel)]="searchBy.sortOption" #so="ngModel" placeholder="Select ..."
+              optionLabel="name" (ngModelChange)="onStatusChange($event)">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="p-inputgroup pt-4">
+          <input placeholder="Type Your Keyword" [(ngModel)]="searchBy.text" #nameClimate="ngModel" type="text"
+            name="nameClimate" class="p-inputtext" pInputText />
+          <button type="button" pButton pRipple label="Search" (click)="onSearch()"></button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <h6 class="mt-4" style="color:#1a4f7b;">Learning Materials</h6>
+    <br>
+    <div class="grid">
+
+      <!-- <div class="grid" fxLayout="column" fxLayoutGap="20px" > -->
+      <!-- <div class="cardWrap" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px" > -->
+      <div *ngFor="let item of learnigMaterials">
+        <ng-container *ngIf="item.documentType =='Learning Material' ">
+
+          <div class="col-4" style="color: #1a4f7b;">
+
+            <app-document [documents]="item" (newItemEvent)="deleteItem($event)">
+            </app-document>
+
+
+          </div>
+
+
+        </ng-container>
+        <!-- </div> -->
+        <!-- </div> -->
+
+      </div>
+
+    </div>
+
+
+
+<br>
+
+
+
+    <div class="row p-2">
+      <div class="col-md-3">
+        <p-button (click)="showModalDialog()" label="Upload"></p-button>
+      </div>
+
+
+      <p-dialog header="Learning Material" [(visible)]="display" [modal]="true" [style]="{width: '50vw'}"
+        [draggable]="false" [resizable]="false">
+        <p-toast></p-toast>
+
+
+
+
+        <div class="row mb-3">
+
+          <div class="col-md-6">
+            <div class="col-12">
+              <label for="projStatus">Select User </label>
+              <div class="p-field">
+                <p-dropdown [options]="typeList" optionLabel="name" placeholder="Select User"
+                  [(ngModel)]="selectedType">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <div class="col-12">
+              <label for="projStatus">Select Sector </label>
+              <div class="p-field">
+                <p-dropdown [options]="sectorList" optionLabel="name" placeholder="Select Sector"
+                  [(ngModel)]="selectedSector" (ngModelChange)="onChangeSector()">
+                </p-dropdown>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <br>
+        <br>
+
+
+
+
+
+
+
+
+
+
+        <div class="row mb-3">
+
+          <ng-container *ngIf=" selectedSector != null && selectedType != null; else elseBlock ">
+
+            <div class="row mb-3">
+              <div class="col-md-5">
+                <p><b>Do you want to publish this document?</b></p>
+              </div>
+              <div class="col-md-1">
+
+                <p-toggleButton [(ngModel)]="checked" onLabel="YES" offLabel="NO" onIcon="pi pi-check"
+                  offIcon="pi pi-times" [style]="{'width': '5em' ,'color': 'white'}"></p-toggleButton>
+              </div>
+              <!-- <div class="col-md-4">
+    
+                    </div> -->
+
+            </div>
+
+            <app-document-upload [doucmentList]="documents" [documentOwner]="documentsDocumentOwner"
+              [documentOwnerId]="documentOwnerId" [showUpload]="true" [isNew]="true" (newItemEvent)="getDocuments()">
+            </app-document-upload>
+          </ng-container>
+          <ng-template #elseBlock>
+
+            <p><i class="pi pi-info-circle"></i>&nbsp;&nbsp;Please select a<b> Sector and userType</b> for upload a
+              document</p>
+
+          </ng-template>
+        </div>
+
+
+
+
+
+
+
+        <ng-template pTemplate="footer">
+
+
+
+          <button type="button" pButton pRipple (click)="closeModalDialog()" label="SAVE" class="p-button-success mb-2"
+            [disabled]="documentLists.length == 0"></button>
+        </ng-template>
+      </p-dialog>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+
+</div>

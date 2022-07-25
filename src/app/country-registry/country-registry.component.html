@@ -1,0 +1,194 @@
+<div class="container pl-20 pr-20">
+    <h4 class="mt-4">Country Registry</h4>
+    <div class="p-grid p-fluid card">
+
+
+  
+  
+      <!-- <div> {{climateactions|json}} </div> -->
+      <div class="row p-2">
+        <p-table 
+        [value]="pcountryList" 
+        [lazy]="true" 
+        (onLazyLoad)="loadCustomers($event)"
+        [paginator]="true"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[1, 10, 25, 50]"
+        [rows]="rows" 
+        [totalRecords]="totalRecords"
+        [loading]="loading"
+
+        >
+          <ng-template pTemplate="header">
+  
+            <tr>
+              <th>
+                <div class="col-sm-2" style="width: 70.666667%">
+                    <button
+                      class="ml-4"
+                      type="button"
+                      (click)="toAddCountry()"
+                      pButton
+                      pRipple
+                      icon="pi pi-plus"
+                      styleClass="p-button-warn"
+                    ></button>
+                  </div>
+                 
+              </th> 
+              <th></th>
+
+              <th>Flag</th>
+              <th>Country</th>
+              <th>Status</th>
+            </tr>
+            </ng-template>
+
+           <ng-template pTemplate="body" let-con>
+          
+          <ng-container *ngIf="con != null">
+              <tr>
+                <td class="pointer" >
+                  <i
+                    class="pi pi-eye"
+                    style="font-size: 1.5rem; color: #000; margin-left: 17%"
+                    (click)="viewCountry(con)"
+                  ></i>
+                  <!-- <button type="button" class="p-button-rounded p-button-text p-eye" pButton pRipple icon="pi pi-eye"
+
+                (click)="viewCountry(con)"></button> -->
+                </td>
+                <td class="pointer" >                  <i
+                    class="pi pi-pencil"
+                    style="font-size: 1.5rem; color: #000; margin-left: 17%"
+                    (click)="editCountry(con)"
+                  ></i>
+
+             
+                </td>
+                <td> 
+                  <div>
+                    <img src="{{con?.flagPath}}"  style="height: 15px; width: 30px;">
+                  </div>
+                  
+                </td>
+                  <td>{{ con?.name }}</td>
+                  <td>{{ con?.countryStatus }}</td> 
+              </tr>
+            </ng-container>
+          </ng-template> 
+        </p-table>
+        <!-- <p-paginator 
+        
+        (onPageChange)="paginate($event)"
+      
+        >
+        </p-paginator> -->
+
+      </div>
+
+      
+      <div>
+        <hr>
+      </div>
+      <!-- <div>
+        <countries-map 
+        [data]="mapData1"
+        maxColor= '#046312'
+        noDataColor = 'grey'
+        backgroundColor = 'white'
+        [showCaption] = false
+        [captionBelow] = false
+        (chartSelect)="selectedCountry($event)"
+         >
+        </countries-map>
+      </div> -->
+
+      <div>
+        
+<p-dialog header={{selectedMapCountry?.name}} [(visible)]="displayPosition" [position]="position" [style]="{width: '50vw'}">
+ 
+         <ng-container *ngIf="selectedMapCountry != null; else elseBlock1 ">
+              <div class="row p-2">
+    
+              <div class="col-12 col-md-6">
+                <label for="countryname" readonly>
+                  <b>Country </b>
+                </label>
+              </div>
+              <div class="col-12 col-md-6">
+                <img src="{{selectedMapCountry?.flagPath}}" style="height: 15px; width: 30px;">
+              
+              </div>
+            </div>
+
+            <div class="row p-2">
+              <div class="col-12 col-md-6">
+                <label for="countrystatys" readonly>
+                  <b>Country Status</b>
+                </label>
+              </div>
+              <div class="col-12 col-md-6">
+                <p>{{selectedMapCountry?.countryStatus}}</p>
+              </div>
+            </div>
+
+            <div class="row p-2">
+              <div class="col-12 col-md-6">
+                <label for="registeredDate" readonly>
+                  <b>Registered Date</b>
+                </label>
+              </div>
+              <div class="col-12 col-md-6">
+                <p>{{selectedMapCountry?.registeredDate | date: "yyyy-MM-dd "}}</p>
+              </div>
+            </div>
+
+            <div class="row p-2">
+              <div class="col-12 col-md-6">
+                <label for="countryemiisiison" readonly>
+                  <b>Country EmissionSummary</b>
+                </label>
+              </div>
+              <div class="col-12 col-md-6">
+                <p>{{selectedMapCountry?.emissionSummary}}</p>
+              </div>
+            </div>
+
+            <div class="row p-2">
+              <div class="col-12 col-md-6">
+                <label for="isMember" readonly>
+                  <b>Member</b>
+                </label>
+              </div>
+              <div class="col-12 col-md-6">
+                <p>{{selectedMapCountry?.isMember?'yes':'No'}}</p>
+              </div>
+            </div>
+
+            <div class="row p-2">
+              <div class="col-12 col-md-6">
+                <label for="isSystemUser" readonly>
+                  <b>System User</b>
+                </label>
+              </div>
+              <div class="col-12 col-md-6">
+                <p>{{selectedMapCountry?.isSystemUse?'yes':'No'}}</p>
+              </div>
+            </div>
+
+
+          </ng-container>
+          <ng-template #elseBlock1>
+             <h6>Not a Registered Country</h6>
+          </ng-template>
+ 
+
+
+ 
+</p-dialog>
+      </div>
+    </div>
+  </div>
+  

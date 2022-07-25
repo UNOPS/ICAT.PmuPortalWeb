@@ -1,0 +1,275 @@
+<div class="container">
+  <div class="p-2">
+    <h4>Country Profile</h4>
+  </div>
+
+  <form #fData="ngForm" novalidate>
+    <div class="card" style="width: 60%">
+      <div class="p-grid p-fluid col-sm-12">
+        <div class="row p-2">
+          <div class="col-12 col-md-6">
+            <div class="p-field">
+              <label for="countryname" readonly
+                ><b>{{ country?.name }}</b></label
+              >
+
+              <!-- <input
+            type="text"
+            name="countryname"
+            field="countryname"
+            class="p-inputtext"
+            style="width: 200%"
+            [(ngModel)]="country.description"
+            maxlength="300"
+              
+            /> -->
+              <textarea
+                name="countryname"
+                pattern="^[a-zA-Z0-9 ]{1,64}$"
+                [(ngModel)]="country.description"
+                rows="5"
+                cols="62"
+                pInputTextarea
+                length="300"
+                autoResize="autoResize"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="p-grid p-fluid col-sm-12">
+        <div class="row p-2">
+          <div class="col-12 col-md-6">
+            <div class="p-field">
+              <label for="nc"><b>National Communciation(s)</b></label>
+              <input
+                type="text"
+                field="nc"
+                class="p-inputtext"
+                placeholder="To be upload documents"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="p-field">
+              <label for="bur"><b>Biennial Update Report(s)</b></label>
+              <input
+                type="text"
+                class="p-inputtext"
+                pInputText
+                required
+                placeholder="To be upload documents"
+                name="submissions"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row p-2">
+          <div class="col-12 col-md-6">
+            <div class="p-field">
+              <label for="btc"><b>Biennial Transparency Report(s)</b></label>
+              <input
+                type="text"
+                class="p-inputtext"
+                pInputText
+                placeholder="To be upload documents"
+                name="submissions"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="p-field">
+              <label for="ndc"><b>Natinally Determine Contributions</b></label>
+
+              <input
+                type="text"
+                class="p-inputtext"
+                pInputText
+                placeholder="To be upload documents"
+                name="submissions"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-dialog [(visible)]="confirm">Country Saved Successfully!</p-dialog>
+
+    <button
+      pButton
+      label="Save"
+      (click)="saveCountry(country)"
+      style="margin-left: 93%"
+    ></button>
+
+    <!-- <div class="card">
+      <div class="p-grid p-fluid col-sm-12">
+        <div class="row p-2">
+          <div class="col-12 col-md-6">
+            <div class="p-field">
+              <label for="submission"  ><b>Submissions of National Communication</b></label>
+              <i class="pi pi-cloud-upload" style="float:right; font-size: 1rem;" readonly ></i>
+              <input
+                type="text"
+                name="submission"
+                field="submission"
+                class="p-inputtext"
+                style="width: 200%"
+                placeholder="Submited documents are visible here"
+                readonly
+                 />
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div> -->
+    <div class="card">
+      <!-- <form #sData="ngForm" (ngSubmit)="saveForm(sData)" novalidate> -->
+
+      <!-- <div>{{sectors |json}}</div> -->
+      <p-tabView>
+        <p-tabPanel *ngFor="let sector of sectors; let i = index">
+          <ng-template pTemplate="header">
+            <label for="sector">{{ sector?.name }} </label>
+          </ng-template>
+
+          <div class="card" style="float: left; width: 49%">
+            <div class="p-grid p-fluid col-sm-12">
+              <div class="row p-2">
+                <div class="col-12 col-md-6">
+                  <div class="p-field">
+                    <label for="sector"
+                      ><b>{{ sector?.name }}</b></label
+                    >
+                    <!-- <div> {{sector.description|json}}</div>
+              <div> {{sector.emissionSummary|json}} </div> -->
+                    <!-- <input
+                type="text"
+                name="{{ 'sector' + i }}" 
+                field="sector"
+                class="p-inputtext"
+                style="width: 200%"
+                [(ngModel)]="sector.description"
+                maxlength="300"
+                 /> -->
+
+                    <textarea
+                      name="{{ 'sector' + i }}"
+                      pattern="^[a-zA-Z0-9 ]{1,64}$"
+                      [(ngModel)]="sector.description"
+                      rows="5"
+                      cols="62"
+                      pInputTextarea
+                      length="300"
+                      autoResize="autoResize"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="float: right; width: 50%">
+            <div class="p-grid p-fluid col-sm-12">
+              <div class="row p-2">
+                <div class="col-12 col-md-6">
+                  <div class="p-field">
+                    <label for="esummary"
+                      ><b>Emission Reductions of Climate Actions</b></label
+                    >
+                    <!-- <input
+                type="text"
+                name="{{ 'esummary' + i }}"
+                field="esummary"
+                class="p-inputtext"
+                style="width: 200%"
+                #sectoremissionSummary="ngModel"
+                [(ngModel)]="sector.emissionSummary"
+              readonly
+                 /> -->
+                    <textarea
+                      name="{{ 'esummary' + i }}"
+                      [(ngModel)]="sector.editedBy"
+                      rows="5"
+                      cols="62"
+                      pInputTextarea
+                      length="300"
+                      autoResize="autoResize"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+      <p-dialog [(visible)]="confirmSector"
+        >Sectors Saved Successfully!</p-dialog
+      >
+
+      <!-- <div class="card" style="float:right; width:50%">
+      <div class="p-grid p-fluid col-sm-12">
+        <div class="row p-2">
+          <div class="col-12 col-md-6">
+            <div class="p-field">
+              <label for="ndc"  ><b>NDCs under {{sector?.name}}</b></label>
+              <i class="pi pi-cloud-upload" style="float:right" readonly></i>
+              <input
+                type="text"
+                name="ndc"
+                field="ndc"
+                class="p-inputtext"
+                style="width: 200%"
+                [(ngModel)]="sector.ndcDocuments"
+                readonly
+                 />
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div> -->
+
+      <!-- </form> -->
+    </div>
+    <button
+      pButton
+      type="button"
+      label="Save"
+      (click)="saveSector(sectors)"
+      style="margin-left: 93%"
+    ></button>
+  </form>
+<!-- 
+  <img
+    src="assets/images/flags/SL.PNG"
+    alt="Image"
+    width="250"
+    align="right; "
+  /> -->
+
+  <button pRipple pButton type="button" (click)="back()" label="Back"></button>
+
+  <div class="d-flex flex-row-reverse mt-2 mb-2">
+    <!-- <button pRipple  type="button"
+        [disabled]="isSaving"
+        class="btn btn-primary btn-block text-uppercase btn-lg"
+        type="submit"
+        
+      >
+        Save
+      </button> -->
+  </div>
+</div>

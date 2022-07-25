@@ -1,0 +1,186 @@
+<div class="container pl-20 pr-20">
+  <div class="p-2">
+    <h4 class="mt-4">Country Profile</h4>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <div class="card">
+        <div class="p-grid p-fluid col-sm-12">
+          <div class="row p-2">
+            <div class="col-12 col-md-4">
+              <!-- <img
+                src="assets/images/flags/SL.PNG"
+                alt="Image"
+                class="img-fluid"
+                align="right; "
+              /> -->
+            </div>
+            <div class="col-md-6">
+              <div class="p-field">
+                <!-- <label for="countryname" [(ngModel)]="country.name" ></label> -->
+                <label for="countryname" readonly>{{ country?.name }}</label>
+
+                <textarea
+                  name="countryname"
+                  [(ngModel)]="country.description"
+                  rows="5"
+                  cols="62"
+                  pInputTextarea
+                  length="300"
+                  autoResize="autoResize"
+                  readonly
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="p-grid p-fluid col-sm-12">
+      <div class="row p-2">
+        <div class="col-12 col-md-6">
+          <div class="p-field">
+            <label for="contatname"><b>National Communciation(s)</b></label>
+            <input
+              type="text"
+              field="contatname"
+              class="p-inputtext"
+              placeholder="List of uploaded documents"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="p-field">
+            <label for="contatemail"><b>Biennial Update Report(s)</b></label>
+            <input
+              type="text"
+              class="p-inputtext"
+              pInputText
+              required
+              placeholder="uploaded documents"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-2">
+        <div class="col-12 col-md-6">
+          <div class="p-field">
+            <label for="designation"
+              ><b>Biennial Transparency Report(s)</b></label
+            >
+            <input
+              type="text"
+              class="p-inputtext"
+              pInputText
+              placeholder="uploaded documents"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="p-field">
+            <label for="telephoneNumber"
+              ><b>Natinally Determine Contributions</b></label
+            >
+
+            <input
+              type="text"
+              class="p-inputtext"
+              pInputText
+              placeholder="uploaded documents"
+            />
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div class="card">
+    <p-tabView>
+      <p-tabPanel *ngFor="let sector of sectors">
+        <ng-template pTemplate="header">
+          <label for="sector">{{ sector?.name }} </label>
+        </ng-template>
+
+        <!-- <p-tabPanel *ngFor="let sector of sectors"  header="Transport Sector"> -->
+        <div class="card" style="float: left; width: 49%">
+          <div class="p-grid p-fluid">
+            <div class="row p-2">
+              <div class="col-12 col-md-6">
+                <div class="p-field">
+                  <label for="sector"
+                    ><b>{{ sector?.name }}</b></label
+                  >
+                  <textarea
+                    name="sector"
+                    [(ngModel)]="sector.description"
+                    rows="5"
+                    cols="62"
+                    pInputTextarea
+                    length="300"
+                    autoResize="autoResize"
+                    readonly
+                  >
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="float: right; width: 50%">
+          <div class="p-grid p-fluid">
+            <div class="row p-2">
+              <div class="col-12 col-md-6">
+                <div class="p-field">
+                  <label for="esummary"
+                    ><b>Emission Reductions of Climate Actions</b></label
+                  >
+
+                  <textarea
+                    name="esummary"
+                    [(ngModel)]="sector.editedBy"
+                    rows="5"
+                    cols="62"
+                    pInputTextarea
+                    length="300"
+                    autoResize="autoResize"
+                    readonly
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+
+      <div class="text-end">
+        <button
+          pRipple
+          pButton
+          type="button"
+          (click)="ndc()"
+          label="Manage NDCs"
+          class="btn mr-10"
+        ></button>
+        <!-- <button pRipple  pButton type="button" (click)="edit(country)" label="Edit Country Profile" style= "margin-left: 1%;"></button> -->
+        <button
+          pRipple
+          pButton
+          type="button"
+          (click)="edit()"
+          label="Edit Country Profile"
+          class="btn"
+        ></button>
+      </div>
+    </p-tabView>
+  </div>
+</div>

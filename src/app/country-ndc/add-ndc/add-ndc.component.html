@@ -1,0 +1,128 @@
+<section class="container pl-20 pr-20">
+<div class="row">
+  <h4 class="mt-4">Add New NDC</h4>
+  <!-- <div class="col-sm-2"style="background-color: transparent">
+        <h4 style="color: blue"><strong>Select sector</strong></h4>
+        <p-dropdown
+        name="projStatus"
+        [autoDisplayFirst]="false"
+        [options]="cities"
+        optionLabel="name"
+        placeholder="sector"
+        (onChange)="selectSector($event)"
+      ></p-dropdown><br><br><br><br><br>
+    </div> -->
+  <div class="p-grid p-fluid card">
+    <div class="row p-2">
+      <div style="float: left; width: 50%">
+        <label style="color: blue">Name of the NDC</label><br />
+        <div style="width: 100%">
+          <input
+          type="text"
+          class="p-inputtext"
+          class="p-inputtext"
+          name="ndcname"
+          #ndcname="ngModel"
+          field="ndcname"
+          [(ngModel)]="ndc"
+          pInputText
+          [ngModelOptions]="{ standalone: true }"
+          required
+          placeholder="NDC name"
+          
+        />
+        <p
+                class="info-message text-danger"
+                *ngIf="
+                  !ndc &&
+                  (confirm2 || ndcname.touched)
+                "
+              >
+        </div>
+        
+        <div class="showInputFieldNDC"></div>
+        <br />
+      </div>
+
+      <div style="float: right; width: 50%">
+        <label style="color: blue"> Add New Sub NDC</label><br />
+        <p-table [value]="subndcs">
+          <ng-template pTemplate="body" let-rowData let-subndc>
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  class="p-inputtext"
+                  [(ngModel)]="subndc.name"
+                  pInputText
+                  placeholder="Add new Sub NDC"
+                  style="width: 100%"
+                /><br />
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <button
+          pRipple
+          class="fas fa-plus"
+          (click)="addnewsub()"
+          pButton
+          type="button"
+          style="background-color: #c6cfd7; border-color: transparent"
+        >
+          <i class="pi pi-plus" style="font-size: 1rem; color: #000"></i>
+        </button>
+
+        <button
+          pRipple
+          class="fas fa-minus"
+          (click)="removesub()"
+          pButton
+          type="button"
+          style="
+            background-color: #c6cfd7;
+            border-color: transparent;
+            margin-left: 2%;
+          "
+        >
+          <i class="pi pi-minus" style="font-size: 1rem; color: #000"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="col-sm-2"
+    style="
+      background-color: transparent;
+      bottom: 0px;
+      right: 0px;
+      position: fixed;
+    "
+  >
+    <!-- onClick="window.location.reload();"  -->
+    <button
+      pRipple
+      pButton
+      type="button"
+      label="Save"
+      style="margin-left: 2%"
+      (click)="save()"
+    ></button>
+    <button
+      pRipple
+      pButton
+      type="button"
+      (click)="Back()"
+      label="Back"
+      style="margin-right: 1%"
+    ></button>
+    <p-dialog (onHide)="test()" [(visible)]="confirm3">
+      NDCs added successfully!!
+    </p-dialog>
+    <p-dialog (onHide)="test()" [(visible)]="confirm4">
+      NDCs added Failed!!
+    </p-dialog>
+  </div>
+</div>
+</section>

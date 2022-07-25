@@ -1,0 +1,288 @@
+<div class="container">
+  <h4 class="mt-4">Manage Users</h4>
+  <div class="p-grid p-fluid card">
+    <div class="row">
+      <div class="col-4">
+        <div
+          class="
+            d-flex
+            justify-content-start
+            align-content-center
+            flex-wrap
+            mb-15
+          "
+        >
+          <div class="col-4 d-flex align-items-center">
+            <label class="font-weight-bold">First Name</label>
+          </div>
+          <div class="col">
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="searchText"
+              pInputText
+              placeholder="search by first name"
+              (keydown)="onKeydown($event)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div
+          class="
+            d-flex
+            justify-content-start
+            align-content-center
+            flex-wrap
+            mb-15
+          "
+        >
+          <div class="col-4 d-flex align-items-center">
+            <label class="font-weight-bold">Last Name</label>
+          </div>
+          <div class="col">
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="searchLastText"
+              pInputText
+              placeholder="search by last name"
+              (keydown)="onKeydown($event)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div
+          class="
+            d-flex
+            justify-content-start
+            align-content-center
+            flex-wrap
+            mb-15
+          "
+        >
+          <div class="col-4 d-flex align-items-center">
+            <label class="font-weight-bold">Email</label>
+          </div>
+          <div class="col">
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="searchEmailText"
+              pInputText
+              placeholder="search by email"
+              (keydown)="onKeydown($event)"
+              (ngModelChange)="onKeydown($event)"
+
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <div
+          class="
+            d-flex
+            justify-content-start
+            align-content-center
+            flex-wrap
+            mb-15
+          "
+        >
+          <div class="col-4 d-flex align-items-center">
+            <label class="font-weight-bold">User type</label>
+          </div>
+          <div class="col-8">
+            <!-- {{user.userType | json}} -->
+            <p-dropdown
+              [options]="userTypes"
+              name="usertype"
+              [(ngModel)]="selctedUserType"
+              placeholder="Select .."
+              optionLabel="name"
+              [showClear]="true"
+              (keydown)="onKeydown($event)"
+              (ngModelChange)="onKeydown($event)"
+            >
+            </p-dropdown>
+            <!-- {{fut.errors | json}} {{fLogin.errors | json}} -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4" *ngIf="userrole != 'PMU Admin'">
+        <div
+          class="
+            d-flex
+            justify-content-start
+            align-content-center
+            flex-wrap
+            mb-15
+          "
+        >
+          <div class="col-4 d-flex align-items-center">
+            <label class="font-weight-bold">Institution</label>
+          </div>
+          <div class="col-8">
+            <p-dropdown
+              name="instDD"
+              [options]="instuitutionList"
+              placeholder="Select .."
+              optionLabel="name"
+              [(ngModel)]="selctedInstuitution"
+              [filter]="true"
+              [showClear]="true"
+              (keydown)="onKeydown($event)"
+              (ngModelChange)="onKeydown($event)"
+
+            >
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-4">
+        <div
+          class="
+            d-flex
+            justify-content-start
+            align-content-center
+            flex-wrap
+            mb-15
+          "
+        >
+          <div class="col-4 d-flex align-items-center">
+            <label class="font-weight-bold">Country</label>
+          </div>
+          <div class="col-8">
+            <p-dropdown
+              name="instDD"
+              [options]="countrylists"
+              placeholder="Select .."
+              optionLabel="name"
+              [(ngModel)]="selectedCountry"
+              [filter]="true"
+              [showClear]="true"
+              (keydown)="onKeydown($event)"
+              (ngModelChange)="onKeydown($event)"
+
+            >
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div
+          class="
+            d-flex
+            justify-content-start
+            align-content-center
+            flex-wrap
+            mb-15
+          "
+        >
+          <div class="col-2">
+            <!-- <div>
+              <button
+                type="button"
+                (click)="searchGain()"
+                pButton
+                pRipple
+                icon="pi pi-search"
+                styleClass="p-button-warn"
+              ></button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-table
+      [value]="customers"
+      [lazy]="true"
+      (onLazyLoad)="loadCustomers($event)"
+      [paginator]="true"
+      [rows]="rows"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[1, 10, 25, 50]"
+      [totalRecords]="totalRecords"
+      [loading]="loading"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>
+            <div class="col-sm-2" style="width: 70.666667%">
+              <button
+                class="ml-4"
+                type="button"
+                (click)="new()"
+                pButton
+                pRipple
+                icon="pi pi-plus"
+                styleClass="p-button-warn"
+              ></button>
+            </div>
+          </th>
+
+          <th>Type</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Institution | Country</th>
+          <th>Telephone</th>
+          <th>Mobile</th>
+          <th>Email</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-customer>
+        <tr>
+          <td class ="pointer">
+            <i
+              class="pi pi-pencil"
+              style="font-size: 1.5rem; color: #000; margin-left: 17%"
+              (click)="editUser(customer)"
+            ></i>
+          </td>
+
+          <td>{{ customer.userType?.name }}</td>
+          <td>{{ customer.firstName }}</td>
+          <td>{{ customer.lastName }}</td>
+
+          <td
+            pTooltip="{{ customer.institution.name }}"
+            tooltipPosition="top"
+            class="tbl-cell-description"
+            *ngIf= "customer.institution != undefined; else loggedOut"
+          >
+            {{  customer.institution?.name }}
+          </td>
+          <!--hhhh-->
+          <ng-template #loggedOut>
+            <td>
+            {{ customer.country?.name }}
+            </td>
+          </ng-template>
+          
+          <!--hhhh-->
+
+          <td>{{ customer.telephone }}</td>
+          <td>{{ customer.mobile }}</td>
+          <td
+            pTooltip="{{ customer.email }}"
+            tooltipPosition="top"
+            class="tbl-cell-description"
+          >
+            <a href="mailto:{{ customer.email }}">{{ customer.email }}</a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

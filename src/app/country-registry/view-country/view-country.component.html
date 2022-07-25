@@ -1,0 +1,171 @@
+<div class="container pl-20 pr-20">
+
+    <div class="mb-12">
+      <h4 class="mt-4"> {{isNewCountry ? "Register a" : "View a"}} Country </h4>
+  
+      <!-- <h4 class="mt-4">Register a Country</h4> -->
+    </div>
+  
+    <!-- <p-toast></p-toast> -->
+    <!-- <form #fLogin="ngForm" (ngSubmit)="saveCountry(fLogin)" novalidate> -->
+      <div class="card">
+  
+        <div></div>
+  
+        <div class="row">
+          <div class="p-grid p-fluid col-md-6 col-sm-12">
+            <div class="row p-2">
+              <div class="col-12 col-md-8">
+                <div class="p-field">
+                  <label for="countryName">Country Name*</label>
+                  <!-- <input name="cname" 
+                    (ngModelChange)="onStatusChange($event)"  placeholder={{selectCountry}}
+                   /> -->
+                   <input type="text" name="assignsec" placeholder={{selectCountry}} readonly class="form-control" />
+
+
+                </div>
+              </div>
+             
+            </div>
+            <!-- <div class="p-grid p-fluid col-md-6 col-sm-12"> -->
+              <div class="row p-2">
+                <div class="col-12 col-md-8">
+                  <div class="p-field">
+                    <label for="fRegione">Region*</label>
+                    <input type="text" name="Regionme" placeholder={{cou.region}} readonly class="form-control" />
+      
+                  </div>
+                </div>
+              <!-- </div> -->
+            </div>
+          </div>
+    
+          <div class="p-grid p-fluid col-md-6 col-sm-12">
+            <div class="row p-2">
+              <div class="col-12 col-md-8">
+                <div class="p-field">
+                  <!-- <label for="projApprovelStatus" class="col-md-4">Country Flag *  </label> -->
+                  <!-- <ng-container *ngIf="cou.flagPath != null || cou.flagPath == ''; else elseBlock " class="form-control"> -->
+                    <img src="{{cou.flagPath}}" alt="img" style="height: 150px; width: 250px;">
+                  <!-- </ng-container> -->
+                  <!-- <ng-template #elseBlock>
+                  </ng-template> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+  
+       
+  
+        <div class="p-grid p-fluid col-md-9 col-sm-12">
+          <div class="row p-2">
+            <div class="col-12 col-md-8">
+              <div class="p-field">
+                <label for="projApprovelStatus">Description*</label>
+                <!-- <textarea rows="5" name="description" cols="30" [(ngModel)]="cou.description" class="form-control"
+
+                  pInputTextarea>
+                          </textarea> -->
+                 <input rows="5" name="description" cols="30" class="form-control" readonly placeholder={{cou.description}} />
+                
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <div class="p-grid p-fluid col-md-9 col-sm-12">
+          <div class="row p-2">
+            <div class="col-12 col-md-8">
+  
+  
+              <div class="p-field">
+                <label for="AssignSectors">Assign Sectors*</label>
+                <!-- <p-multiSelect name="sectors" #fmodules="ngModel" [options]="sectorList" optionLabel="name" 
+                [(ngModel)]="selectedSectors" (ngModelChange)="selectmod($event)"  [filter]="true" 
+                placeholder="Select Sector">
+                </p-multiSelect> -->
+                <input type="text" name="assignsec" placeholder={{secNames}} readonly class="form-control" />
+
+                
+                
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <div class="p-grid p-fluid col-md-9 col-sm-12">
+          <div class="row p-2">
+            <div class="col-12 col-md-8">
+  
+              <div class="p-field" >
+                <label for="AssignSectors">Assign Modules*</label>
+                <!-- <p-multiSelect name="modules" #fmodules="ngModel" [options]="accessmodules" optionLabel="name"
+                  [(ngModel)]="selectedModules" (ngModelChange)="selectmod($event)" [filter]="true"
+                  placeholder="select modules">
+                </p-multiSelect> -->
+                <input type="text" name="assingmod" placeholder={{modNames}} readonly class="form-control"/>
+                
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+  
+        <div class="p-grid p-fluid col-md-9 col-sm-12">
+          <div class="row p-2">
+            <div class="col-12 col-md-8">
+  
+              <div class="p-field">
+  
+                <!-- <p-button label="Save" type="submit"></p-button> -->
+  
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <div class="d-flex flex-row-reverse mt-2 mb-2">
+          <!-- <p-confirmDialog header="Deactivation" icon="pi pi-exclamation-triangle"></p-confirmDialog> -->
+          <!-- <button
+                    pButton
+                    pRipple
+                    class="btn btn-primary btn-block text-uppercase"
+                  >
+                  Deactivate
+                  </button> -->
+          <div *ngIf="!isNewCountry">
+            <button pButton pRipple class="btn btn-primary btn-block text-uppercase" type='button'
+              (click)="activateCountry(cou)">
+              {{cstaus == 0 ? "Activate" : "Deactivate"}}
+            </button>
+          </div>
+        </div>
+  
+  
+  
+  
+  
+  
+  
+  
+        <div class="col-sm-10">
+          <div>
+            <!-- <countries-map [data]="mapData1" maxColor='#046312' noDataColor='grey' backgroundColor='white'
+              [showCaption]=false>
+            </countries-map> -->
+          </div>
+  
+        </div>
+      </div>
+  
+    <!-- </form> -->
+  
+  </div>
+  
