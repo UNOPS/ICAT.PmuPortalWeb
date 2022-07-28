@@ -143,6 +143,21 @@
             Methodologies
           </div>
 
+          <div
+          *ngIf="
+              userRole.role == 1 ||
+              userRole.role == 5 ||
+              userRole.role == 3 ||
+              userRole.role == 4 
+            "
+          class="sidebar-items--link align-items-start"
+          [routerLink]="['/assign-methodologies']"
+          routerLinkActive="selected"
+        >
+          <div class=""></div>
+          Assign Methodologies
+        </div>
+
 
           <div
           *ngIf="

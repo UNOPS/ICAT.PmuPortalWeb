@@ -24,6 +24,7 @@ import {
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { environment } from 'environments/environment';
 import decode from 'jwt-decode';
+import * as moment from 'moment';
 @Component({
   selector: 'app-learning-material',
   templateUrl: './learning-material.component.html',
@@ -67,6 +68,7 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
   checked: boolean = false;
   sectorList: Sector[] = [];
   typeList: UserType[] = [];
+  // constTypeList: UserType[] = [];
   selectedSector: Sector;
   finalSector: Sector = new Sector();
   selectedType: UserType = new UserType();
@@ -78,6 +80,21 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     { name: 'By Document Name -> A to Z' },
   ];
 
+  constTypeList = [
+    { id: 1, name: "PMU Admin",   },
+    { id: 2, name: "Country Admin",   },
+    { id: 3, name: "PMU User",   },
+    { id: 4, name: "ICAT Admin",   },
+    { id: 5, name: "ICAT User",   },
+    { id: 6, name: "Verifier",   },
+    { id: 7, name: "Sector Admin",  },
+    { id: 8, name: "MRV Admin",  },
+    { id: 9, name: "Technical Team",  },
+    { id: 10, name: "Data Collection Team",   },
+    { id: 11, name: "QC Team",   },
+    { id: 12, name: "Institution Admin",   },
+    { id: 13, name: "Data Entry Operator", },
+  ];
 
 
   downloadURL: String = environment.baseUrlAPIDocdownloadAPI
@@ -92,7 +109,9 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private serviceProxy: ServiceProxy,
     private messageService: MessageService
-  ) { }
+  ) {
+    
+  }
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
@@ -165,6 +184,7 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
       )
       .subscribe((res: any) => {
         this.typeList = res.data;
+        // this.typeList.push(this.constTypeList)
         console.log('this.typeList', this.typeList);
 
       });
