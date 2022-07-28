@@ -10,6 +10,7 @@ import { Table, TableModule } from 'primeng/table';
 import { LazyLoadEvent, MessageService, SelectItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import decode from 'jwt-decode';
+import { filter } from 'rxjs/operators';
 
 
 
@@ -41,8 +42,11 @@ export class UserListComponent implements OnInit {
   selctedUserType: UserType;
   userrole:string;
   username:string;
+  userInsId: number;
+  userCountries: number[] = [];
   institutionId:number;
   filter2: string[] | undefined;
+  pmuFilter: string[] = [];
 
   constructor(private serviceProxy: ServiceProxy, private router: Router, private cdr: ChangeDetectorRef) {}
 
@@ -57,13 +61,17 @@ export class UserListComponent implements OnInit {
     const tokenPayload = decode<any>(token);
     this.userrole = tokenPayload.roles[0];
     this.username =tokenPayload.usr;
+    this.userInsId = tokenPayload.institutionId;
     console.log('user-tokenPayload=========', tokenPayload);
     console.log("urole====",this.userrole)
 
    this.filter2 =[];
 
    if(this.userrole == "PMU Admin"){
-     this.filter2.push('mrvInstitution||$notnull||'+'')
+    //  this.filter2.push('mrvInstitution||$notnull||'+'')
+    if (this.userrole === "PMU Admin"){
+      this.pmuFilter.push(...['userType.id||$ne||'+ 5, 'userType.id||$ne||'+ 4, 'userType.id||$ne||'+ 1])
+    }
    }
 
 
@@ -106,12 +114,36 @@ export class UserListComponent implements OnInit {
         console.log("institutionlists-----",this.instuitutionList)
       });
 
+      if(this.userrole == "PMU Admin"){
+        this.filter2 = []
+        this.serviceProxy
+        .getManyBaseInstitutionControllerInstitution(
+          undefined,
+          undefined,
+          ['institution.id||$eq||'+this.userInsId],
+          undefined,
+          ['name,ASC'],
+          undefined,
+          1000,
+          0,
+          0,
+          0
+        )
+        .subscribe((res) => {
+          console.log("institutionlists-----",res.data)
+          res.data[0].countries.forEach(c => {
+            console.log("coutry", c.id)
+            this.userCountries.push(c.id)})
+          });
+      }
+
+      
 
     this.serviceProxy
       .getManyBaseUserTypeControllerUserType(
         undefined,
         undefined,
-        undefined,
+        [...this.pmuFilter],
         undefined,
         ['name,ASC'],
         undefined,
@@ -140,7 +172,6 @@ export class UserListComponent implements OnInit {
         this.countrylists = res.data;
         console.log("countrylists-----",this.countrylists)
       });
-      
   }
 
   
@@ -150,10 +181,13 @@ export class UserListComponent implements OnInit {
     let filters: string[] = [];
   
     if(this.userrole == 'PMU Admin'){
-      filters.push('userType.id||$ne||'+ 5) & filters.push('userType.id||$ne||'+ 4) & filters.push('userType.id||$ne||'+ 1)
-       &  filters.push('institution.id||eq||1');
+      if (this.selectedCountry){
+        filters.push(...this.pmuFilter)
+      } else {
+        filters.push(...this.pmuFilter)
+         &  filters.push('institution.id||$eq||'+this.userInsId);
+      }
        console.log("log as pmu")
-
     }
 
     if (this.searchText && this.searchText.length > 0) {
@@ -179,7 +213,8 @@ export class UserListComponent implements OnInit {
     if(this.selectedCountry){
       let filter = 'country.id||$eq||' + this.selectedCountry.id;
       //let filter = 'mrvInstitution||$ne||'+"ii";
-      filters.push(filter) & filters.push('mrvInstitution||$ne||'+ "ii");
+      filters.push(filter)
+      //  & filters.push('mrvInstitution||$ne||'+ "ii");
 
     }
    //  filters.push('institution.id||eq||'+1);
@@ -239,18 +274,24 @@ export class UserListComponent implements OnInit {
     console.log('loadCustomers===', event);
     this.loading = true;
 
+    let orFilter:string[] = []
+    let andFilter: string[] = this.getFilterand()
+
+    if (this.userrole === "PMU Admin" && this.userCountries.length > 0 && andFilter.length === 4){
+      orFilter.push(...this.pmuFilter, 'country.id||$in||'+ this.userCountries)
+    }
+
     //event.first = First row offset
     //event.rows = Number of rows per page
     //event.sortField = Field name to sort with
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
-  console.log("filter2====",this.filter2)
     this.serviceProxy
       .getManyBaseUsersControllerUser(
         undefined,
         undefined,
-        this.getFilterand(),
-        this.filter2,
+        andFilter,
+        orFilter,
         ['firstName,ASC'],
         ['institution'],
         event.rows,

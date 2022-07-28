@@ -52,6 +52,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
   ]
 
   selectedModules: any[] = [];
+  modules: any[] = [];
 
   selectedSectors: Sector[] = [];
   //selectedCountry:Country = new Country();
@@ -196,6 +197,9 @@ position:string = 'top-right';
 
             }
 
+            this.modules = this.selectedModules.filter(m =>{ return m.name});
+            console.log(this.modules)
+
             console.log("selectedModulesxxxxxxxxxxxx====", this.selectedModules)
 
 
@@ -275,6 +279,7 @@ position:string = 'top-right';
     this.cou.flagPath = event.flagPath;
     this.cou.description = event.description;
     this.cou.region = event.region;
+    console.log(this.cou)
     }
 
   }
@@ -516,12 +521,12 @@ position:string = 'top-right';
 
 
           this.confirmationService.confirm({
-            message: this.cou.countryStatus === CountryStatus.Active ? 'Country is Activated' : 'Country is Deactivated',
+            message: this.cou.countryStatus === CountryStatus.Active ? 'Are you sure you want to activate '+ res.name + '?' : 'Are you sure you want to deactivate '+ res.name + '?',
             header: 'Confirmation',
             //acceptIcon: 'icon-not-visible',
             rejectIcon: 'icon-not-visible',
             rejectVisible: false,
-            acceptLabel: 'Ok',
+            acceptLabel: 'Yes',
             accept: () => {
               this.onBackClick();
             },

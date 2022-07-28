@@ -474,7 +474,13 @@ export class UserFormComponent implements OnInit {
                   },
                   (error) => {
                     this.coreatingUser = false;
-                    alert('An error occurred, please try again.');
+                    // alert('An error occurred, please try again.');
+                    this.messageService.add({
+                      severity: 'error',
+                      summary: 'Error.',
+                      detail: 'An error occurred, please try again.',
+                      //sticky: true,
+                    });
                     console.log('Error', error);
                   },
                   () => {
@@ -494,7 +500,7 @@ export class UserFormComponent implements OnInit {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Success.',
-                detail: 'User is Updated successfully..',
+                detail: 'User is updated successfully..',
                 //sticky: true,
               });
               setTimeout(() => {
@@ -521,7 +527,13 @@ export class UserFormComponent implements OnInit {
               // });
             },
             (error) => {
-              alert('An error occurred, please try again.');
+              // alert('An error occurred, please try again.');
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error.',
+                detail: 'An error occurred, please try again.',
+                //sticky: true,
+              });
               // this.DisplayAlert('An error occurred, please try again.', AlertType.Error);
 
               console.log('Error', error);
@@ -576,7 +588,7 @@ export class UserFormComponent implements OnInit {
   async deactivateUser() {
     let url = environment.baseSyncAPI + '/user';
     this.userProxy.changeStatus(this.user.id, this.user.status == 0 ? 1 : 0).subscribe(res => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: `Successfully ${this.user.status == 0 ? 'deactivate.' : 'activate.'}` });
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: `Successfully ${this.user.status == 0 ? 'deactivated' : 'activated'}` });
       this.user = res;
 
 

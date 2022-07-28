@@ -141,9 +141,16 @@
                   Deactivate
                   </button> -->
           <div *ngIf="!isNewCountry">
-            <button pButton pRipple class="btn btn-primary btn-block text-uppercase" type='button'
+          <div style="padding-left: 0.2%;">
+            <button p-1 pButton pRipple class="btn btn-primary btn-block text-uppercase" type='button'
               (click)="activateCountry(cou)">
               {{cstaus == 0 ? "Activate" : "Deactivate"}}
+            </button>
+          </div>
+
+          <div>
+            <button pButton pRipple class="btn btn-primary btn-block text-uppercase" type='button' (click)="onBackClick()">
+              Back
             </button>
           </div>
         </div>
