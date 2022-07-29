@@ -145,7 +145,7 @@ loading: boolean;
       this.pcountryList = res.data;
      console.log("country listb is...",this.countryList);
 
-      this.totalRecords = this.pcountryList.length;
+      this.totalRecords = res.total;
       this.loading = false;
 
       console.log("totalRecords",this.totalRecords)

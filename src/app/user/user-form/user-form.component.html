@@ -9,7 +9,7 @@
         <div class="row p-2">
           <div class="col-12 col-md-8">
             <div class="p-field">
-              <label for="contatname">User type *</label>
+              <label for="contatname">User Type *</label>
               <p-dropdown
                 [disabled]="!isNewUser"
                 [options]="userTypes"
@@ -57,7 +57,7 @@
                 class="info-message text-danger"
                 *ngIf="
                   !user.country?.id &&
-                  (fLogin.submitted || fut.touched || fut.dirty)
+                  (fLogin.submitted || fname.touched || fname.dirty)
                 "
               >
                 This is a mandatory field

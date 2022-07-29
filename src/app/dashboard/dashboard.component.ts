@@ -163,7 +163,7 @@ export class DashboardComponent implements OnInit {
       let filternew1: string[] = new Array();
 
 
-      filternew1.push('isMember||$eq||' + 1);
+      filternew1.push('isMember||$eq||' + 1) ;
       this.serviceproxy.getManyBaseCountryControllerCountry(
         undefined,
         undefined,
@@ -190,7 +190,7 @@ export class DashboardComponent implements OnInit {
               data: [59],
             },
             {
-              label: 'No of ICAT countries Using the tool',
+              label: 'No of ICAT countries using the tool',
               backgroundColor: '#1a069e',
               data: [count],
             },

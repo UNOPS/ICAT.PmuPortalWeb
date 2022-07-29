@@ -95,7 +95,7 @@
           "
         >
           <div class="col-4 d-flex align-items-center">
-            <label class="font-weight-bold">User type</label>
+            <label class="font-weight-bold">User Type</label>
           </div>
           <div class="col-8">
             <!-- {{user.userType | json}} -->
@@ -115,7 +115,7 @@
         </div>
       </div>
 
-      <div class="col-4" *ngIf="userrole != 'PMU Admin'">
+      <div class="col-4" *ngIf="!['PMU Admin', 'PMU User'].includes(userrole)">
         <div
           class="
             d-flex

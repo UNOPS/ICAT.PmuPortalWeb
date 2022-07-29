@@ -129,6 +129,9 @@ export class UserFormComponent implements OnInit {
         if (this.user?.institution) {
           this.institutions.forEach((ins) => {
             if (ins.id == this.user.institution.id) {
+              if (["PMU Admin"].includes(tokenPayload.roles[0])){
+                this.institutions = [ins]
+              }
               this.user.institution = ins;
               console.log('ins set =======================');
             }
@@ -152,13 +155,15 @@ export class UserFormComponent implements OnInit {
     console.log('tokenPayload=========', tokenPayload);
     let institutionId = tokenPayload.institutionId;
 
-    if (tokenPayload.roles[0] == 'PMU Admin') {
+    if (tokenPayload.roles[0] == 'PMU Admin' ) {
       console.log("pmu admin here")
 
       this.filter2.push('id||$ne||' + 4) & this.filter2.push('id||$ne||' + 5) & this.filter2.push('id||$ne||' + 1)
 
-    }
-    else {
+    } else if (tokenPayload.roles[0] == 'PMU User'){
+      this.filter2.push('id||$ne||' + 4) & this.filter2.push('id||$ne||' + 5) & this.filter2.push('id||$ne||' + 1)
+      & this.filter2.push('id||$ne||' + 3)
+    } else {
       this.filter2.push('id||$ne||' + 4)
     }
 
@@ -474,7 +479,13 @@ export class UserFormComponent implements OnInit {
                   },
                   (error) => {
                     this.coreatingUser = false;
-                    alert('An error occurred, please try again.');
+                    // alert('An error occurred, please try again.');
+                    this.messageService.add({
+                      severity: 'error',
+                      summary: 'Error.',
+                      detail: 'An error occurred, please try again.',
+                      //sticky: true,
+                    });
                     console.log('Error', error);
                   },
                   () => {
@@ -494,7 +505,7 @@ export class UserFormComponent implements OnInit {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Success.',
-                detail: 'User is Updated successfully..',
+                detail: 'User is updated successfully..',
                 //sticky: true,
               });
               setTimeout(() => {
@@ -521,7 +532,13 @@ export class UserFormComponent implements OnInit {
               // });
             },
             (error) => {
-              alert('An error occurred, please try again.');
+              // alert('An error occurred, please try again.');
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error.',
+                detail: 'An error occurred, please try again.',
+                //sticky: true,
+              });
               // this.DisplayAlert('An error occurred, please try again.', AlertType.Error);
 
               console.log('Error', error);
@@ -576,7 +593,7 @@ export class UserFormComponent implements OnInit {
   async deactivateUser() {
     let url = environment.baseSyncAPI + '/user';
     this.userProxy.changeStatus(this.user.id, this.user.status == 0 ? 1 : 0).subscribe(res => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: `Successfully ${this.user.status == 0 ? 'deactivate.' : 'activate.'}` });
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: `Successfully ${this.user.status == 0 ? 'deactivated' : 'activated'}` });
       this.user = res;
 
 

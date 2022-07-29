@@ -126,25 +126,27 @@
               </div>
               <div class="col-6">
                 <!-- {{user.userType | json}} -->
-                <p-dropdown [options]="countries" name="country" [(ngModel)]="slectedCountryForUsertype"
+                <p-dropdown [options]="countryList" name="country" [(ngModel)]="slectedCountryForUsertype"
                   placeholder="All" optionLabel="name" [showClear]="true"
                   (onChange)="getUserUsageChart(slectedCountryForUsertype?slectedCountryForUsertype.id:0)">
                 </p-dropdown>
                 <!-- {{fut.errors | json}} {{fLogin.errors | json}} -->
               </div>
             </div>
-            <p-chart type="pie" [data]="userChartData" [style]="{'width': '100%', 'padding-left': '10px'}"></p-chart>
+            <div class="row" >
+              <p-chart type="pie" [data]="userChartData" [style]="{'width': '100%', 'padding-left': '10px'}"></p-chart>
+              <div *ngIf="this.isuse" class="col">
+                <p-messages severity="warn" >
+                  <ng-template pTemplate>
+                      <!-- <img src="assets/showcase/images/primeng.svg" width="32" /> -->
+                      <i class="pi pi-info-circle mr-20" style="font-size: 2rem"></i>
+                      <div class="ml-2">There is no data to show</div>
+                  </ng-template>
+                </p-messages>
+              </div>
+            </div>
     
           </div>
-          <div *ngIf="this.isuse" class="col">
-            <p-messages severity="warn" >
-              <ng-template pTemplate>
-                  <!-- <img src="assets/showcase/images/primeng.svg" width="32" /> -->
-                  <i class="pi pi-info-circle mr-20" style="font-size: 2rem"></i>
-                  <div class="ml-2">There are no  active user data to show.</div>
-              </ng-template>
-          </p-messages>
-           </div>
 
         </div>
         <div class="col-6">
@@ -158,7 +160,7 @@
               </div>
               <div class="col-6">
                 <!-- {{user.userType | json}} -->
-                <p-dropdown [options]="countries" name="country" [(ngModel)]="selectedCountryForMethology"
+                <p-dropdown [options]="countryList" name="country" [(ngModel)]="selectedCountryForMethology"
                   placeholder="All" optionLabel="name" [showClear]="true"
                   (onChange)="getMethologyUsageChart(selectedCountryForMethology?selectedCountryForMethology.id:0)">
                 </p-dropdown>
@@ -168,15 +170,15 @@
             
             <div class="row" >
               <p-chart type="pie" [data]="methologyChartData" [options]="methologychartOptions" [style]="{'width': '100%'}"></p-chart>
+              <div *ngIf="this.isusemeth" class="col">
+                <p-messages severity="warn" >
+                  <ng-template pTemplate>
+                      <!-- <img src="assets/showcase/images/primeng.svg" width="32" /> -->
+                      <i class="pi pi-info-circle mr-20" style="font-size: 2rem"></i>
+                      <div class="ml-2">There is no data to show</div>
+                  </ng-template>
+              </p-messages> 
             </div>
-            <div *ngIf="this.isusemeth" class="col">
-              <p-messages severity="warn" >
-                <ng-template pTemplate>
-                    <!-- <img src="assets/showcase/images/primeng.svg" width="32" /> -->
-                    <i class="pi pi-info-circle mr-20" style="font-size: 2rem"></i>
-                    <div class="ml-2">There are no  methodology data to show.</div>
-                </ng-template>
-            </p-messages> 
              </div>
             
           </div>

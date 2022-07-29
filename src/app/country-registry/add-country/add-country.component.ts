@@ -52,6 +52,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
   ]
 
   selectedModules: any[] = [];
+  modules: any[] = [];
 
   selectedSectors: Sector[] = [];
   //selectedCountry:Country = new Country();
@@ -196,6 +197,11 @@ position:string = 'top-right';
 
             }
 
+            this.modules = this.selectedModules.filter(m =>{ return m.name});
+            console.log(this.modules)
+
+            this.selectedModules = this.selectedModules.filter(m => { return m })
+
             console.log("selectedModulesxxxxxxxxxxxx====", this.selectedModules)
 
 
@@ -237,14 +243,14 @@ position:string = 'top-right';
   //         });
   //       }
   //     });
-      
+      console.log("country", this.cou)
 
    }
 
   onStatusChange(event: any) {
     console.log(this.editCountryId ,'===================')
     if (this.editCountryId == undefined) {
-      console.log("cname111===", event.description)
+      // console.log("cname111===", event.description)
 
       if (event != null || event != undefined) {
 
@@ -263,6 +269,7 @@ position:string = 'top-right';
         this.flagPath = '';
         // this.region='';
         // this.description='';
+        this.cou = new Country()
       }
     }
     else {
@@ -275,6 +282,7 @@ position:string = 'top-right';
     this.cou.flagPath = event.flagPath;
     this.cou.description = event.description;
     this.cou.region = event.region;
+    console.log(this.cou)
     }
 
   }
@@ -516,12 +524,12 @@ position:string = 'top-right';
 
 
           this.confirmationService.confirm({
-            message: this.cou.countryStatus === CountryStatus.Active ? 'Country is Activated' : 'Country is Deactivated',
+            message: this.cou.countryStatus === CountryStatus.Active ? 'Are you sure you want to activate '+ res.name + '?' : 'Are you sure you want to deactivate '+ res.name + '?',
             header: 'Confirmation',
             //acceptIcon: 'icon-not-visible',
             rejectIcon: 'icon-not-visible',
             rejectVisible: false,
-            acceptLabel: 'Ok',
+            acceptLabel: 'Yes',
             accept: () => {
               this.onBackClick();
             },
