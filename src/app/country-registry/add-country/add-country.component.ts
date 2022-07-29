@@ -200,6 +200,8 @@ position:string = 'top-right';
             this.modules = this.selectedModules.filter(m =>{ return m.name});
             console.log(this.modules)
 
+            this.selectedModules = this.selectedModules.filter(m => { return m })
+
             console.log("selectedModulesxxxxxxxxxxxx====", this.selectedModules)
 
 
