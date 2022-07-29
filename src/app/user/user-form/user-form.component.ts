@@ -573,8 +573,8 @@ export class UserFormComponent implements OnInit {
 
 
 
-  deactivateUser() {
-
+  async deactivateUser() {
+    let url = environment.baseSyncAPI + '/user';
     this.userProxy.changeStatus(this.user.id, this.user.status == 0 ? 1 : 0).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: `Successfully ${this.user.status == 0 ? 'deactivate.' : 'activate.'}` });
       this.user = res;
@@ -583,7 +583,7 @@ export class UserFormComponent implements OnInit {
     });
 
 
-
+    await axios.get(url)
 
   }
 }

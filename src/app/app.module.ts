@@ -123,6 +123,7 @@ import { TokenInterceptor } from './shared/token-interceptor ';
 import { SharedDataService } from 'shared/shared-data-services';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
+import { AssignMethodologyComponent } from './methodologies/assign-methodology/assign-methodology.component';
 
 export function getRemoteServiceBaseUrl(): string {
   return environment.baseUrlAPI;
@@ -158,6 +159,7 @@ export function getRemoteServiceBaseUrl(): string {
     AddCountryComponent,
     SectorComponent,
     AddSectorComponent,
+    AssignMethodologyComponent,
   
     // ResultComponent,
     // ProposedResultComponent,

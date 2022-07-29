@@ -549,6 +549,466 @@ export class ServiceProxy {
     }
 
     /**
+     * Retrieve a single MethodologyData
+     * @param fields (optional) Selects resource fields. <a href="https://github.com/nestjsx/crud/wiki/Requests#select" target="_blank">Docs</a>
+     * @param join (optional) Adds relational resources. <a href="https://github.com/nestjsx/crud/wiki/Requests#join" target="_blank">Docs</a>
+     * @param cache (optional) Reset cache (if was enabled). <a href="https://github.com/nestjsx/crud/wiki/Requests#cache" target="_blank">Docs</a>
+     * @return Get one base response
+     */
+    getOneBaseMethodologyDataControllerMethodologyData(id: number, fields: string[] | undefined, join: string[] | undefined, cache: number | undefined): Observable<MethodologyData> {
+        let url_ = this.baseUrl + "/methodology-data/{id}?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        if (fields === null)
+            throw new Error("The parameter 'fields' cannot be null.");
+        else if (fields !== undefined)
+            fields && fields.forEach(item => { url_ += "fields=" + encodeURIComponent("" + item) + "&"; });
+        if (join === null)
+            throw new Error("The parameter 'join' cannot be null.");
+        else if (join !== undefined)
+            join && join.forEach(item => { url_ += "join=" + encodeURIComponent("" + item) + "&"; });
+        if (cache === null)
+            throw new Error("The parameter 'cache' cannot be null.");
+        else if (cache !== undefined)
+            url_ += "cache=" + encodeURIComponent("" + cache) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOneBaseMethodologyDataControllerMethodologyData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOneBaseMethodologyDataControllerMethodologyData(<any>response_);
+                } catch (e) {
+                    return <Observable<MethodologyData>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MethodologyData>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOneBaseMethodologyDataControllerMethodologyData(response: HttpResponseBase): Observable<MethodologyData> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MethodologyData.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(<any>null);
+    }
+
+    /**
+     * Update a single MethodologyData
+     * @return Response
+     */
+    updateOneBaseMethodologyDataControllerMethodologyData(id: number, body: MethodologyData): Observable<MethodologyData> {
+        let url_ = this.baseUrl + "/methodology-data/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("patch", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateOneBaseMethodologyDataControllerMethodologyData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateOneBaseMethodologyDataControllerMethodologyData(<any>response_);
+                } catch (e) {
+                    return <Observable<MethodologyData>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MethodologyData>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateOneBaseMethodologyDataControllerMethodologyData(response: HttpResponseBase): Observable<MethodologyData> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MethodologyData.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(<any>null);
+    }
+
+    /**
+     * Replace a single MethodologyData
+     * @return Response
+     */
+    replaceOneBaseMethodologyDataControllerMethodologyData(id: number, body: MethodologyData): Observable<MethodologyData> {
+        let url_ = this.baseUrl + "/methodology-data/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processReplaceOneBaseMethodologyDataControllerMethodologyData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processReplaceOneBaseMethodologyDataControllerMethodologyData(<any>response_);
+                } catch (e) {
+                    return <Observable<MethodologyData>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MethodologyData>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processReplaceOneBaseMethodologyDataControllerMethodologyData(response: HttpResponseBase): Observable<MethodologyData> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MethodologyData.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(<any>null);
+    }
+
+    /**
+     * Delete a single MethodologyData
+     * @return Delete one base response
+     */
+    deleteOneBaseMethodologyDataControllerMethodologyData(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/methodology-data/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteOneBaseMethodologyDataControllerMethodologyData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteOneBaseMethodologyDataControllerMethodologyData(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteOneBaseMethodologyDataControllerMethodologyData(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(<any>null);
+    }
+
+    /**
+     * Retrieve multiple MethodologyData
+     * @param fields (optional) Selects resource fields. <a href="https://github.com/nestjsx/crud/wiki/Requests#select" target="_blank">Docs</a>
+     * @param s (optional) Adds search condition. <a href="https://github.com/nestjsx/crud/wiki/Requests#search" target="_blank">Docs</a>
+     * @param filter (optional) Adds filter condition. <a href="https://github.com/nestjsx/crud/wiki/Requests#filter" target="_blank">Docs</a>
+     * @param or (optional) Adds OR condition. <a href="https://github.com/nestjsx/crud/wiki/Requests#or" target="_blank">Docs</a>
+     * @param sort (optional) Adds sort by field. <a href="https://github.com/nestjsx/crud/wiki/Requests#sort" target="_blank">Docs</a>
+     * @param join (optional) Adds relational resources. <a href="https://github.com/nestjsx/crud/wiki/Requests#join" target="_blank">Docs</a>
+     * @param limit (optional) Limit amount of resources. <a href="https://github.com/nestjsx/crud/wiki/Requests#limit" target="_blank">Docs</a>
+     * @param offset (optional) Offset amount of resources. <a href="https://github.com/nestjsx/crud/wiki/Requests#offset" target="_blank">Docs</a>
+     * @param page (optional) Page portion of resources. <a href="https://github.com/nestjsx/crud/wiki/Requests#page" target="_blank">Docs</a>
+     * @param cache (optional) Reset cache (if was enabled). <a href="https://github.com/nestjsx/crud/wiki/Requests#cache" target="_blank">Docs</a>
+     * @return Get many base response
+     */
+    getManyBaseMethodologyDataControllerMethodologyData(fields: string[] | undefined, s: string | undefined, filter: string[] | undefined, or: string[] | undefined, sort: string[] | undefined, join: string[] | undefined, limit: number | undefined, offset: number | undefined, page: number | undefined, cache: number | undefined): Observable<GetManyMethodologyDataResponseDto> {
+        let url_ = this.baseUrl + "/methodology-data?";
+        if (fields === null)
+            throw new Error("The parameter 'fields' cannot be null.");
+        else if (fields !== undefined)
+            fields && fields.forEach(item => { url_ += "fields=" + encodeURIComponent("" + item) + "&"; });
+        if (s === null)
+            throw new Error("The parameter 's' cannot be null.");
+        else if (s !== undefined)
+            url_ += "s=" + encodeURIComponent("" + s) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            filter && filter.forEach(item => { url_ += "filter=" + encodeURIComponent("" + item) + "&"; });
+        if (or === null)
+            throw new Error("The parameter 'or' cannot be null.");
+        else if (or !== undefined)
+            or && or.forEach(item => { url_ += "or=" + encodeURIComponent("" + item) + "&"; });
+        if (sort === null)
+            throw new Error("The parameter 'sort' cannot be null.");
+        else if (sort !== undefined)
+            sort && sort.forEach(item => { url_ += "sort=" + encodeURIComponent("" + item) + "&"; });
+        if (join === null)
+            throw new Error("The parameter 'join' cannot be null.");
+        else if (join !== undefined)
+            join && join.forEach(item => { url_ += "join=" + encodeURIComponent("" + item) + "&"; });
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
+        if (offset === null)
+            throw new Error("The parameter 'offset' cannot be null.");
+        else if (offset !== undefined)
+            url_ += "offset=" + encodeURIComponent("" + offset) + "&";
+        if (page === null)
+            throw new Error("The parameter 'page' cannot be null.");
+        else if (page !== undefined)
+            url_ += "page=" + encodeURIComponent("" + page) + "&";
+        if (cache === null)
+            throw new Error("The parameter 'cache' cannot be null.");
+        else if (cache !== undefined)
+            url_ += "cache=" + encodeURIComponent("" + cache) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetManyBaseMethodologyDataControllerMethodologyData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetManyBaseMethodologyDataControllerMethodologyData(<any>response_);
+                } catch (e) {
+                    return <Observable<GetManyMethodologyDataResponseDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetManyMethodologyDataResponseDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetManyBaseMethodologyDataControllerMethodologyData(response: HttpResponseBase): Observable<GetManyMethodologyDataResponseDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetManyMethodologyDataResponseDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(<any>null);
+    }
+
+    /**
+     * Create a single MethodologyData
+     * @return Get create one base response
+     */
+    createOneBaseMethodologyDataControllerMethodologyData(body: MethodologyData): Observable<MethodologyData> {
+        let url_ = this.baseUrl + "/methodology-data";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOneBaseMethodologyDataControllerMethodologyData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOneBaseMethodologyDataControllerMethodologyData(<any>response_);
+                } catch (e) {
+                    return <Observable<MethodologyData>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MethodologyData>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOneBaseMethodologyDataControllerMethodologyData(response: HttpResponseBase): Observable<MethodologyData> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 201) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result201: any = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = MethodologyData.fromJS(resultData201);
+            return _observableOf(result201);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(<any>null);
+    }
+
+    /**
+     * Create multiple MethodologyData
+     * @return Get create many base response
+     */
+    createManyBaseMethodologyDataControllerMethodologyData(body: BulkDto): Observable<MethodologyData[]> {
+        let url_ = this.baseUrl + "/methodology-data/bulk";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateManyBaseMethodologyDataControllerMethodologyData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateManyBaseMethodologyDataControllerMethodologyData(<any>response_);
+                } catch (e) {
+                    return <Observable<MethodologyData[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MethodologyData[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateManyBaseMethodologyDataControllerMethodologyData(response: HttpResponseBase): Observable<MethodologyData[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 201) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result201: any = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData201)) {
+                result201 = [] as any;
+                for (let item of resultData201)
+                    result201.push(MethodologyData.fromJS(item));
+            }
+            else {
+                result201 = <any>null;
+            }
+            return _observableOf(result201);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(<any>null);
+    }
+
+    /**
      * Retrieve a single Methodology
      * @param fields (optional) Selects resource fields. <a href="https://github.com/nestjsx/crud/wiki/Requests#select" target="_blank">Docs</a>
      * @param join (optional) Adds relational resources. <a href="https://github.com/nestjsx/crud/wiki/Requests#join" target="_blank">Docs</a>
@@ -12008,7 +12468,7 @@ export class UsersControllerServiceProxy {
         return _observableOf(<any>null);
     }
 
-    allUserDetails(page: number, limit: number, filterText: string, userTypeId: number): Observable<any> {
+    getUserList(page: number, limit: number, userTypeIdQuery: string): Observable<any> {
         let url_ = this.baseUrl + "/users/AllUserDetails/userDetalils/{page}/{limit}/{filterText}/{userTypeId}?";
         if (page === undefined || page === null)
             throw new Error("The parameter 'page' must be defined and cannot be null.");
@@ -12018,14 +12478,10 @@ export class UsersControllerServiceProxy {
             throw new Error("The parameter 'limit' must be defined and cannot be null.");
         else
             url_ += "limit=" + encodeURIComponent("" + limit) + "&";
-        if (filterText === undefined || filterText === null)
-            throw new Error("The parameter 'filterText' must be defined and cannot be null.");
+        if (userTypeIdQuery === undefined || userTypeIdQuery === null)
+            throw new Error("The parameter 'userTypeIdQuery' must be defined and cannot be null.");
         else
-            url_ += "filterText=" + encodeURIComponent("" + filterText) + "&";
-        if (userTypeId === undefined || userTypeId === null)
-            throw new Error("The parameter 'userTypeId' must be defined and cannot be null.");
-        else
-            url_ += "userTypeId=" + encodeURIComponent("" + userTypeId) + "&";
+            url_ += "userTypeId=" + encodeURIComponent("" + userTypeIdQuery) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12037,11 +12493,11 @@ export class UsersControllerServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAllUserDetails(response_);
+            return this.processGetUserList(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processAllUserDetails(<any>response_);
+                    return this.processGetUserList(<any>response_);
                 } catch (e) {
                     return <Observable<any>><any>_observableThrow(e);
                 }
@@ -12050,7 +12506,7 @@ export class UsersControllerServiceProxy {
         }));
     }
 
-    protected processAllUserDetails(response: HttpResponseBase): Observable<any> {
+    protected processGetUserList(response: HttpResponseBase): Observable<any> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -12699,14 +13155,14 @@ export class BulkDto implements IBulkDto {
 export interface IBulkDto {
 }
 
-export class GetManyMethodologyResponseDto implements IGetManyMethodologyResponseDto {
-    data: Methodology[];
+export class GetManyMethodologyDataResponseDto implements IGetManyMethodologyDataResponseDto {
+    data: MethodologyData[];
     count: number;
     total: number;
     page: number;
     pageCount: number;
 
-    constructor(data?: IGetManyMethodologyResponseDto) {
+    constructor(data?: IGetManyMethodologyDataResponseDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -12723,7 +13179,7 @@ export class GetManyMethodologyResponseDto implements IGetManyMethodologyRespons
             if (Array.isArray(_data["data"])) {
                 this.data = [] as any;
                 for (let item of _data["data"])
-                    this.data.push(Methodology.fromJS(item));
+                    this.data.push(MethodologyData.fromJS(item));
             }
             this.count = _data["count"];
             this.total = _data["total"];
@@ -12732,9 +13188,9 @@ export class GetManyMethodologyResponseDto implements IGetManyMethodologyRespons
         }
     }
 
-    static fromJS(data: any): GetManyMethodologyResponseDto {
+    static fromJS(data: any): GetManyMethodologyDataResponseDto {
         data = typeof data === 'object' ? data : {};
-        let result = new GetManyMethodologyResponseDto();
+        let result = new GetManyMethodologyDataResponseDto();
         result.init(data);
         return result;
     }
@@ -12753,16 +13209,86 @@ export class GetManyMethodologyResponseDto implements IGetManyMethodologyRespons
         return data;
     }
 
-    clone(): GetManyMethodologyResponseDto {
+    clone(): GetManyMethodologyDataResponseDto {
         const json = this.toJSON();
-        let result = new GetManyMethodologyResponseDto();
+        let result = new GetManyMethodologyDataResponseDto();
         result.init(json);
         return result;
     }
 }
 
-export interface IGetManyMethodologyResponseDto {
-    data: Methodology[];
+export interface IGetManyMethodologyDataResponseDto {
+    data: MethodologyData[];
+    count: number;
+    total: number;
+    page: number;
+    pageCount: number;
+}
+
+export class GetManySectorResponseDto implements IGetManySectorResponseDto {
+    data: Sector[];
+    count: number;
+    total: number;
+    page: number;
+    pageCount: number;
+
+    constructor(data?: IGetManySectorResponseDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.data = [];
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["data"])) {
+                this.data = [] as any;
+                for (let item of _data["data"])
+                    this.data.push(Sector.fromJS(item));
+            }
+            this.count = _data["count"];
+            this.total = _data["total"];
+            this.page = _data["page"];
+            this.pageCount = _data["pageCount"];
+        }
+    }
+
+    static fromJS(data: any): GetManySectorResponseDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetManySectorResponseDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["data"] = [];
+            for (let item of this.data)
+                data["data"].push(item.toJSON());
+        }
+        data["count"] = this.count;
+        data["total"] = this.total;
+        data["page"] = this.page;
+        data["pageCount"] = this.pageCount;
+        return data;
+    }
+
+    clone(): GetManySectorResponseDto {
+        const json = this.toJSON();
+        let result = new GetManySectorResponseDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGetManySectorResponseDto {
+    data: Sector[];
     count: number;
     total: number;
     page: number;
@@ -12839,14 +13365,14 @@ export interface IGetManyCountryResponseDto {
     pageCount: number;
 }
 
-export class GetManySectorResponseDto implements IGetManySectorResponseDto {
-    data: Sector[];
+export class GetManyInstitutionResponseDto implements IGetManyInstitutionResponseDto {
+    data: Institution[];
     count: number;
     total: number;
     page: number;
     pageCount: number;
 
-    constructor(data?: IGetManySectorResponseDto) {
+    constructor(data?: IGetManyInstitutionResponseDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -12863,7 +13389,7 @@ export class GetManySectorResponseDto implements IGetManySectorResponseDto {
             if (Array.isArray(_data["data"])) {
                 this.data = [] as any;
                 for (let item of _data["data"])
-                    this.data.push(Sector.fromJS(item));
+                    this.data.push(Institution.fromJS(item));
             }
             this.count = _data["count"];
             this.total = _data["total"];
@@ -12872,9 +13398,9 @@ export class GetManySectorResponseDto implements IGetManySectorResponseDto {
         }
     }
 
-    static fromJS(data: any): GetManySectorResponseDto {
+    static fromJS(data: any): GetManyInstitutionResponseDto {
         data = typeof data === 'object' ? data : {};
-        let result = new GetManySectorResponseDto();
+        let result = new GetManyInstitutionResponseDto();
         result.init(data);
         return result;
     }
@@ -12893,20 +13419,513 @@ export class GetManySectorResponseDto implements IGetManySectorResponseDto {
         return data;
     }
 
-    clone(): GetManySectorResponseDto {
+    clone(): GetManyInstitutionResponseDto {
         const json = this.toJSON();
-        let result = new GetManySectorResponseDto();
+        let result = new GetManyInstitutionResponseDto();
         result.init(json);
         return result;
     }
 }
 
-export interface IGetManySectorResponseDto {
-    data: Sector[];
+export interface IGetManyInstitutionResponseDto {
+    data: Institution[];
     count: number;
     total: number;
     page: number;
     pageCount: number;
+}
+
+export class GetManyInstitutionTypeResponseDto implements IGetManyInstitutionTypeResponseDto {
+    data: InstitutionType[];
+    count: number;
+    total: number;
+    page: number;
+    pageCount: number;
+
+    constructor(data?: IGetManyInstitutionTypeResponseDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.data = [];
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["data"])) {
+                this.data = [] as any;
+                for (let item of _data["data"])
+                    this.data.push(InstitutionType.fromJS(item));
+            }
+            this.count = _data["count"];
+            this.total = _data["total"];
+            this.page = _data["page"];
+            this.pageCount = _data["pageCount"];
+        }
+    }
+
+    static fromJS(data: any): GetManyInstitutionTypeResponseDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetManyInstitutionTypeResponseDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["data"] = [];
+            for (let item of this.data)
+                data["data"].push(item.toJSON());
+        }
+        data["count"] = this.count;
+        data["total"] = this.total;
+        data["page"] = this.page;
+        data["pageCount"] = this.pageCount;
+        return data;
+    }
+
+    clone(): GetManyInstitutionTypeResponseDto {
+        const json = this.toJSON();
+        let result = new GetManyInstitutionTypeResponseDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGetManyInstitutionTypeResponseDto {
+    data: InstitutionType[];
+    count: number;
+    total: number;
+    page: number;
+    pageCount: number;
+}
+
+export class InstitutionType implements IInstitutionType {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    name: string;
+    description: string;
+    sortOrder: number;
+
+    constructor(data?: IInstitutionType) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.createdBy = _data["createdBy"];
+            this.createdOn = _data["createdOn"] ? moment(_data["createdOn"].toString()) : <any>undefined;
+            this.editedBy = _data["editedBy"];
+            this.editedOn = _data["editedOn"] ? moment(_data["editedOn"].toString()) : <any>undefined;
+            this.status = _data["status"];
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.description = _data["description"];
+            this.sortOrder = _data["sortOrder"];
+        }
+    }
+
+    static fromJS(data: any): InstitutionType {
+        data = typeof data === 'object' ? data : {};
+        let result = new InstitutionType();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
+        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
+        data["editedBy"] = this.editedBy;
+        data["editedOn"] = this.editedOn ? this.editedOn.toISOString() : <any>undefined;
+        data["status"] = this.status;
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["description"] = this.description;
+        data["sortOrder"] = this.sortOrder;
+        return data;
+    }
+
+    clone(): InstitutionType {
+        const json = this.toJSON();
+        let result = new InstitutionType();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IInstitutionType {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    name: string;
+    description: string;
+    sortOrder: number;
+}
+
+export class Institution implements IInstitution {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    name: string;
+    description: string;
+    sortOrder: number;
+    uniqueIdentification: string;
+    type: InstitutionType;
+    isNational: boolean;
+    parentInstitution: Institution;
+    deletedAt: moment.Moment;
+    canNotDelete: boolean;
+    address: string;
+    contactNumber: string;
+    countries: Country[];
+
+    constructor(data?: IInstitution) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.type = new InstitutionType();
+            this.countries = [];
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.createdBy = _data["createdBy"];
+            this.createdOn = _data["createdOn"] ? moment(_data["createdOn"].toString()) : <any>undefined;
+            this.editedBy = _data["editedBy"];
+            this.editedOn = _data["editedOn"] ? moment(_data["editedOn"].toString()) : <any>undefined;
+            this.status = _data["status"];
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.description = _data["description"];
+            this.sortOrder = _data["sortOrder"];
+            this.uniqueIdentification = _data["uniqueIdentification"];
+            this.type = _data["type"] ? InstitutionType.fromJS(_data["type"]) : new InstitutionType();
+            this.isNational = _data["isNational"];
+            this.parentInstitution = _data["parentInstitution"] ? Institution.fromJS(_data["parentInstitution"]) : <any>undefined;
+            this.deletedAt = _data["deletedAt"] ? moment(_data["deletedAt"].toString()) : <any>undefined;
+            this.canNotDelete = _data["canNotDelete"];
+            this.address = _data["address"];
+            this.contactNumber = _data["contactNumber"];
+            if (Array.isArray(_data["countries"])) {
+                this.countries = [] as any;
+                for (let item of _data["countries"])
+                    this.countries.push(Country.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): Institution {
+        data = typeof data === 'object' ? data : {};
+        let result = new Institution();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
+        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
+        data["editedBy"] = this.editedBy;
+        data["editedOn"] = this.editedOn ? this.editedOn.toISOString() : <any>undefined;
+        data["status"] = this.status;
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["description"] = this.description;
+        data["sortOrder"] = this.sortOrder;
+        data["uniqueIdentification"] = this.uniqueIdentification;
+        data["type"] = this.type ? this.type.toJSON() : <any>undefined;
+        data["isNational"] = this.isNational;
+        data["parentInstitution"] = this.parentInstitution ? this.parentInstitution.toJSON() : <any>undefined;
+        data["deletedAt"] = this.deletedAt ? this.deletedAt.toISOString() : <any>undefined;
+        data["canNotDelete"] = this.canNotDelete;
+        data["address"] = this.address;
+        data["contactNumber"] = this.contactNumber;
+        if (Array.isArray(this.countries)) {
+            data["countries"] = [];
+            for (let item of this.countries)
+                data["countries"].push(item.toJSON());
+        }
+        return data;
+    }
+
+    clone(): Institution {
+        const json = this.toJSON();
+        let result = new Institution();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IInstitution {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    name: string;
+    description: string;
+    sortOrder: number;
+    uniqueIdentification: string;
+    type: InstitutionType;
+    isNational: boolean;
+    parentInstitution: Institution;
+    deletedAt: moment.Moment;
+    canNotDelete: boolean;
+    address: string;
+    contactNumber: string;
+    countries: Country[];
+}
+
+export class Country implements ICountry {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    code: string;
+    code_extended: string;
+    name: string;
+    description: string;
+    sortOrder: number;
+    isSystemUse: boolean;
+    isCA: boolean;
+    flagPath: string;
+    registeredDate: moment.Moment;
+    isMember: boolean;
+    countryStatus: CountryStatus;
+    region: string;
+    uniqueIdentification: string;
+    countrysector: CountrySector[];
+    institution: Institution;
+    climateActionModule: boolean;
+    ghgModule: boolean;
+    macModule: boolean;
+    dataCollectionModule: boolean;
+
+    constructor(data?: ICountry) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.countrysector = [];
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.createdBy = _data["createdBy"];
+            this.createdOn = _data["createdOn"] ? moment(_data["createdOn"].toString()) : <any>undefined;
+            this.editedBy = _data["editedBy"];
+            this.editedOn = _data["editedOn"] ? moment(_data["editedOn"].toString()) : <any>undefined;
+            this.status = _data["status"];
+            this.id = _data["id"];
+            this.code = _data["code"];
+            this.code_extended = _data["code_extended"];
+            this.name = _data["name"];
+            this.description = _data["description"];
+            this.sortOrder = _data["sortOrder"];
+            this.isSystemUse = _data["isSystemUse"];
+            this.isCA = _data["isCA"];
+            this.flagPath = _data["flagPath"];
+            this.registeredDate = _data["registeredDate"] ? moment(_data["registeredDate"].toString()) : <any>undefined;
+            this.isMember = _data["isMember"];
+            this.countryStatus = _data["countryStatus"];
+            this.region = _data["region"];
+            this.uniqueIdentification = _data["uniqueIdentification"];
+            if (Array.isArray(_data["countrysector"])) {
+                this.countrysector = [] as any;
+                for (let item of _data["countrysector"])
+                    this.countrysector.push(CountrySector.fromJS(item));
+            }
+            this.institution = _data["institution"] ? Institution.fromJS(_data["institution"]) : <any>undefined;
+            this.climateActionModule = _data["climateActionModule"];
+            this.ghgModule = _data["ghgModule"];
+            this.macModule = _data["macModule"];
+            this.dataCollectionModule = _data["dataCollectionModule"];
+        }
+    }
+
+    static fromJS(data: any): Country {
+        data = typeof data === 'object' ? data : {};
+        let result = new Country();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
+        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
+        data["editedBy"] = this.editedBy;
+        data["editedOn"] = this.editedOn ? this.editedOn.toISOString() : <any>undefined;
+        data["status"] = this.status;
+        data["id"] = this.id;
+        data["code"] = this.code;
+        data["code_extended"] = this.code_extended;
+        data["name"] = this.name;
+        data["description"] = this.description;
+        data["sortOrder"] = this.sortOrder;
+        data["isSystemUse"] = this.isSystemUse;
+        data["isCA"] = this.isCA;
+        data["flagPath"] = this.flagPath;
+        data["registeredDate"] = this.registeredDate ? this.registeredDate.toISOString() : <any>undefined;
+        data["isMember"] = this.isMember;
+        data["countryStatus"] = this.countryStatus;
+        data["region"] = this.region;
+        data["uniqueIdentification"] = this.uniqueIdentification;
+        if (Array.isArray(this.countrysector)) {
+            data["countrysector"] = [];
+            for (let item of this.countrysector)
+                data["countrysector"].push(item.toJSON());
+        }
+        data["institution"] = this.institution ? this.institution.toJSON() : <any>undefined;
+        data["climateActionModule"] = this.climateActionModule;
+        data["ghgModule"] = this.ghgModule;
+        data["macModule"] = this.macModule;
+        data["dataCollectionModule"] = this.dataCollectionModule;
+        return data;
+    }
+
+    clone(): Country {
+        const json = this.toJSON();
+        let result = new Country();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ICountry {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    code: string;
+    code_extended: string;
+    name: string;
+    description: string;
+    sortOrder: number;
+    isSystemUse: boolean;
+    isCA: boolean;
+    flagPath: string;
+    registeredDate: moment.Moment;
+    isMember: boolean;
+    countryStatus: CountryStatus;
+    region: string;
+    uniqueIdentification: string;
+    countrysector: CountrySector[];
+    institution: Institution;
+    climateActionModule: boolean;
+    ghgModule: boolean;
+    macModule: boolean;
+    dataCollectionModule: boolean;
+}
+
+export class CountrySector implements ICountrySector {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    country: Country;
+    sector: Sector;
+
+    constructor(data?: ICountrySector) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.country = new Country();
+            this.sector = new Sector();
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.createdBy = _data["createdBy"];
+            this.createdOn = _data["createdOn"] ? moment(_data["createdOn"].toString()) : <any>undefined;
+            this.editedBy = _data["editedBy"];
+            this.editedOn = _data["editedOn"] ? moment(_data["editedOn"].toString()) : <any>undefined;
+            this.status = _data["status"];
+            this.id = _data["id"];
+            this.country = _data["country"] ? Country.fromJS(_data["country"]) : new Country();
+            this.sector = _data["sector"] ? Sector.fromJS(_data["sector"]) : new Sector();
+        }
+    }
+
+    static fromJS(data: any): CountrySector {
+        data = typeof data === 'object' ? data : {};
+        let result = new CountrySector();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
+        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
+        data["editedBy"] = this.editedBy;
+        data["editedOn"] = this.editedOn ? this.editedOn.toISOString() : <any>undefined;
+        data["status"] = this.status;
+        data["id"] = this.id;
+        data["country"] = this.country ? this.country.toJSON() : <any>undefined;
+        data["sector"] = this.sector ? this.sector.toJSON() : <any>undefined;
+        return data;
+    }
+
+    clone(): CountrySector {
+        const json = this.toJSON();
+        let result = new CountrySector();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ICountrySector {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    country: Country;
+    sector: Sector;
 }
 
 export class GetManyLearningMaterialResponseDto implements IGetManyLearningMaterialResponseDto {
@@ -13618,569 +14637,6 @@ export interface ISector {
     uniqueIdentification: string;
 }
 
-export class CountrySector implements ICountrySector {
-    createdBy: string;
-    createdOn: moment.Moment;
-    editedBy: string;
-    editedOn: moment.Moment;
-    status: number;
-    id: number;
-    country: Country;
-    sector: Sector;
-
-    constructor(data?: ICountrySector) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.country = new Country();
-            this.sector = new Sector();
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.createdBy = _data["createdBy"];
-            this.createdOn = _data["createdOn"] ? moment(_data["createdOn"].toString()) : <any>undefined;
-            this.editedBy = _data["editedBy"];
-            this.editedOn = _data["editedOn"] ? moment(_data["editedOn"].toString()) : <any>undefined;
-            this.status = _data["status"];
-            this.id = _data["id"];
-            this.country = _data["country"] ? Country.fromJS(_data["country"]) : new Country();
-            this.sector = _data["sector"] ? Sector.fromJS(_data["sector"]) : new Sector();
-        }
-    }
-
-    static fromJS(data: any): CountrySector {
-        data = typeof data === 'object' ? data : {};
-        let result = new CountrySector();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["createdBy"] = this.createdBy;
-        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
-        data["editedBy"] = this.editedBy;
-        data["editedOn"] = this.editedOn ? this.editedOn.toISOString() : <any>undefined;
-        data["status"] = this.status;
-        data["id"] = this.id;
-        data["country"] = this.country ? this.country.toJSON() : <any>undefined;
-        data["sector"] = this.sector ? this.sector.toJSON() : <any>undefined;
-        return data;
-    }
-
-    clone(): CountrySector {
-        const json = this.toJSON();
-        let result = new CountrySector();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface ICountrySector {
-    createdBy: string;
-    createdOn: moment.Moment;
-    editedBy: string;
-    editedOn: moment.Moment;
-    status: number;
-    id: number;
-    country: Country;
-    sector: Sector;
-}
-
-export class GetManyInstitutionResponseDto implements IGetManyInstitutionResponseDto {
-    data: Institution[];
-    count: number;
-    total: number;
-    page: number;
-    pageCount: number;
-
-    constructor(data?: IGetManyInstitutionResponseDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.data = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["data"])) {
-                this.data = [] as any;
-                for (let item of _data["data"])
-                    this.data.push(Institution.fromJS(item));
-            }
-            this.count = _data["count"];
-            this.total = _data["total"];
-            this.page = _data["page"];
-            this.pageCount = _data["pageCount"];
-        }
-    }
-
-    static fromJS(data: any): GetManyInstitutionResponseDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetManyInstitutionResponseDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.data)) {
-            data["data"] = [];
-            for (let item of this.data)
-                data["data"].push(item.toJSON());
-        }
-        data["count"] = this.count;
-        data["total"] = this.total;
-        data["page"] = this.page;
-        data["pageCount"] = this.pageCount;
-        return data;
-    }
-
-    clone(): GetManyInstitutionResponseDto {
-        const json = this.toJSON();
-        let result = new GetManyInstitutionResponseDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IGetManyInstitutionResponseDto {
-    data: Institution[];
-    count: number;
-    total: number;
-    page: number;
-    pageCount: number;
-}
-
-export class GetManyInstitutionTypeResponseDto implements IGetManyInstitutionTypeResponseDto {
-    data: InstitutionType[];
-    count: number;
-    total: number;
-    page: number;
-    pageCount: number;
-
-    constructor(data?: IGetManyInstitutionTypeResponseDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.data = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["data"])) {
-                this.data = [] as any;
-                for (let item of _data["data"])
-                    this.data.push(InstitutionType.fromJS(item));
-            }
-            this.count = _data["count"];
-            this.total = _data["total"];
-            this.page = _data["page"];
-            this.pageCount = _data["pageCount"];
-        }
-    }
-
-    static fromJS(data: any): GetManyInstitutionTypeResponseDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetManyInstitutionTypeResponseDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.data)) {
-            data["data"] = [];
-            for (let item of this.data)
-                data["data"].push(item.toJSON());
-        }
-        data["count"] = this.count;
-        data["total"] = this.total;
-        data["page"] = this.page;
-        data["pageCount"] = this.pageCount;
-        return data;
-    }
-
-    clone(): GetManyInstitutionTypeResponseDto {
-        const json = this.toJSON();
-        let result = new GetManyInstitutionTypeResponseDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IGetManyInstitutionTypeResponseDto {
-    data: InstitutionType[];
-    count: number;
-    total: number;
-    page: number;
-    pageCount: number;
-}
-
-export class InstitutionType implements IInstitutionType {
-    createdBy: string;
-    createdOn: moment.Moment;
-    editedBy: string;
-    editedOn: moment.Moment;
-    status: number;
-    id: number;
-    name: string;
-    description: string;
-    sortOrder: number;
-
-    constructor(data?: IInstitutionType) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.createdBy = _data["createdBy"];
-            this.createdOn = _data["createdOn"] ? moment(_data["createdOn"].toString()) : <any>undefined;
-            this.editedBy = _data["editedBy"];
-            this.editedOn = _data["editedOn"] ? moment(_data["editedOn"].toString()) : <any>undefined;
-            this.status = _data["status"];
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.description = _data["description"];
-            this.sortOrder = _data["sortOrder"];
-        }
-    }
-
-    static fromJS(data: any): InstitutionType {
-        data = typeof data === 'object' ? data : {};
-        let result = new InstitutionType();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["createdBy"] = this.createdBy;
-        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
-        data["editedBy"] = this.editedBy;
-        data["editedOn"] = this.editedOn ? this.editedOn.toISOString() : <any>undefined;
-        data["status"] = this.status;
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["description"] = this.description;
-        data["sortOrder"] = this.sortOrder;
-        return data;
-    }
-
-    clone(): InstitutionType {
-        const json = this.toJSON();
-        let result = new InstitutionType();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IInstitutionType {
-    createdBy: string;
-    createdOn: moment.Moment;
-    editedBy: string;
-    editedOn: moment.Moment;
-    status: number;
-    id: number;
-    name: string;
-    description: string;
-    sortOrder: number;
-}
-
-export class Institution implements IInstitution {
-    createdBy: string;
-    createdOn: moment.Moment;
-    editedBy: string;
-    editedOn: moment.Moment;
-    status: number;
-    id: number;
-    name: string;
-    description: string;
-    sortOrder: number;
-    uniqueIdentification: string;
-    type: InstitutionType;
-    isNational: boolean;
-    parentInstitution: Institution;
-    deletedAt: moment.Moment;
-    canNotDelete: boolean;
-    address: string;
-    contactNumber: string;
-    countries: Country[];
-
-    constructor(data?: IInstitution) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.type = new InstitutionType();
-            this.countries = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.createdBy = _data["createdBy"];
-            this.createdOn = _data["createdOn"] ? moment(_data["createdOn"].toString()) : <any>undefined;
-            this.editedBy = _data["editedBy"];
-            this.editedOn = _data["editedOn"] ? moment(_data["editedOn"].toString()) : <any>undefined;
-            this.status = _data["status"];
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.description = _data["description"];
-            this.sortOrder = _data["sortOrder"];
-            this.uniqueIdentification = _data["uniqueIdentification"];
-            this.type = _data["type"] ? InstitutionType.fromJS(_data["type"]) : new InstitutionType();
-            this.isNational = _data["isNational"];
-            this.parentInstitution = _data["parentInstitution"] ? Institution.fromJS(_data["parentInstitution"]) : <any>undefined;
-            this.deletedAt = _data["deletedAt"] ? moment(_data["deletedAt"].toString()) : <any>undefined;
-            this.canNotDelete = _data["canNotDelete"];
-            this.address = _data["address"];
-            this.contactNumber = _data["contactNumber"];
-            if (Array.isArray(_data["countries"])) {
-                this.countries = [] as any;
-                for (let item of _data["countries"])
-                    this.countries.push(Country.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): Institution {
-        data = typeof data === 'object' ? data : {};
-        let result = new Institution();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["createdBy"] = this.createdBy;
-        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
-        data["editedBy"] = this.editedBy;
-        data["editedOn"] = this.editedOn ? this.editedOn.toISOString() : <any>undefined;
-        data["status"] = this.status;
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["description"] = this.description;
-        data["sortOrder"] = this.sortOrder;
-        data["uniqueIdentification"] = this.uniqueIdentification;
-        data["type"] = this.type ? this.type.toJSON() : <any>undefined;
-        data["isNational"] = this.isNational;
-        data["parentInstitution"] = this.parentInstitution ? this.parentInstitution.toJSON() : <any>undefined;
-        data["deletedAt"] = this.deletedAt ? this.deletedAt.toISOString() : <any>undefined;
-        data["canNotDelete"] = this.canNotDelete;
-        data["address"] = this.address;
-        data["contactNumber"] = this.contactNumber;
-        if (Array.isArray(this.countries)) {
-            data["countries"] = [];
-            for (let item of this.countries)
-                data["countries"].push(item.toJSON());
-        }
-        return data;
-    }
-
-    clone(): Institution {
-        const json = this.toJSON();
-        let result = new Institution();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IInstitution {
-    createdBy: string;
-    createdOn: moment.Moment;
-    editedBy: string;
-    editedOn: moment.Moment;
-    status: number;
-    id: number;
-    name: string;
-    description: string;
-    sortOrder: number;
-    uniqueIdentification: string;
-    type: InstitutionType;
-    isNational: boolean;
-    parentInstitution: Institution;
-    deletedAt: moment.Moment;
-    canNotDelete: boolean;
-    address: string;
-    contactNumber: string;
-    countries: Country[];
-}
-
-export class Country implements ICountry {
-    createdBy: string;
-    createdOn: moment.Moment;
-    editedBy: string;
-    editedOn: moment.Moment;
-    status: number;
-    id: number;
-    code: string;
-    code_extended: string;
-    name: string;
-    description: string;
-    sortOrder: number;
-    isSystemUse: boolean;
-    isCA: boolean;
-    flagPath: string;
-    registeredDate: moment.Moment;
-    isMember: boolean;
-    countryStatus: CountryStatus;
-    region: string;
-    uniqueIdentification: string;
-    countrysector: CountrySector[];
-    institution: Institution;
-    climateActionModule: boolean;
-    ghgModule: boolean;
-    macModule: boolean;
-    dataCollectionModule: boolean;
-
-    constructor(data?: ICountry) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.countrysector = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.createdBy = _data["createdBy"];
-            this.createdOn = _data["createdOn"] ? moment(_data["createdOn"].toString()) : <any>undefined;
-            this.editedBy = _data["editedBy"];
-            this.editedOn = _data["editedOn"] ? moment(_data["editedOn"].toString()) : <any>undefined;
-            this.status = _data["status"];
-            this.id = _data["id"];
-            this.code = _data["code"];
-            this.code_extended = _data["code_extended"];
-            this.name = _data["name"];
-            this.description = _data["description"];
-            this.sortOrder = _data["sortOrder"];
-            this.isSystemUse = _data["isSystemUse"];
-            this.isCA = _data["isCA"];
-            this.flagPath = _data["flagPath"];
-            this.registeredDate = _data["registeredDate"] ? moment(_data["registeredDate"].toString()) : <any>undefined;
-            this.isMember = _data["isMember"];
-            this.countryStatus = _data["countryStatus"];
-            this.region = _data["region"];
-            this.uniqueIdentification = _data["uniqueIdentification"];
-            if (Array.isArray(_data["countrysector"])) {
-                this.countrysector = [] as any;
-                for (let item of _data["countrysector"])
-                    this.countrysector.push(CountrySector.fromJS(item));
-            }
-            this.institution = _data["institution"] ? Institution.fromJS(_data["institution"]) : <any>undefined;
-            this.climateActionModule = _data["climateActionModule"];
-            this.ghgModule = _data["ghgModule"];
-            this.macModule = _data["macModule"];
-            this.dataCollectionModule = _data["dataCollectionModule"];
-        }
-    }
-
-    static fromJS(data: any): Country {
-        data = typeof data === 'object' ? data : {};
-        let result = new Country();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["createdBy"] = this.createdBy;
-        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
-        data["editedBy"] = this.editedBy;
-        data["editedOn"] = this.editedOn ? this.editedOn.toISOString() : <any>undefined;
-        data["status"] = this.status;
-        data["id"] = this.id;
-        data["code"] = this.code;
-        data["code_extended"] = this.code_extended;
-        data["name"] = this.name;
-        data["description"] = this.description;
-        data["sortOrder"] = this.sortOrder;
-        data["isSystemUse"] = this.isSystemUse;
-        data["isCA"] = this.isCA;
-        data["flagPath"] = this.flagPath;
-        data["registeredDate"] = this.registeredDate ? this.registeredDate.toISOString() : <any>undefined;
-        data["isMember"] = this.isMember;
-        data["countryStatus"] = this.countryStatus;
-        data["region"] = this.region;
-        data["uniqueIdentification"] = this.uniqueIdentification;
-        if (Array.isArray(this.countrysector)) {
-            data["countrysector"] = [];
-            for (let item of this.countrysector)
-                data["countrysector"].push(item.toJSON());
-        }
-        data["institution"] = this.institution ? this.institution.toJSON() : <any>undefined;
-        data["climateActionModule"] = this.climateActionModule;
-        data["ghgModule"] = this.ghgModule;
-        data["macModule"] = this.macModule;
-        data["dataCollectionModule"] = this.dataCollectionModule;
-        return data;
-    }
-
-    clone(): Country {
-        const json = this.toJSON();
-        let result = new Country();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface ICountry {
-    createdBy: string;
-    createdOn: moment.Moment;
-    editedBy: string;
-    editedOn: moment.Moment;
-    status: number;
-    id: number;
-    code: string;
-    code_extended: string;
-    name: string;
-    description: string;
-    sortOrder: number;
-    isSystemUse: boolean;
-    isCA: boolean;
-    flagPath: string;
-    registeredDate: moment.Moment;
-    isMember: boolean;
-    countryStatus: CountryStatus;
-    region: string;
-    uniqueIdentification: string;
-    countrysector: CountrySector[];
-    institution: Institution;
-    climateActionModule: boolean;
-    ghgModule: boolean;
-    macModule: boolean;
-    dataCollectionModule: boolean;
-}
-
 export class GetManyMitigationActionTypeResponseDto implements IGetManyMitigationActionTypeResponseDto {
     data: MitigationActionType[];
     count: number;
@@ -14479,6 +14935,199 @@ export interface IApplicabilityEntity {
     sortOrder: number;
 }
 
+export class MethodologyData implements IMethodologyData {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    version: string;
+    name: string;
+    displayName: string;
+    developedBy: string;
+    parentId: number;
+    applicableSector: string;
+    documents: string;
+    easenessOfDataCollection: string;
+    transportSubSector: string;
+    upstream_downstream: string;
+    ghgIncluded: string;
+    uniqueIdentification: string;
+    sector: Sector;
+    mitigationActionType: MitigationActionType;
+    applicability: ApplicabilityEntity;
+
+    constructor(data?: IMethodologyData) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.createdBy = _data["createdBy"];
+            this.createdOn = _data["createdOn"] ? moment(_data["createdOn"].toString()) : <any>undefined;
+            this.editedBy = _data["editedBy"];
+            this.editedOn = _data["editedOn"] ? moment(_data["editedOn"].toString()) : <any>undefined;
+            this.status = _data["status"];
+            this.id = _data["id"];
+            this.version = _data["version"];
+            this.name = _data["name"];
+            this.displayName = _data["displayName"];
+            this.developedBy = _data["developedBy"];
+            this.parentId = _data["parentId"];
+            this.applicableSector = _data["applicableSector"];
+            this.documents = _data["documents"];
+            this.easenessOfDataCollection = _data["easenessOfDataCollection"];
+            this.transportSubSector = _data["transportSubSector"];
+            this.upstream_downstream = _data["upstream_downstream"];
+            this.ghgIncluded = _data["ghgIncluded"];
+            this.uniqueIdentification = _data["uniqueIdentification"];
+            this.sector = _data["sector"] ? Sector.fromJS(_data["sector"]) : <any>undefined;
+            this.mitigationActionType = _data["mitigationActionType"] ? MitigationActionType.fromJS(_data["mitigationActionType"]) : <any>undefined;
+            this.applicability = _data["applicability"] ? ApplicabilityEntity.fromJS(_data["applicability"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): MethodologyData {
+        data = typeof data === 'object' ? data : {};
+        let result = new MethodologyData();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
+        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
+        data["editedBy"] = this.editedBy;
+        data["editedOn"] = this.editedOn ? this.editedOn.toISOString() : <any>undefined;
+        data["status"] = this.status;
+        data["id"] = this.id;
+        data["version"] = this.version;
+        data["name"] = this.name;
+        data["displayName"] = this.displayName;
+        data["developedBy"] = this.developedBy;
+        data["parentId"] = this.parentId;
+        data["applicableSector"] = this.applicableSector;
+        data["documents"] = this.documents;
+        data["easenessOfDataCollection"] = this.easenessOfDataCollection;
+        data["transportSubSector"] = this.transportSubSector;
+        data["upstream_downstream"] = this.upstream_downstream;
+        data["ghgIncluded"] = this.ghgIncluded;
+        data["uniqueIdentification"] = this.uniqueIdentification;
+        data["sector"] = this.sector ? this.sector.toJSON() : <any>undefined;
+        data["mitigationActionType"] = this.mitigationActionType ? this.mitigationActionType.toJSON() : <any>undefined;
+        data["applicability"] = this.applicability ? this.applicability.toJSON() : <any>undefined;
+        return data;
+    }
+
+    clone(): MethodologyData {
+        const json = this.toJSON();
+        let result = new MethodologyData();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IMethodologyData {
+    createdBy: string;
+    createdOn: moment.Moment;
+    editedBy: string;
+    editedOn: moment.Moment;
+    status: number;
+    id: number;
+    version: string;
+    name: string;
+    displayName: string;
+    developedBy: string;
+    parentId: number;
+    applicableSector: string;
+    documents: string;
+    easenessOfDataCollection: string;
+    transportSubSector: string;
+    upstream_downstream: string;
+    ghgIncluded: string;
+    uniqueIdentification: string;
+    sector: Sector;
+    mitigationActionType: MitigationActionType;
+    applicability: ApplicabilityEntity;
+}
+
+export class GetManyMethodologyResponseDto implements IGetManyMethodologyResponseDto {
+    data: Methodology[];
+    count: number;
+    total: number;
+    page: number;
+    pageCount: number;
+
+    constructor(data?: IGetManyMethodologyResponseDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.data = [];
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["data"])) {
+                this.data = [] as any;
+                for (let item of _data["data"])
+                    this.data.push(Methodology.fromJS(item));
+            }
+            this.count = _data["count"];
+            this.total = _data["total"];
+            this.page = _data["page"];
+            this.pageCount = _data["pageCount"];
+        }
+    }
+
+    static fromJS(data: any): GetManyMethodologyResponseDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetManyMethodologyResponseDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["data"] = [];
+            for (let item of this.data)
+                data["data"].push(item.toJSON());
+        }
+        data["count"] = this.count;
+        data["total"] = this.total;
+        data["page"] = this.page;
+        data["pageCount"] = this.pageCount;
+        return data;
+    }
+
+    clone(): GetManyMethodologyResponseDto {
+        const json = this.toJSON();
+        let result = new GetManyMethodologyResponseDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGetManyMethodologyResponseDto {
+    data: Methodology[];
+    count: number;
+    total: number;
+    page: number;
+    pageCount: number;
+}
+
 export class Methodology implements IMethodology {
     createdBy: string;
     createdOn: moment.Moment;
@@ -14503,6 +15152,7 @@ export class Methodology implements IMethodology {
     sector: Sector;
     mitigationActionType: MitigationActionType;
     applicability: ApplicabilityEntity;
+    method: MethodologyData;
 
     constructor(data?: IMethodology) {
         if (data) {
@@ -14538,6 +15188,7 @@ export class Methodology implements IMethodology {
             this.sector = _data["sector"] ? Sector.fromJS(_data["sector"]) : <any>undefined;
             this.mitigationActionType = _data["mitigationActionType"] ? MitigationActionType.fromJS(_data["mitigationActionType"]) : <any>undefined;
             this.applicability = _data["applicability"] ? ApplicabilityEntity.fromJS(_data["applicability"]) : <any>undefined;
+            this.method = _data["method"] ? MethodologyData.fromJS(_data["method"]) : <any>undefined;
         }
     }
 
@@ -14573,6 +15224,7 @@ export class Methodology implements IMethodology {
         data["sector"] = this.sector ? this.sector.toJSON() : <any>undefined;
         data["mitigationActionType"] = this.mitigationActionType ? this.mitigationActionType.toJSON() : <any>undefined;
         data["applicability"] = this.applicability ? this.applicability.toJSON() : <any>undefined;
+        data["method"] = this.method ? this.method.toJSON() : <any>undefined;
         return data;
     }
 
@@ -14608,6 +15260,7 @@ export interface IMethodology {
     sector: Sector;
     mitigationActionType: MitigationActionType;
     applicability: ApplicabilityEntity;
+    method: MethodologyData;
 }
 
 export class GetManyEmissionReductioDraftDataEntityResponseDto implements IGetManyEmissionReductioDraftDataEntityResponseDto {

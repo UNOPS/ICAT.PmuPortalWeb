@@ -64,6 +64,7 @@ import { AddSectorComponent } from './sector/add-sector/add-sector.component';
 
 import { RoleGuardService } from './auth/role-guard.service';
 import { ViewCountryComponent } from './country-registry/view-country/view-country.component';
+import { AssignMethodologyComponent } from './methodologies/assign-methodology/assign-methodology.component';
 
 
 
@@ -146,6 +147,19 @@ const routes: Routes = [
   {
     path: 'methodologies',
     component: MethodologiesComponent,
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRoles: [
+        UserRoles.ICAT_ADMIN,
+        UserRoles.ICAT_USER,
+        UserRoles.PMU_ADMIN,
+        UserRoles.PMU_USER,
+      ],
+    },
+  },
+  {
+    path: 'assign-methodologies',
+    component: AssignMethodologyComponent,
     canActivate: [RoleGuardService],
     data: {
       expectedRoles: [

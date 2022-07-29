@@ -486,7 +486,7 @@ position:string = 'top-right';
 
 
 
-  activateCountry(cou: Country) {
+  async activateCountry(cou: Country) {
 
     if (this.cou.countryStatus == CountryStatus.Active) {
       console.log("accstatus", this.cou.countryStatus)
@@ -539,6 +539,7 @@ position:string = 'top-right';
             });
         }
       );
+      await axios.get(this.url)
   }
 
   onBackClick() {
