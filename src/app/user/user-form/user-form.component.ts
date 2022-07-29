@@ -129,6 +129,9 @@ export class UserFormComponent implements OnInit {
         if (this.user?.institution) {
           this.institutions.forEach((ins) => {
             if (ins.id == this.user.institution.id) {
+              if (["PMU Admin"].includes(tokenPayload.roles[0])){
+                this.institutions = [ins]
+              }
               this.user.institution = ins;
               console.log('ins set =======================');
             }
@@ -152,13 +155,15 @@ export class UserFormComponent implements OnInit {
     console.log('tokenPayload=========', tokenPayload);
     let institutionId = tokenPayload.institutionId;
 
-    if (tokenPayload.roles[0] == 'PMU Admin') {
+    if (tokenPayload.roles[0] == 'PMU Admin' ) {
       console.log("pmu admin here")
 
       this.filter2.push('id||$ne||' + 4) & this.filter2.push('id||$ne||' + 5) & this.filter2.push('id||$ne||' + 1)
 
-    }
-    else {
+    } else if (tokenPayload.roles[0] == 'PMU User'){
+      this.filter2.push('id||$ne||' + 4) & this.filter2.push('id||$ne||' + 5) & this.filter2.push('id||$ne||' + 1)
+      & this.filter2.push('id||$ne||' + 3)
+    } else {
       this.filter2.push('id||$ne||' + 4)
     }
 

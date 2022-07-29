@@ -67,11 +67,9 @@ export class UserListComponent implements OnInit {
 
    this.filter2 =[];
 
-   if(this.userrole == "PMU Admin"){
+   if(this.userrole == "PMU Admin" || this.userrole === "PMU User"){
     //  this.filter2.push('mrvInstitution||$notnull||'+'')
-    if (this.userrole === "PMU Admin"){
       this.pmuFilter.push(...['userType.id||$ne||'+ 5, 'userType.id||$ne||'+ 4, 'userType.id||$ne||'+ 1])
-    }
    }
 
 
@@ -114,7 +112,7 @@ export class UserListComponent implements OnInit {
         console.log("institutionlists-----",this.instuitutionList)
       });
 
-      if(this.userrole == "PMU Admin"){
+      if(this.userrole == "PMU Admin" || this.userrole == "PMU User"){
         this.filter2 = []
         this.serviceProxy
         .getManyBaseInstitutionControllerInstitution(
@@ -180,7 +178,7 @@ export class UserListComponent implements OnInit {
   getFilterand() {
     let filters: string[] = [];
   
-    if(this.userrole == 'PMU Admin'){
+    if(this.userrole == 'PMU Admin' || this.userrole == 'PMU User'){
       if (this.selectedCountry){
         filters.push(...this.pmuFilter)
       } else {
@@ -277,7 +275,7 @@ export class UserListComponent implements OnInit {
     let orFilter:string[] = []
     let andFilter: string[] = this.getFilterand()
 
-    if (this.userrole === "PMU Admin" && this.userCountries.length > 0 && andFilter.length === 4){
+    if ((this.userrole === "PMU Admin" || this.userrole === "PMU User" ) && this.userCountries.length > 0 && andFilter.length === 4){
       orFilter.push(...this.pmuFilter, 'country.id||$in||'+ this.userCountries)
     }
 

@@ -241,14 +241,14 @@ position:string = 'top-right';
   //         });
   //       }
   //     });
-      
+      console.log("country", this.cou)
 
    }
 
   onStatusChange(event: any) {
     console.log(this.editCountryId ,'===================')
     if (this.editCountryId == undefined) {
-      console.log("cname111===", event.description)
+      // console.log("cname111===", event.description)
 
       if (event != null || event != undefined) {
 
@@ -267,6 +267,7 @@ position:string = 'top-right';
         this.flagPath = '';
         // this.region='';
         // this.description='';
+        this.cou = new Country()
       }
     }
     else {

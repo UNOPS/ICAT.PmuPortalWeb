@@ -115,7 +115,7 @@
         </div>
       </div>
 
-      <div class="col-4" *ngIf="userrole != 'PMU Admin'">
+      <div class="col-4" *ngIf="!['PMU Admin', 'PMU User'].includes(userrole)">
         <div
           class="
             d-flex
