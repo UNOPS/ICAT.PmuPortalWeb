@@ -38,7 +38,7 @@
                 [showClear]="true"
                 [filter]="true"
                 placeholder="Select .."
-               
+                appendTo="body"
                 (ngModelChange)="onUTChange($event)"
               >
               </p-dropdown>
@@ -57,7 +57,7 @@
                 #propsedDate="ngModel"
                 [(ngModel)]="searchBy.editedOn"
                 (ngModelChange)="ondateChange($event)"
-                
+                appendTo="body"
               ></p-calendar>
             <!-- <p-dropdown
               name="date"
@@ -85,7 +85,7 @@
               [showClear]="true"
               [filter]="true"
               placeholder="Select .."
-            
+              appendTo="body"
               (ngModelChange)="onactivityChange($event)"
             >
             </p-dropdown>
