@@ -14168,6 +14168,7 @@ export class LearningMaterialUserType implements ILearningMaterialUserType {
     uniqueIdentification: string;
     learningMaterial: LearningMaterial;
     userType: UserType;
+    userid: number;
 
     constructor(data?: ILearningMaterialUserType) {
         if (data) {
@@ -14193,6 +14194,7 @@ export class LearningMaterialUserType implements ILearningMaterialUserType {
             this.uniqueIdentification = _data["uniqueIdentification"];
             this.learningMaterial = _data["learningMaterial"] ? LearningMaterial.fromJS(_data["learningMaterial"]) : new LearningMaterial();
             this.userType = _data["userType"] ? UserType.fromJS(_data["userType"]) : new UserType();
+            this.userid = _data["userid"];
         }
     }
 
@@ -14214,6 +14216,7 @@ export class LearningMaterialUserType implements ILearningMaterialUserType {
         data["uniqueIdentification"] = this.uniqueIdentification;
         data["learningMaterial"] = this.learningMaterial ? this.learningMaterial.toJSON() : <any>undefined;
         data["userType"] = this.userType ? this.userType.toJSON() : <any>undefined;
+        data["userid"] = this.userid;
         return data;
     }
 
@@ -14235,6 +14238,7 @@ export interface ILearningMaterialUserType {
     uniqueIdentification: string;
     learningMaterial: LearningMaterial;
     userType: UserType;
+    userid: number;
 }
 
 export class LearningMaterial implements ILearningMaterial {
@@ -14957,6 +14961,11 @@ export class MethodologyData implements IMethodologyData {
     sector: Sector;
     mitigationActionType: MitigationActionType;
     applicability: ApplicabilityEntity;
+    baselineImage: string;
+    projectImage: string;
+    projectionImage: string;
+    leakageImage: string;
+    resultImage: string;
 
     constructor(data?: IMethodologyData) {
         if (data) {
@@ -14990,6 +14999,11 @@ export class MethodologyData implements IMethodologyData {
             this.sector = _data["sector"] ? Sector.fromJS(_data["sector"]) : <any>undefined;
             this.mitigationActionType = _data["mitigationActionType"] ? MitigationActionType.fromJS(_data["mitigationActionType"]) : <any>undefined;
             this.applicability = _data["applicability"] ? ApplicabilityEntity.fromJS(_data["applicability"]) : <any>undefined;
+            this.baselineImage = _data["baselineImage"];
+            this.projectImage = _data["projectImage"];
+            this.projectionImage = _data["projectionImage"];
+            this.leakageImage = _data["leakageImage"];
+            this.resultImage = _data["resultImage"];
         }
     }
 
@@ -15023,6 +15037,11 @@ export class MethodologyData implements IMethodologyData {
         data["sector"] = this.sector ? this.sector.toJSON() : <any>undefined;
         data["mitigationActionType"] = this.mitigationActionType ? this.mitigationActionType.toJSON() : <any>undefined;
         data["applicability"] = this.applicability ? this.applicability.toJSON() : <any>undefined;
+        data["baselineImage"] = this.baselineImage;
+        data["projectImage"] = this.projectImage;
+        data["projectionImage"] = this.projectionImage;
+        data["leakageImage"] = this.leakageImage;
+        data["resultImage"] = this.resultImage;
         return data;
     }
 
@@ -15056,6 +15075,11 @@ export interface IMethodologyData {
     sector: Sector;
     mitigationActionType: MitigationActionType;
     applicability: ApplicabilityEntity;
+    baselineImage: string;
+    projectImage: string;
+    projectionImage: string;
+    leakageImage: string;
+    resultImage: string;
 }
 
 export class GetManyMethodologyResponseDto implements IGetManyMethodologyResponseDto {

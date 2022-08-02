@@ -106,7 +106,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
       0,
       0
     ).subscribe((res: any) => {
-       this.methodologyList = res.data;
+      this.methodologyList = res.data;
     });
 
     this.serviceProxy.getManyBaseMethodologyControllerMethodology(
@@ -135,13 +135,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
           })
         }
       })
-      this.oldCountryMeth.forEach(async old => {
-        old.isActive = 2;
-        this.serviceProxy.updateOneBaseMethodologyControllerMethodology(old.id, old).subscribe((res) => {
-          console.log('done')
-        });
   
-      });
       this.countryMethList.forEach(p1 => {
         if (p1.method) {
           this.methodologyList.forEach(a => {
@@ -164,12 +158,20 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
 
 
   async saveClick() {
+
+    this.oldCountryMeth.forEach(async old => {
+      old.isActive = 2;
+      this.serviceProxy.updateOneBaseMethodologyControllerMethodology(old.id, old).subscribe((res) => {
+        console.log('done++++')
+      });
+
+    });
     let url = environment.baseSyncAPI + '/methodology';
 
-   
 
 
-   await this.selectedMethodSelected.forEach(async a => {
+
+    await this.selectedMethodSelected.forEach(async a => {
 
       if (!this.oldMethName.includes(a.name)) {
         let newone = new Methodology()
@@ -192,8 +194,9 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
         newone.upstream_downstream = a.upstream_downstream;
         newone.ghgIncluded = a.ghgIncluded;
         newone.documents = a.documents;
+        
         newone.method = a;
-       await this.serviceProxy.createOneBaseMethodologyControllerMethodology(newone).subscribe((res) => {
+        await this.serviceProxy.createOneBaseMethodologyControllerMethodology(newone).subscribe((res) => {
           console.log("done")
         });
         // await axios.get(url)
@@ -202,20 +205,20 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
         await this.oldCountryMeth.forEach(async old => {
           if (old.name == a.name && old.country.id == this.country.id) {
             old.isActive = 1;
-           await this.serviceProxy.updateOneBaseMethodologyControllerMethodology(old.id, old).subscribe((res) => {
+            await this.serviceProxy.updateOneBaseMethodologyControllerMethodology(old.id, old).subscribe((res) => {
               console.log('done')
             })
-            
+
           }
         })
       }
-      
+
     });
-    
+
     setTimeout(async () => {
       await axios.get(url);
-     
-    },2000);
+
+    }, 2000);
     this.router.navigate(['/methodologies']);
   }
 
@@ -239,7 +242,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
         0
       ).subscribe((res: any) => {
         this.countryList = res.data;
-        console.log("country", this.countryList);
+        // console.log("country", this.countryList);
 
 
       });
