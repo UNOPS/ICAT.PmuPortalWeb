@@ -528,8 +528,9 @@ position:string = 'top-right';
             header: 'Confirmation',
             //acceptIcon: 'icon-not-visible',
             rejectIcon: 'icon-not-visible',
-            rejectVisible: false,
+            rejectVisible: true,
             acceptLabel: 'Yes',
+            rejectLabel: 'No',
             accept: () => {
               this.onBackClick();
             },
