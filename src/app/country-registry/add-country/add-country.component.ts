@@ -509,7 +509,7 @@ position:string = 'top-right';
 
     }
     this.serviceProxy.updateOneBaseCountryControllerCountry(this.cou.id, this.cou)
-      .subscribe((res) => {
+      .subscribe(async (res) => {
         console.log('done............', res),
           // this.messageService.add({
 
@@ -536,6 +536,7 @@ position:string = 'top-right';
 
             reject: () => { },
           });
+          await axios.get(this.url)
       },
         (err) => {
           console.log('error............'),

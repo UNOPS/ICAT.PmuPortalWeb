@@ -489,7 +489,7 @@ export class ViewCountryComponent implements OnInit, AfterViewInit {
 
     }
     this.serviceProxy.updateOneBaseCountryControllerCountry(this.cou.id, this.cou)
-      .subscribe((res) => {
+      .subscribe(async (res) => {
         console.log('done............', res),
           // this.messageService.add({
 
@@ -516,6 +516,7 @@ export class ViewCountryComponent implements OnInit, AfterViewInit {
 
             reject: () => { },
           });
+          await axios.get(this.url)
       },
         (err) => {
           console.log('error............'),
