@@ -93,7 +93,7 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
           if (!this.developper.includes(x.developedBy)) {
             this.developper.push(x.developedBy)
           }
-          console.log("developerlist====", this.developper)
+          // console.log("developerlist====", this.developper)
 
         }
       })
