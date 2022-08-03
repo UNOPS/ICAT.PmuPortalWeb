@@ -15841,6 +15841,7 @@ export class User implements IUser {
         if (!data) {
             this.userType = new UserType();
             this.institution = new Institution();
+            this.country = new Country();
         }
     }
 
@@ -15862,7 +15863,7 @@ export class User implements IUser {
             this.telephone = _data["telephone"];
             this.mobile = _data["mobile"];
             this.mrvInstitution = _data["mrvInstitution"];
-            this.country = _data["country"] ? Country.fromJS(_data["country"]) : <any>undefined;
+            this.country = _data["country"] ? Country.fromJS(_data["country"]) : new Country();
             this.salt = _data["salt"];
             this.password = _data["password"];
             this.resetToken = _data["resetToken"];
