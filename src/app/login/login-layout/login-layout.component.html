@@ -26,8 +26,14 @@
     <div class="row">
       <div class="col-md-6 login-content-wrapper">
         <div class="login-inner">
-        <img style="cursor:pointer ;" src="./assets/images/logo-new.png"  onclick="window.location.href='https://icat-ca-tool.climatesi.com/icat-country-app/landing-page'"/>
-        <h2 class="mt-4">Welcome ...</h2>
+          <div class="row mb-2">
+            <div class="col-md-2">
+              <img src="https://climateactiontransparency.org/wp-content/themes/custom/assets/i/logo/logo_blue.svg"  alt="logo" onclick="window.location.href='https://icat-ca-tool.climatesi.com/icat-country-app/landing-page'">
+            </div>
+            <div class="col-md-5">
+              <img src="https://climateactiontransparency.org/wp-content/themes/custom/assets/i/logo/logo_text.svg" alt="logo text" onclick="window.location.href='https://icat-ca-tool.climatesi.com/icat-country-app/landing-page'">
+            </div>
+          </div><h2 class="mt-4">Welcome ...</h2>
         <app-login-form *ngIf="showLoginForm"></app-login-form>
         <app-forgot-password *ngIf="showForgotPassword"></app-forgot-password>
         <!-- <app-set-password *ngIf="showSetPassword"></app-set-password> -->

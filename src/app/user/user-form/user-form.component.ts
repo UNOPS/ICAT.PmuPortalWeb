@@ -167,7 +167,27 @@ export class UserFormComponent implements OnInit {
       this.filter2.push('id||$ne||' + 4)
     }
 
+    // this.serviceProxy
+    // .getManyBaseUsersControllerUser(
+    //   undefined,
+    //   undefined,
+    //   undefined,
+    //   undefined,
+    //   undefined,
+    //   undefined,
+    //   1000,
+    //   0,
+    //   0,
+    //   0
+    // )
+    // .subscribe((res) => {
+    //   let us=[] = res.data;
+    //   this.user =us.filter((a: any)=>{if(a.id==this.editUserId){
+    //     return a;
+    //   }})[0];
+    //   console.log("filteredUser-----",  this.user )
 
+    // });
 
     this.route.queryParams.subscribe((params) => {
       this.editUserId = params['id'];
@@ -183,6 +203,7 @@ export class UserFormComponent implements OnInit {
           .subscribe((res: any) => {
             console.log('Userrrrrrrxxx====', res);
             this.user = res;
+            console.log('Userrrrrrrxxx====', this.user);
 
             this.institutions.forEach((ins) => {
               if (ins.id == this.user.institution.id) {

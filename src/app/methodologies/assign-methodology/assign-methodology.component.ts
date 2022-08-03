@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import axios from 'axios';
 import { environment } from 'environments/environment';
 import { TreeNode } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import {
   Country,
   CountryControllerServiceProxy,
@@ -32,7 +33,8 @@ interface Countryy {
 @Component({
   selector: 'app-assign-methodology',
   templateUrl: './assign-methodology.component.html',
-  styleUrls: ['./assign-methodology.component.css']
+  styleUrls: ['./assign-methodology.component.css'],
+  providers: [ConfirmationService, MessageService],
 })
 export class AssignMethodologyComponent implements OnInit, AfterViewInit {
 
@@ -54,7 +56,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
     private countryProxy: CountryControllerServiceProxy,
     private cdr: ChangeDetectorRef,
     private router: Router,
-
+    private messageService: MessageService,
   ) {
 
   }
@@ -135,7 +137,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
           })
         }
       })
-  
+
       this.countryMethList.forEach(p1 => {
         if (p1.method) {
           this.methodologyList.forEach(a => {
@@ -158,68 +160,77 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
 
 
   async saveClick() {
+    let url = environment.baseSyncAPI + '/methodology';
 
-    this.oldCountryMeth.forEach(async old => {
+    await this.oldCountryMeth.forEach(async old => {
       old.isActive = 2;
       this.serviceProxy.updateOneBaseMethodologyControllerMethodology(old.id, old).subscribe((res) => {
         console.log('done++++')
       });
 
     });
-    let url = environment.baseSyncAPI + '/methodology';
-
-
-
-
-    await this.selectedMethodSelected.forEach(async a => {
-
-      if (!this.oldMethName.includes(a.name)) {
-        let newone = new Methodology()
-        newone.editedBy = a.editedBy;
-        newone.editedOn = a.editedOn;
-        newone.status = a.status;
-        newone.version = a.version;
-        newone.name = a.name;
-        newone.displayName = a.displayName;
-        newone.developedBy = a.developedBy;
-        newone.parentId = a.parentId;
-        newone.applicableSector = a.applicableSector;
-        newone.isActive = 1
-        newone.easenessOfDataCollection = a.easenessOfDataCollection;
-        newone.country = this.country;
-        newone.sector = a.sector;
-        newone.mitigationActionType = a.mitigationActionType;
-        newone.applicability = a.applicability;
-        newone.transportSubSector = a.transportSubSector;
-        newone.upstream_downstream = a.upstream_downstream;
-        newone.ghgIncluded = a.ghgIncluded;
-        newone.documents = a.documents;
-        
-        newone.method = a;
-        await this.serviceProxy.createOneBaseMethodologyControllerMethodology(newone).subscribe((res) => {
-          console.log("done")
-        });
-        // await axios.get(url)
-      }
-      else {
-        await this.oldCountryMeth.forEach(async old => {
-          if (old.name == a.name && old.country.id == this.country.id) {
-            old.isActive = 1;
-            await this.serviceProxy.updateOneBaseMethodologyControllerMethodology(old.id, old).subscribe((res) => {
-              console.log('done')
-            })
-
-          }
-        })
-      }
-
-    });
 
     setTimeout(async () => {
-      await axios.get(url);
+      await this.selectedMethodSelected.forEach(async a => {
 
-    }, 2000);
-    this.router.navigate(['/methodologies']);
+        if (!this.oldMethName.includes(a.name)) {
+          let newone = new Methodology()
+          newone.editedBy = a.editedBy;
+          newone.editedOn = a.editedOn;
+          newone.status = a.status;
+          newone.version = a.version;
+          newone.name = a.name;
+          newone.displayName = a.displayName;
+          newone.developedBy = a.developedBy;
+          newone.parentId = a.parentId;
+          newone.applicableSector = a.applicableSector;
+          newone.isActive = 1
+          newone.easenessOfDataCollection = a.easenessOfDataCollection;
+          newone.country = this.country;
+          newone.sector = a.sector;
+          newone.mitigationActionType = a.mitigationActionType;
+          newone.applicability = a.applicability;
+          newone.transportSubSector = a.transportSubSector;
+          newone.upstream_downstream = a.upstream_downstream;
+          newone.ghgIncluded = a.ghgIncluded;
+          newone.documents = a.documents;
+
+          newone.method = a;
+          await this.serviceProxy.createOneBaseMethodologyControllerMethodology(newone).subscribe((res) => {
+            console.log("done")
+
+          });
+          // await axios.get(url)
+        }
+        else {
+          await this.oldCountryMeth.forEach(async old => {
+            if (old.name == a.name && old.country.id == this.country.id) {
+              old.isActive = 1;
+              await this.serviceProxy.updateOneBaseMethodologyControllerMethodology(old.id, old).subscribe((res) => {
+                console.log("done")
+              })
+
+            }
+          })
+        }
+
+      });
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success.',
+        detail: 'Methodologies have been assigned successfully',
+
+      });
+      setTimeout(async () => {
+        this.router.navigate(['/methodologies']);
+        await axios.get(url)
+      },750)
+
+
+    }, 1000);
+
+
+
   }
 
 
