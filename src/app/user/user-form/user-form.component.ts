@@ -290,6 +290,7 @@ export class UserFormComponent implements OnInit {
         console.log("countryList=====", res);
 
         this.countryList = res.data
+        this.countryList.push(this.user.country)
       });
   }
 

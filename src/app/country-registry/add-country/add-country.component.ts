@@ -298,11 +298,6 @@ position:string = 'top-right';
   async saveCountry(userForm: NgForm) {
     {
       console.log('userForm================', userForm);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Service Message',
-        detail: 'Via MessageService',
-      });
 
 
       if (this.isNewCountry) {
@@ -379,26 +374,18 @@ position:string = 'top-right';
             .subscribe(async (res: any) => {
 
               console.log("savecountryRes===", res)
-              this.confirmationService.confirm({
-                message: 'User is created successfully!',
-                header: 'Confirmation',
-                //acceptIcon: 'icon-not-visible',
-                rejectIcon: 'icon-not-visible',
-                rejectVisible: false,
-                acceptLabel: 'Ok',
-                accept: () => {
-                  this.onBackClick();
-                },
-
-                reject: () => { },
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success.',
+                detail: 'Successfully created the country',
+        
               });
 
-              //  this.messageService.add({severity:'success', summary:'Confirmed', detail:'You have successfully registered!.'});
-              // alert('Saved Successfully');
               await axios.get(this.url)
+              // this.router.navigate(['/country-registry']);
             });
         }, 1000);
-
+        this.onBackClick();
       } else {
 
         console.log("edit countryyyyyyyyy")
@@ -458,21 +445,17 @@ position:string = 'top-right';
           .subscribe(
 
             async (res) => {
-              this.confirmationService.confirm({
-                message: 'country is updated successfully!',
-                header: 'Confirmation',
-                //acceptIcon: 'icon-not-visible',
-                rejectIcon: 'icon-not-visible',
-                rejectVisible: false,
-                acceptLabel: 'Ok',
-                accept: () => {
-                  //this.onBackClick();
-                },
-
-                reject: () => { },
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success.',
+                detail: 'Successfully updated the country',
+        
               });
-              await axios.get(this.url)
-
+              // await axios.get(this.url)
+              setTimeout(async () => {
+                await axios.get(this.url)
+                this.onBackClick();
+              },1000)
             },
             (error) => {
               alert('An error occurred, please try again.');

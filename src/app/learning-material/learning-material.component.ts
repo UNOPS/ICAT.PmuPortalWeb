@@ -205,7 +205,7 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     let url = environment.baseSyncAPI + '/lerninigMeterial';
     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'You have successfully uploaded the document.' });
     this.display = false;
-    // await axios.get(url)
+    await axios.get(url)
   }
 
 
