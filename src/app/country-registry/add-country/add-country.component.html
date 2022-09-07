@@ -23,7 +23,7 @@
                       placeholder={{selectCountry}}>
                     </p-dropdown>
 
-                    <p-dropdown  *ngIf="!isNewCountry"  name="cname" [options]="countryList" optionLabel="name" 
+                    <p-dropdown  *ngIf="!isNewCountry"  name="cname"  optionLabel="name" 
                      [disabled]="!isNewCountry" [showClear]="true" 
                     placeholder={{cou.name}}>>
                     </p-dropdown>
@@ -81,7 +81,7 @@
     
                 <div class="p-field">
                   <label for="AssignSectors">Assign Sectors*</label>
-                  <p-multiSelect name="sectors" #fmodules="ngModel" [options]="sectorList" optionLabel="name"
+                  <p-multiSelect appendTo="body" name="sectors" #fmodules="ngModel" [options]="sectorList" optionLabel="name"
                     [(ngModel)]="selectedSectors" (ngModelChange)="selectmod($event)" [filter]="true"
                     placeholder="Select Sector">
                   </p-multiSelect>
@@ -97,7 +97,7 @@
     
                 <div class="p-field">
                   <label for="AssignSectors">Assign Modules*</label>
-                  <p-multiSelect name="modules" #fmodules="ngModel" [options]="accessmodules" optionLabel="name"
+                  <p-multiSelect appendTo="body" name="modules" #fmodules="ngModel" [options]="accessmodules" optionLabel="name"
                     [(ngModel)]="selectedModules" (ngModelChange)="selectmod($event)" [filter]="true"
                     placeholder="select modules">
                   </p-multiSelect>

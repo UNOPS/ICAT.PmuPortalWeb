@@ -381,7 +381,7 @@ position:string = 'top-right';
         
               });
 
-              await axios.get(this.url)
+              // await axios.get(this.url)
               // this.router.navigate(['/country-registry']);
             });
         }, 1000);
@@ -428,18 +428,25 @@ position:string = 'top-right';
 
         }
 
-
         let countrysectr: CountrySector[] = [];
-        for (let x = 0; x < this.cou.countrysector.length; x++) {
+        for (let x = 0; x < this.selectedSectors.length; x++) {
           console.log("yyyyyy")
           let cst = new CountrySector();
-          cst.sector.id = this.cou.countrysector[x].id;
-          cst.country.id = this.cou.id;
+          let sector =new Sector();
+          let country = new Country();
+
+          sector.id = this.selectedSectors[x].id;
+          country.id =this.cou.id;
+          cst.sector= sector;
+          cst.country= country;
+          let selectoedCountrySector =this.cou.countrysector.find((a)=> a.sectorId==this.selectedSectors[x].id);
+          if(selectoedCountrySector){
+            cst.id =selectoedCountrySector.id;
+          }
           countrysectr.push(cst);
         }
         //////////////////////////// 
         this.cou.countrysector = countrysectr;
-        console.log("edit countryr==", this.cou)
 
         this.serviceProxy.updateOneBaseCountryControllerCountry(this.cou.id, this.cou)
           .subscribe(
@@ -453,7 +460,7 @@ position:string = 'top-right';
               });
               // await axios.get(this.url)
               setTimeout(async () => {
-                await axios.get(this.url)
+                await axios.get(this.url);
                 this.onBackClick();
               },1000)
             },
