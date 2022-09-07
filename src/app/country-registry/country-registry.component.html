@@ -8,6 +8,9 @@
       <!-- <div> {{climateactions|json}} </div> -->
       <div class="row p-2">
         <p-table 
+        p-table
+        #table
+        width="100px"
         [value]="pcountryList" 
         [lazy]="true" 
         (onLazyLoad)="loadCustomers($event)"
@@ -18,7 +21,9 @@
         [rows]="rows" 
         [totalRecords]="totalRecords"
         [loading]="loading"
-
+        [responsive]="true"
+        paginatorDropdownAppendTo="body"      
+        responsiveLayout="scroll"
         >
           <ng-template pTemplate="header">
   
