@@ -199,12 +199,14 @@
               <label for="institution">Assign Institution *</label>
               <p-dropdown
                 name="institution"
+                appendTo="body"
                 [options]="institutions"
                 [(ngModel)]="user.institution"
                 #finstitution="ngModel"
                 [filter]="true"
                 placeholder="Select .."
                 optionLabel="name"
+                [showClear]="true"
                 (ngModelChange)="onChangeInstitutioon($event)"
               ></p-dropdown>
               <p

@@ -41,6 +41,7 @@
     <div class="row p-2">
       <p-table [value]="climateactions" [lazy]="true" (onLazyLoad)="loadgridData($event)" [paginator]="true"
         [rows]="rows" [showCurrentPageReport]="true"
+        paginatorDropdownAppendTo="body"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Entries"
         [rowsPerPageOptions]="[1, 10, 25, 50]" [totalRecords]="totalRecords" [loading]="loading" [responsive]="true">
 

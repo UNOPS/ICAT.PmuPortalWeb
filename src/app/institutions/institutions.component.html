@@ -31,6 +31,7 @@
     <div  class="col-sm-12">
       <p-table  [value]="institutions" [lazy]="true" (onLazyLoad)="loadgridData($event)"
         [paginator]="true" [rows]="rows" [showCurrentPageReport]="true"
+        paginatorDropdownAppendTo="body"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[5, 10, 25, 50]" [totalRecords]="totalRecords" [loading]="loading" [responsive]="true">
         <ng-template pTemplate="header">
