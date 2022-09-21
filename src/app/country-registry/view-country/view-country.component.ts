@@ -205,6 +205,10 @@ export class ViewCountryComponent implements OnInit, AfterViewInit {
               this.selectedModules.push({ id: 4, name: "Data Collection" })
 
             }
+            if (this.cou.dataCollectionGhgModule) {
+              this.selectedModules.push({ id: 5, name: "Data Collection - GHG" })
+
+            }
 
             console.log("selectedModulesxxxxxxxxxxxx====", this.selectedModules)
 

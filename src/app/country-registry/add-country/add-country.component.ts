@@ -48,7 +48,8 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
     { id: 1, name: "Climate Action" },
     { id: 2, name: "GHG Impact" },
     { id: 3, name: "MAC" },
-    { id: 4, name: "Data Collection" }
+    { id: 4, name: "Data Collection" },
+    { id: 5, name: "Data Collection - GHG"  }
   ]
 
   selectedModules: any[] = [];
@@ -194,6 +195,10 @@ position:string = 'top-right';
             }
             if (this.cou.dataCollectionModule) {
               this.selectedModules.push({ id: 4, name: "Data Collection" })
+
+            }
+            if (this.cou.dataCollectionGhgModule) {
+              this.selectedModules.push({ id: 5, name: "Data Collection - GHG" })
 
             }
 
@@ -351,6 +356,12 @@ position:string = 'top-right';
         else if (!this.arr.includes(4)) {
           this.cou.dataCollectionModule = false;
         }
+        if (this.arr.includes(5)) {
+          this.cou.dataCollectionGhgModule = true;
+        }
+        else if (!this.arr.includes(5)) {
+          this.cou.dataCollectionGhgModule = false;
+        }
 
         /////////////////////////
 
@@ -425,6 +436,13 @@ position:string = 'top-right';
         }
         else if (!this.arr.includes(4)) {
           this.cou.dataCollectionModule = false;
+
+        }
+        if (this.arr.includes(5)) {
+          this.cou.dataCollectionGhgModule = true;
+        }
+        else if (!this.arr.includes(5)) {
+          this.cou.dataCollectionGhgModule = false;
 
         }
 
