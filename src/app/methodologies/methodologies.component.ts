@@ -172,17 +172,10 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
   };
 
   async updateMethodologyStatus(meth: Methodology, aprovalStatus: number) {
-
-
     let url = environment.baseSyncAPI + '/methodology';
-    // let status = this.projectApprovalStatus.find((a) => a.id === aprovalStatus);
-    // project.status =
-    //   status === undefined ? (null as any) : status;
-    if (aprovalStatus === 1) {
-     
-      console.log("xxxxxxxxxxx" + meth.id, aprovalStatus);
+    if (aprovalStatus === 1) {     
+      console.log("xxxxxxxxxxx" , meth.countryId, aprovalStatus);
       await this.confirmationService.confirm({
-
         message:
           'Are you sure to activate' +
           ' ?',
@@ -195,8 +188,15 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
         reject: () => {}
       });
 
+      if(meth.countryId.isSingleCountry==1){
+        let ur = meth.countryId.domain +"/sync-api/singlemethodology?id=" +meth.countryId.id
+        console.log("******20",ur)
+        await axios.get(ur);
+      }
+      else{
+        await axios.get(url)
+      }
 
-      await axios.get(url)
     }
     else if (aprovalStatus === 2) {
       await this.confirmationService.confirm({
@@ -212,10 +212,24 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
         },
         reject: () => {}
       });;
-      await axios.get(url)
+      if(meth.countryId.isSingleCountry==1){
+        let ur = meth.countryId.domain +"/sync-api/singlemethodology?id=" +meth.countryId.id
+        console.log("******20",ur)
+        await axios.get(ur);
+      }
+      else{
+        await axios.get(url)
+      }
       // this.overlay.hide();
     }
-    await axios.get(url)
+    if(meth.countryId.isSingleCountry==1){
+      let ur = meth.countryId.domain +"/sync-api/singlemethodology?id=" +meth.countryId.id
+      console.log("******20",ur)
+      await axios.get(ur);
+    }
+    else{
+      await axios.get(url)
+    }
   }
 
   async updateStatus(meth: Methodology, aprovalStatus: number) {
@@ -237,7 +251,14 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
                 : 'Data request sent successfully.',
             closable: true,
           });
-          await axios.get(url)
+          if(meth.countryId.isSingleCountry==1){
+            let ur = meth.countryId.domain +"/sync-api/singlemethodology?id=" +meth.countryId.id
+            console.log("******20",ur)
+            await axios.get(ur);
+          }
+          else{
+            await axios.get(url)
+          }
         },
         (err) => {
           this.messageService.add({

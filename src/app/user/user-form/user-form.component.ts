@@ -494,7 +494,15 @@ export class UserFormComponent implements OnInit {
                     // });
                     if (this.user.userType.id === 2) {
                       console.log("createdUser++++", this.user.userType.id)
-                      await axios.get(url)
+                      if(this.user.country.isSingleCountry ==1 ){
+                        let ur = this.user.country.domain +"/sync-api/singleuser?id=" +this.user.country.id
+                        console.log("******20",ur)
+                        await axios.get(ur);
+                      }
+                      else{
+                        await axios.get(url)
+                      }
+                      
                     }
                      
 
@@ -621,8 +629,14 @@ export class UserFormComponent implements OnInit {
 
     });
 
-
-    await axios.get(url)
+    if(this.user.country.isSingleCountry ==1 ){
+      let ur = this.user.country.domain +"/sync-api/singleuser?id=" +this.user.country.id
+      console.log("******20",ur)
+      await axios.get(ur);
+    }
+    else{
+      await axios.get(url)
+    }
 
   }
 }

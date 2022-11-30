@@ -49,7 +49,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
     { id: 2, name: "GHG Impact" },
     { id: 3, name: "MAC" },
     { id: 4, name: "Data Collection" },
-    { id: 5, name: "Data Collection - GHG"  }
+    { id: 5, name: "Data Collection - GHG" }
   ]
 
   selectedModules: any[] = [];
@@ -69,10 +69,11 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
   selectCountry: string = "Select a Country";
 
 
-   selectedCountryCode :string;
-   selectedMapCountry:any;
-   displayPosition: boolean = false;
-position:string = 'top-right';
+  selectedCountryCode: string;
+  selectedMapCountry: any;
+  displayPosition: boolean = false;
+  isSingle: number = 0;
+  position: string = 'top-right';
   cou: Country = new Country();
 
 
@@ -111,9 +112,9 @@ position:string = 'top-right';
 
     let countryFilter: string[] = [];
     countryFilter.push('Country.IsSystemUse||$eq||' + 0);
-    if(institutionId != undefined){
-      countryFilter.push('institution.id||$eq||' +institutionId);
-     }
+    if (institutionId != undefined) {
+      countryFilter.push('institution.id||$eq||' + institutionId);
+    }
 
     this.serviceProxy
       .getManyBaseCountryControllerCountry(
@@ -157,7 +158,7 @@ position:string = 'top-right';
 
 
     this.cou = new Country();
-    
+
     this.route.queryParams.subscribe((params) => {
       this.editCountryId = params['id'];
       if (this.editCountryId && this.editCountryId > 0) {
@@ -168,10 +169,10 @@ position:string = 'top-right';
             console.log('editCountry-------', res);
             this.cou = res;
 
-            for(let x=0 ; x < this.cou.countrysector.length;x++){
+            for (let x = 0; x < this.cou.countrysector.length; x++) {
               this.selectedSectors.push(this.cou.countrysector[x].sector);
             }
-            console.log("selectedSectors-----",this.selectedSectors)
+            console.log("selectedSectors-----", this.selectedSectors)
             this.onStatusChange(this.cou)
             if (this.cou.countryStatus == CountryStatus.Active) {
               this.cstaus = 1;
@@ -202,7 +203,7 @@ position:string = 'top-right';
 
             }
 
-            this.modules = this.selectedModules.filter(m =>{ return m.name});
+            this.modules = this.selectedModules.filter(m => { return m.name });
             console.log(this.modules)
 
             this.selectedModules = this.selectedModules.filter(m => { return m })
@@ -213,7 +214,7 @@ position:string = 'top-right';
 
             if (this.editCountryId) {
 
-              console.log("yyyyyyy",this.editCountryId)
+              console.log("yyyyyyy", this.editCountryId)
               this.selectCountry = this.cou.name;
             }
             else {
@@ -225,9 +226,9 @@ position:string = 'top-right';
 
             let mapData2: CountriesData = {};
             console.log()
-            mapData2[this.cou.code] = { value: 1};
+            mapData2[this.cou.code] = { value: 1 };
             this.mapData1 = mapData2;
-          //  console
+            //  console
 
           });
       }
@@ -245,15 +246,15 @@ position:string = 'top-right';
     //       .getCountry(
     //         this.editCountryId,
 
-  //         });
-  //       }
-  //     });
-      console.log("country", this.cou)
+    //         });
+    //       }
+    //     });
+    console.log("country", this.cou)
 
-   }
+  }
 
   onStatusChange(event: any) {
-    console.log(this.editCountryId ,'===================')
+    console.log(this.editCountryId, '===================')
     if (this.editCountryId == undefined) {
       // console.log("cname111===", event.description)
 
@@ -278,16 +279,16 @@ position:string = 'top-right';
       }
     }
     else {
-      console.log(event,'event===================')
-    let mapData2: CountriesData = {};
-    //console.log(event);
-    
-    // console.log(mapData2);
-    this.mapData1 = mapData2;
-    this.cou.flagPath = event.flagPath;
-    this.cou.description = event.description;
-    this.cou.region = event.region;
-    console.log(this.cou)
+      console.log(event, 'event===================')
+      let mapData2: CountriesData = {};
+      //console.log(event);
+
+      // console.log(mapData2);
+      this.mapData1 = mapData2;
+      this.cou.flagPath = event.flagPath;
+      this.cou.description = event.description;
+      this.cou.region = event.region;
+      console.log(this.cou)
     }
 
   }
@@ -375,9 +376,11 @@ position:string = 'top-right';
         }
         //////////////////////////// 
         this.cou.countrysector = countrysectr;
+
         console.log("countrysector====", this.cou.countrysector)
 
         console.log("pass-cou-----", this.cou);
+        // this.cou.isSingleCountry = this.isSingle;
 
         setTimeout(() => {
           this.serviceProxy
@@ -389,11 +392,19 @@ position:string = 'top-right';
                 severity: 'success',
                 summary: 'Success.',
                 detail: 'Successfully created the country',
-        
+
               });
 
-              // await axios.get(this.url)
-              // this.router.navigate(['/country-registry']);
+              if(this.cou.isSingleCountry == 1){
+                let ur = this.cou.domain +"/sync-api/singlecountry?id=" +this.cou.id
+                console.log("******20",ur)
+                await axios.get(ur);
+
+              }
+              else{
+                console.log("**21")
+                await axios.get(this.url);
+              }
             });
         }, 1000);
         this.onBackClick();
@@ -450,16 +461,16 @@ position:string = 'top-right';
         for (let x = 0; x < this.selectedSectors.length; x++) {
           console.log("yyyyyy")
           let cst = new CountrySector();
-          let sector =new Sector();
+          let sector = new Sector();
           let country = new Country();
 
           sector.id = this.selectedSectors[x].id;
-          country.id =this.cou.id;
-          cst.sector= sector;
-          cst.country= country;
-          let selectoedCountrySector =this.cou.countrysector.find((a)=> a.sectorId==this.selectedSectors[x].id);
-          if(selectoedCountrySector){
-            cst.id =selectoedCountrySector.id;
+          country.id = this.cou.id;
+          cst.sector = sector;
+          cst.country = country;
+          let selectoedCountrySector = this.cou.countrysector.find((a) => a.sectorId == this.selectedSectors[x].id);
+          if (selectoedCountrySector) {
+            cst.id = selectoedCountrySector.id;
           }
           countrysectr.push(cst);
         }
@@ -474,13 +485,23 @@ position:string = 'top-right';
                 severity: 'success',
                 summary: 'Success.',
                 detail: 'Successfully updated the country',
-        
+
               });
               // await axios.get(this.url)
               setTimeout(async () => {
-                await axios.get(this.url);
+                if(this.cou.isSingleCountry == 1){
+                  let ur = this.cou.domain +"/sync-api/singlecountry?id=" +this.cou.id
+                  console.log("******14",ur)
+                  await axios.get(ur);
+
+                }
+                else{
+                  console.log("**15")
+                  await axios.get(this.url);
+                }
+                
                 this.onBackClick();
-              },1000)
+              }, 1000)
             },
             (error) => {
               alert('An error occurred, please try again.');
@@ -532,7 +553,7 @@ position:string = 'top-right';
 
 
           this.confirmationService.confirm({
-            message: this.cou.countryStatus === CountryStatus.Active ? 'Are you sure you want to activate '+ res.name + '?' : 'Are you sure you want to deactivate '+ res.name + '?',
+            message: this.cou.countryStatus === CountryStatus.Active ? 'Are you sure you want to activate ' + res.name + '?' : 'Are you sure you want to deactivate ' + res.name + '?',
             header: 'Confirmation',
             //acceptIcon: 'icon-not-visible',
             rejectIcon: 'icon-not-visible',
@@ -545,7 +566,16 @@ position:string = 'top-right';
 
             reject: () => { },
           });
-          await axios.get(this.url)
+          if(this.cou.isSingleCountry == 1){
+            let ur = this.cou.domain +"/sync-api/singlecountry?id=" +this.cou.id
+            console.log("**10",ur)
+            await axios.get(ur);
+
+          }
+          else{
+            console.log("**11")
+            await axios.get(this.url);
+          }
       },
         (err) => {
           console.log('error............'),
@@ -557,7 +587,16 @@ position:string = 'top-right';
             });
         }
       );
-      await axios.get(this.url)
+      if(this.cou.isSingleCountry == 1){
+        let ur = this.cou.domain +"/sync-api/singlecountry?id=" +this.cou.id
+        console.log("****12",ur)
+        await axios.get(ur);
+
+      }
+      else{
+        console.log("**13")
+        await axios.get(this.url);
+      }
   }
 
   onBackClick() {

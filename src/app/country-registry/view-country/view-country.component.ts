@@ -520,7 +520,17 @@ export class ViewCountryComponent implements OnInit, AfterViewInit {
 
             reject: () => { },
           });
-          await axios.get(this.url)
+          if(this.cou.isSingleCountry == 1){
+            let ur = this.cou.domain +"/sync-api/singlecountry?id=" +this.cou.id
+            console.log("******20",ur)
+            await axios.get(ur);
+
+          }
+          else{
+            console.log("**21")
+            await axios.get(this.url);
+          }
+          // await axios.get(this.url)
       },
         (err) => {
           console.log('error............'),

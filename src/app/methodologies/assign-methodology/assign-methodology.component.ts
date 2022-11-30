@@ -222,8 +222,16 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
 
       });
       setTimeout(async () => {
+        if(this.country.isSingleCountry==1){
+          let ur = this.country.domain +"/sync-api/singlemethodology?id=" +this.country.id
+          console.log("******20",ur)
+          await axios.get(ur);
+        }
+        else{
+          await axios.get(url)
+        }
         this.router.navigate(['/methodologies']);
-        await axios.get(url)
+        
       },750)
 
 
