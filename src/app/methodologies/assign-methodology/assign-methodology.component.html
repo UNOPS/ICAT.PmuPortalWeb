@@ -1,0 +1,92 @@
+<div class="container pl-20 pr-20">
+    <div class="mb-12">
+        <h4 style="color: blue"> Assign methodologies</h4>
+    </div>
+
+    <form #meth="ngForm" (ngSubmit)="saveMethod(meth)" novalidate>
+        <div class="card">
+            <div class="p-grid p-fluid col-md-9 col-sm-12">
+                <div class="row p-2">
+                    <div class="col-12 col-md-8">
+                        <div class="p-field">
+                            <label for="country">Country *</label>
+                            <p-dropdown name="cname" appendTo="body" [options]="countryList" optionLabel="name"
+                                [showClear]="true" [(ngModel)]="country" #instype="ngModel" placeholder="Select .."
+                                (ngModelChange)="selectCoun($event)">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-grid p-fluid col-md-9 col-sm-12">
+                <div class="row p-2">
+                    <div class="col-12 col-md-8">
+                        <div class="p-field">
+                            <label for="sector">Sector *</label>
+                            <p-dropdown name="sector" appendTo="body" [options]="selectedSectors" optionLabel="name"
+                                placeholder="Select .." [(ngModel)]="sector" [showClear]="true" #sec="ngModel"
+                                (ngModelChange)="selectMeth($event)">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <div class="card">
+        <div class="p-grid p-fluid col-sm-12">
+            <div class="p-2">
+                <h6>Methodologies</h6>
+            </div>
+            <div class="row p-2">
+                <div class="col-12 col-md-6">
+                    <div class="p-field">
+                        <label for="nameClimate">Select Methodologie(s) *</label>
+                        <p-listbox [options]="methodologyList" [(ngModel)]="selectedMethodSelected"
+                            [metaKeySelection]="false" optionLabel="displayName" [checkbox]="true" [filter]="true"
+                            [multiple]="true" [listStyle]="{ 'max-height': '350px' }">
+                            <ng-template let-group pTemplate="group">
+                                <div class="p-d-flex p-ai-center">
+                                    <span>{{ group.label }}</span>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="p-field">
+                        <label for="nameClimate">Selected Methodologie(s)</label>
+                        <p-listbox [options]="selectedMethodSelected" [(ngModel)]="selectedMethodSelected"
+                            [metaKeySelection]="false" optionLabel="displayName" [filter]="true" [multiple]="true"
+                            [readonly]="true" [listStyle]="{ 'max-height': '350px' }">
+                            <ng-template let-group pTemplate="group">
+                                <div class="p-d-flex p-ai-center">
+                                    <span>{{ group.label }}</span>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row-reverse mt-2 mb-2">
+
+            <button class="mr-10" pRipple pButton type="button" style=" margin-left: 1%;" label="BACK"
+                (click)="onBackClick()">
+            </button>
+
+            <button class="mr-10" pRipple pButton type="button" style=" margin-right: 1%;" label="SAVE"
+                (click)="saveClick()">
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<p-toast position="top-right"></p-toast>

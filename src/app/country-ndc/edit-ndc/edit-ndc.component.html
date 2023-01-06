@@ -1,0 +1,120 @@
+<div class="row p-2">
+  <div id="d" style="float: left; width: 50%">
+    <label style="color: blue" disabled="active">Name of the NDC</label><br />
+    <input
+      type="text"
+      class="p-inputtext"
+      pInputText
+      [(ngModel)]="ndcname"
+      style="width: 100%"
+      [disabled]="ndceditname"
+    />
+  </div>
+  <div style="float: right; width: 50%">
+    <div>
+      <p-table [value]="data">
+        <ng-template pTemplate="body" let-rowData let-data>
+          <tr>
+            <td>
+              <input
+                type="text"
+                class="p-inputtext"
+                [(ngModel)]="data.name"
+                pInputText
+                placeholder="Add new Sub NDC"
+                style="width: 100%"
+              /><br />
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <!-- <label style="color: blue">Sub NdC {{i+1}}</label><br>
+        <input type="text" class="p-inputtext" pInputText  [(ngModel)]="data[i].name" style = "width:100%"/>  <br>    -->
+    </div>
+
+    <button
+      class="fas fa-plus"
+      (click)="addsub()"
+      pButton
+      type="button"
+      style="
+        background-color: #c6cfd7;
+        border-color: transparent;
+        margin-right: 1%;
+      "
+    >
+      <i class="pi pi-plus" style="font-size: 1rem; color: #000"></i>
+    </button>
+
+    <button
+      class="fas fa-minus"
+      (click)="deletesub()"
+      pButton
+      type="button"
+      style="
+        background-color: #c6cfd7;
+        border-color: transparent;
+        margin-left: 2%;
+      "
+    >
+      <i class="pi pi-minus" style="font-size: 1rem; color: #000"></i>
+    </button>
+  </div>
+  <div>
+    <p-dialog [(visible)]="visibility2" (onHide)="test()">
+      Deleted Successfully!!
+    </p-dialog>
+  </div>
+  <div>
+    <p-dialog [(visible)]="visibility5" (onHide)="test()">
+      Deactivated Successfully!!
+    </p-dialog>
+  </div>
+
+  <div
+    class="col-sm-2"
+    style="
+      background-color: transparent;
+      bottom: 0px;
+      right: 0px;
+      position: fixed;
+    "
+  >
+    <button
+      pRipple
+      pButton
+      type="button"
+      (click)="Back()"
+      label="Back"
+      style="margin-right: 1%"
+    ></button>
+    <button
+      pRipple
+      pButton
+      type="button"
+      (click)="save()"
+      label="Save"
+      style="margin-left: 2%"
+    ></button>
+    <button
+      pRipple
+      pButton
+      type="button"
+      (click)="deletendc()"
+      style="margin-left: 2%; background-color: red"
+    >
+      {{ Deactivate }}
+    </button>
+  </div>
+  <div>
+    <p-dialog [(visible)]="visibility1">
+      removed sub ndc Successfully!!
+    </p-dialog>
+  </div>
+  <div>
+    <p-dialog [(visible)]="visibility3" (onHide)="test()">
+      Saved NDC Successfully!!
+    </p-dialog>
+  </div>
+</div>

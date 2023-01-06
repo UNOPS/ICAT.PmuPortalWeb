@@ -1,0 +1,184 @@
+<div class="container pl-20 pr-20">
+    <h4 class="mt-4">Add Sectors</h4>
+    <p-toast></p-toast>
+   <div class="p-grid p-fluid col-sm-12">  
+    <div class="p-grid p-fluid card">
+      <div class="row p-2 mt-4">
+          <div class="col-12 col-md-3">
+            
+              <div>
+                <label for="projectownership">Sector Name</label>
+              </div>
+            </div>
+          
+            <div class="col-12 col-md-7">
+              <div>
+                <input
+                type="text"
+                name="sector name"
+                class="p-inputtext"
+                [(ngModel)]="typedSector"
+                
+               
+                pInputText
+              />
+
+              </div>
+            </div>
+      </div>
+
+
+      <div class="row p-2 ">
+          <div class="col-12 col-md-3">
+              <div>
+                <label for="ndc">Description</label>
+              </div>
+            </div>
+            <div class="col-12 col-md-7">
+              <div>
+                
+                <textarea rows="5" name="sector"  [(ngModel)]="typedSectorDescription" cols="30" pInputTextarea autoResize="autoResize"></textarea>
+                  
+                <!--  <p>{{slectedProject.ndc?.name}}</p> -->
+              </div>
+            </div>
+      </div>
+
+      <div class="row p-2 ">
+        
+       </div>
+       <div class="row p-2 ">
+        
+       </div>
+
+
+
+
+    <ng-container *ngIf="hasSubSector == true">
+
+        <div class="row p-2 ">
+            <div class="col-12 col-md-3">
+                <div>
+                  
+                </div>
+              </div>
+              <div class="col-12 col-md-7">
+                <div>
+                  <h6>Sub Sector for {{typedSector}}</h6>
+                <!--  <p>{{slectedProject.subNdc?.name}}</p> -->
+                </div>
+              </div>
+        </div>
+
+      <div class="row p-2 ">
+          <div class="col-12 col-md-3">
+              <div>
+                <label for="projectownership">Sub Sector Name</label>  
+              </div>
+            </div>
+            <div class="col-12 col-md-7">
+              <div>
+                <input
+                type="text"
+                name="subsector"
+                class="p-inputtext"
+                [(ngModel)]="typedSubSector"
+               
+                pInputText
+              />
+              <!--  <p>{{slectedProject.subNdc?.name}}</p> -->
+              </div>
+            </div>
+      </div>
+      
+      <div class="row p-2 ">
+        <div class="col-12 col-md-3">
+            <div>
+              <label for="subsector">Description</label>
+            </div>
+          </div>
+          <div class="col-12 col-md-7">
+            <div>
+              
+              <textarea rows="5" name="subsector"  [(ngModel)]="typedSubSectorDescription" cols="30" pInputTextarea autoResize="autoResize"></textarea>
+                
+              <!--  <p>{{slectedProject.ndc?.name}}</p> -->
+            </div>
+          </div>
+         
+       </div>
+
+       <div class="row p-2 ">
+        <div class="col-12 col-md-3">
+            <div>
+              
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div>
+              
+                <button 
+                pButton pRipple type="button" 
+                label="Add a Sub Sector" 
+                class="p-button-info"  
+                (click)="addSubsSectors()"
+               
+                ></button>
+              <!--  <p>{{slectedProject.ndc?.name}}</p> -->
+            </div>
+          </div>
+         
+       </div>
+        
+   </ng-container>   
+        
+
+  
+        <div class="row p-2 ">
+          
+          <div class="col-12 col-md-2">
+              <p><b>Add Sub Sectors</b></p>
+            <button 
+            class="ml-4"
+            type="button"
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            styleClass="p-button-warn"
+            (click)="addSubSector()"
+            [disabled] = "typedSector.length==0 ||  typedSectorDescription.length ==0"
+            ></button>
+          </div>
+          <div class="col-12 col-md-2"> 
+          </div>
+           
+          
+        </div>
+
+
+        <div class="row p-2 ">
+            <div class="col-12 col-md-2">
+            </div>
+            <div class="col-12 col-md-2">    
+            </div>
+            <div class="col-12 col-md-2">
+              <button 
+              pButton pRipple type="button" 
+              label="Save" 
+              class="p-button-info" 
+              (click)="sendData()"
+              ></button>
+            </div>
+            <div class="col-12 col-md-2"> 
+              
+            </div>
+             
+            
+          </div>
+    
+    
+    </div>
+    
+    </div>
+</div>    
+    
