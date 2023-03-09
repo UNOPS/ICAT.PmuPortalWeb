@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 //import { NgImageSliderModule } from 'ng-image-slider';
-import {PaginatorModule} from 'primeng/paginator';
-import {ToggleButtonModule} from 'primeng/togglebutton';
+import { PaginatorModule } from 'primeng/paginator';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,7 +46,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { CarouselModule } from 'primeng/carousel';
 // import { ProposeProjectComponent } from './propose-project/propose-project.component';
 import { ViewCountryComponent } from './country-profile/view-country/view-country.component';
-import {ScrollPanelModule} from 'primeng/scrollpanel';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { environment } from '../environments/environment';
 import { CountryNdcComponent } from './country-ndc/country-ndc.component';
 import {
@@ -62,7 +62,7 @@ import {
   AuditControllerServiceProxy,
   SectorControllerServiceProxy,
   CountryControllerServiceProxy,
-  // AssesmentControllerServiceProxy,
+  // AssessmentControllerServiceProxy,
 } from 'shared/service-proxies/service-proxies';
 import { HttpClient } from '@angular/common/http';
 import { ProjectInformationComponent } from './climate-action/project-information/project-information.component';
@@ -99,7 +99,6 @@ import {
   NbPositionBuilderService,
   NbSidebarModule,
   NbThemeModule,
-  
   NbToastrModule,
   NbToastrService,
   NbLayoutModule,
@@ -160,7 +159,7 @@ export function getRemoteServiceBaseUrl(): string {
     SectorComponent,
     AddSectorComponent,
     AssignMethodologyComponent,
-  
+
     // ResultComponent,
     // ProposedResultComponent,
     // ActiveResultComponent,
@@ -169,10 +168,8 @@ export function getRemoteServiceBaseUrl(): string {
     // FuelParameterComponent,
     // PowerPlantParameterComponent,
     // AllResultComponent,
-    
   ],
   imports: [
-
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -223,7 +220,7 @@ export function getRemoteServiceBaseUrl(): string {
     NbEvaIconsModule,
     CountriesMapModule,
     CarouselModule,
-    ScrollPanelModule
+    ScrollPanelModule,
   ],
   providers: [
     LoginLayoutService,
@@ -240,7 +237,7 @@ export function getRemoteServiceBaseUrl(): string {
     AuditControllerServiceProxy,
     SectorControllerServiceProxy,
     CountryControllerServiceProxy,
-    // AssesmentControllerServiceProxy,
+    // AssessmentControllerServiceProxy,
     RoleGuardService,
     SharedDataService,
 
