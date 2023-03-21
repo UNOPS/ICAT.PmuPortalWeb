@@ -9,10 +9,7 @@ import { CountriesMapModule } from 'countries-map';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-import {MessagesModule} from 'primeng/messages';
-
-
-
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [DashboardComponent, IaDashboardComponent],
@@ -26,9 +23,6 @@ import {MessagesModule} from 'primeng/messages';
     DropdownModule,
     FormsModule,
     MessagesModule,
-   
-  ]
+  ],
 })
-export class DashboardModule { 
-  
-}
+export class DashboardModule {}
