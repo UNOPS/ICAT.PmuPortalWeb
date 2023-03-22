@@ -3,10 +3,10 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "http://localhost:7081/api-json",
+      "url": "http://localhost:8083/api-json",
       "output": null
     }
-  },
+  },s
   "codeGenerators": {
     "openApiToTypeScriptClient": {
       "className": "{controller}ServiceProxy",

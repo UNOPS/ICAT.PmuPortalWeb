@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "icat.pmuportalweb",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -27,7 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
     "axios": "^0.26.1",
     "bootstrap": "^5.1.3",
-    "chart.js": "^3.7.0",
+    "chart.js": "^3.9.1",
     "countries-map": "^4.2.4",
     "eva-icons": "^1.1.2",
     "google-maps": "^4.3.3",
@@ -42,7 +42,6 @@
     "primeicons": "^5.0.0",
     "primeng": "^13.4.1",
     "rxjs": "6.6.7",
-    "token-interceptor": "^1.1.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

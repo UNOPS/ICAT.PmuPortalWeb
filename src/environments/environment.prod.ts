@@ -1,10 +1,12 @@
 export const environment = {
   production: true,
-  baseUrlAPI: 'https://icat-ca-tool.climatesi.com/pmu-api',
+  baseUrlAPI: 'https://icat-pmuportalservice-qa-2sshj5de3a-ey.a.run.app',
   baseUrlAPIDocUploadAPI:
-    'https://icat-ca-tool.climatesi.com/pmu-api/document/upload2',
+    'https://icat-pmuportalservice-qa-2sshj5de3a-ey.a.run.app/document/upload2',
   baseUrlAPIDocdownloadAPI:
-    'https://icat-ca-tool.climatesi.com/pmu-api/document/downloadDocument',
-  baseSyncAPI: 'https://icat-ca-tool.climatesi.com/sync-api',
-  baseUrlCountryAPI: 'https://icat-ca-tool.climatesi.com/web-api',
+    'https://icat-pmuportalservice-qa-2sshj5de3a-ey.a.run.app/document/downloadDocument',
+  baseSyncAPI: 'https://icat-pmuscheduler-qa-2sshj5de3a-ey.a.run.app',
+  baseUrlCountryAPI: 'https://icat-countryportalservice-qa-2sshj5de3a-ey.a.run.app',
+  countryServiceUrl: 'http://localhost:8083/country-profile',
+  countryWebUrl: 'https://icat-countryportalweb-qa-2sshj5de3a-ey.a.run.app/landing-page',
 };

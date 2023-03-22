@@ -5,6 +5,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { RoleGuardService } from './auth/role-guard.service';
 import decode from 'jwt-decode';
 import { SharedDataService } from 'shared/shared-data-services';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent {
   fname: any;
   urole: any;
   lname: any;
+  environment = environment;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
