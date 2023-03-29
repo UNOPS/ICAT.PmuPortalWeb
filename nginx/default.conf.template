@@ -1,10 +1,9 @@
 server {
-    listen       VAR_PORT;
-    server_name  localhost;
-
-    root   /usr/share/nginx/html;
-
-    location / {
-        try_files $uri $uri/ /index.html =404;
+   # caching
+   location ~* \.(jpg|jpeg|png|gif|ico)$ {
+       expires 20d;
+    }
+    location ~* \.(css|js)$ {
+       expires 5d;
     }
 }
