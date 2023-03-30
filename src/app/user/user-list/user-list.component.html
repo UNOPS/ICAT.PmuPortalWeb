@@ -4,13 +4,7 @@
     <div class="row">
       <div class="col-4">
         <div
-          class="
-            d-flex
-            justify-content-start
-            align-content-center
-            flex-wrap
-            mb-15
-          "
+          class="d-flex justify-content-start align-content-center flex-wrap mb-15"
         >
           <div class="col-4 d-flex align-items-center">
             <label class="font-weight-bold">First Name</label>
@@ -30,13 +24,7 @@
 
       <div class="col-4">
         <div
-          class="
-            d-flex
-            justify-content-start
-            align-content-center
-            flex-wrap
-            mb-15
-          "
+          class="d-flex justify-content-start align-content-center flex-wrap mb-15"
         >
           <div class="col-4 d-flex align-items-center">
             <label class="font-weight-bold">Last Name</label>
@@ -56,13 +44,7 @@
 
       <div class="col-4">
         <div
-          class="
-            d-flex
-            justify-content-start
-            align-content-center
-            flex-wrap
-            mb-15
-          "
+          class="d-flex justify-content-start align-content-center flex-wrap mb-15"
         >
           <div class="col-4 d-flex align-items-center">
             <label class="font-weight-bold">Email</label>
@@ -76,7 +58,6 @@
               placeholder="search by email"
               (keydown)="onKeydown($event)"
               (ngModelChange)="onKeydown($event)"
-
             />
           </div>
         </div>
@@ -86,19 +67,12 @@
     <div class="row">
       <div class="col-4">
         <div
-          class="
-            d-flex
-            justify-content-start
-            align-content-center
-            flex-wrap
-            mb-15
-          "
+          class="d-flex justify-content-start align-content-center flex-wrap mb-15"
         >
           <div class="col-4 d-flex align-items-center">
             <label class="font-weight-bold">User Type</label>
           </div>
           <div class="col-8">
-            <!-- {{user.userType | json}} -->
             <p-dropdown
               [options]="userTypes"
               name="usertype"
@@ -110,20 +84,13 @@
               (ngModelChange)="onKeydown($event)"
             >
             </p-dropdown>
-            <!-- {{fut.errors | json}} {{fLogin.errors | json}} -->
           </div>
         </div>
       </div>
 
       <div class="col-4" *ngIf="!['PMU Admin', 'PMU User'].includes(userrole)">
         <div
-          class="
-            d-flex
-            justify-content-start
-            align-content-center
-            flex-wrap
-            mb-15
-          "
+          class="d-flex justify-content-start align-content-center flex-wrap mb-15"
         >
           <div class="col-4 d-flex align-items-center">
             <label class="font-weight-bold">Institution</label>
@@ -139,23 +106,15 @@
               [showClear]="true"
               (keydown)="onKeydown($event)"
               (ngModelChange)="onKeydown($event)"
-
             >
             </p-dropdown>
           </div>
         </div>
       </div>
 
-
       <div class="col-4">
         <div
-          class="
-            d-flex
-            justify-content-start
-            align-content-center
-            flex-wrap
-            mb-15
-          "
+          class="d-flex justify-content-start align-content-center flex-wrap mb-15"
         >
           <div class="col-4 d-flex align-items-center">
             <label class="font-weight-bold">Country</label>
@@ -171,7 +130,6 @@
               [showClear]="true"
               (keydown)="onKeydown($event)"
               (ngModelChange)="onKeydown($event)"
-
             >
             </p-dropdown>
           </div>
@@ -180,26 +138,9 @@
 
       <div class="col-4">
         <div
-          class="
-            d-flex
-            justify-content-start
-            align-content-center
-            flex-wrap
-            mb-15
-          "
+          class="d-flex justify-content-start align-content-center flex-wrap mb-15"
         >
-          <div class="col-2">
-            <!-- <div>
-              <button
-                type="button"
-                (click)="searchGain()"
-                pButton
-                pRipple
-                icon="pi pi-search"
-                styleClass="p-button-warn"
-              ></button>
-            </div> -->
-          </div>
+          <div class="col-2"></div>
         </div>
       </div>
     </div>
@@ -244,7 +185,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-customer>
         <tr>
-          <td class ="pointer">
+          <td class="pointer">
             <i
               class="pi pi-pencil"
               style="font-size: 1.5rem; color: #000; margin-left: 17%"
@@ -260,18 +201,15 @@
             pTooltip="{{ customer.institution.name }}"
             tooltipPosition="top"
             class="tbl-cell-description"
-            *ngIf= "customer.institution != undefined; else loggedOut"
+            *ngIf="customer.institution !== undefined; else loggedOut"
           >
-            {{  customer.institution?.name }}
+            {{ customer.institution?.name }}
           </td>
-          <!--hhhh-->
           <ng-template #loggedOut>
             <td>
-            {{ customer.country?.name }}
+              {{ customer.country?.name }}
             </td>
           </ng-template>
-          
-          <!--hhhh-->
 
           <td>{{ customer.telephone }}</td>
           <td>{{ customer.mobile }}</td>

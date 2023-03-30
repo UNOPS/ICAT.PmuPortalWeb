@@ -8,9 +8,8 @@ describe('CountryRegistryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CountryRegistryComponent ]
-    })
-    .compileComponents();
+      declarations: [CountryRegistryComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

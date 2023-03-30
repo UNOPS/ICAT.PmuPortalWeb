@@ -1,0 +1,9 @@
+server {
+   # caching
+   location ~* \.(jpg|jpeg|png|gif|ico)$ {
+       expires 20d;
+    }
+    location ~* \.(css|js)$ {
+       expires 5d;
+    }
+}

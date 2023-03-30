@@ -19,21 +19,21 @@ import { Chart } from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
   basicData: any;
-  horizontalOptions: any; //{ indexAxis: string; plugins: { legend: { labels: { color: string; }; }; }; scales: { x: { ticks: { color: string; }; grid: { color: string; }; }; y: { ticks: { color: string; }; grid: { color: string; }; }; }; };
+  horizontalOptions: any;
   options: any;
-  displayPosition: boolean = false;
+  displayPosition = false;
 
   overlays: any[];
   mapData1: CountriesData = {};
   mapData2: CountriesData = {};
-  src: string = '';
+  src = '';
   coun: Country;
-  src1: string = '';
+  src1 = '';
 
-  isusemeth: boolean = true;
-  isuse: boolean = true;
+  isusemeth = true;
+  isuse = true;
 
-  position: string = 'top-right';
+  position = 'top-right';
   selectedCountryCode: string;
   selectedMapCountry: any;
 
@@ -59,9 +59,7 @@ export class DashboardComponent implements OnInit {
 
     const token = localStorage.getItem('access_token')!;
     const tokenPayload = decode<any>(token);
-    let institutionId = tokenPayload.institutionId;
-
-    console.log('institutionId==', institutionId);
+    const institutionId = tokenPayload.institutionId;
 
     this.horizontalOptions = {
       indexAxis: 'y',
@@ -92,39 +90,10 @@ export class DashboardComponent implements OnInit {
       },
     };
 
-    // this.horizontalOptions = {
-    //   indexAxis: 'x',
-    //   plugins: {
-    //     legend: {
-    //       labels: {
-    //         color: '#495057'
-    //       }
-    //     }
-    //   },
-    //   scales: {
-    //     x: {
-    //       ticks: {
-    //         color: '#495057'
-    //       },
-    //       grid: {
-    //         color: '#ebedef'
-    //       }
-    //     },
-    //     y: {
-    //       ticks: {
-    //         color: '#495057'
-    //       },
-    //       grid: {
-    //         color: '#ebedef'
-    //       }
-    //     }
-    //   }
-    // };
-
     this.getUserUsageChart(0);
     this.getMethologyUsageChart(0);
 
-    let filter: string[] = new Array();
+    const filter: string[] = [];
     filter.push('isSystemUse||$eq||' + 1);
     if (institutionId) {
       filter.push('institution.id||$eq||' + institutionId);
@@ -140,18 +109,14 @@ export class DashboardComponent implements OnInit {
         1000,
         0,
         0,
-        0
+        0,
       )
       .subscribe((res) => {
         this.countryList = res.data;
-        console.log('country-list====', this.countryList);
-        let count = 0;
-        for (let c of res.data) {
-          this.src1 = c.flagPath;
-          //   this.mapData1 = {
 
-          //       [c.code] : {value : 1, extra : {'sectorname': 'Transport', 'registeredDate' : String([c.createdOn])}}
-          //   }
+        let count = 0;
+        for (const c of res.data) {
+          this.src1 = c.flagPath;
 
           this.mapData2[c.code] = { value: 1 };
 
@@ -159,7 +124,7 @@ export class DashboardComponent implements OnInit {
         }
 
         let countmem = 0;
-        let filternew1: string[] = new Array();
+        const filternew1: string[] = [];
 
         filternew1.push('isMember||$eq||' + 1);
         this.serviceproxy
@@ -173,12 +138,12 @@ export class DashboardComponent implements OnInit {
             1000,
             0,
             0,
-            0
+            0,
           )
           .subscribe((res) => {
             countmem = res.data.length;
             this.res(countmem);
-            console.log('resss', countmem);
+
             this.basicData = {
               labels: [''],
               datasets: [
@@ -196,10 +161,10 @@ export class DashboardComponent implements OnInit {
             };
           });
 
-        let membercount = this.isMemberCount();
+        const membercount = this.isMemberCount();
         this.mapData1 = this.mapData2;
       });
-    let filter1: string[] = new Array();
+    const filter1: string[] = [];
     filter1.push('isSystemUse||$eq||' + 1);
     this.serviceproxy
       .getManyBaseCountryControllerCountry(
@@ -212,30 +177,26 @@ export class DashboardComponent implements OnInit {
         1000,
         0,
         0,
-        0
+        0,
       )
       .subscribe((res) => {
-        console.log('res333333', res);
         this.countries = res.data;
       });
   }
 
   getUserUsageChart(countryId: number): void {
-    let chart_url =
+    const chart_url =
       environment.baseUrlCountryAPI + `/audit/userCount?countryId=${countryId}`;
-    console.log('chart_url', chart_url);
-    this.http.get<any[]>(chart_url).subscribe((res) => {
-      console.log('res=====', res);
-      // this.userChartData = res;
 
+    this.http.get<any[]>(chart_url).subscribe((res) => {
       if (res.length > 0) {
         this.isuse = false;
       } else {
         this.isuse = true;
       }
 
-      let labels: any[] = [];
-      let data: any[] = [];
+      const labels: any[] = [];
+      const data: any[] = [];
       res.map((a) => {
         labels.push(a.au_userType);
         data.push(a.data);
@@ -267,14 +228,13 @@ export class DashboardComponent implements OnInit {
   }
 
   getMethologyUsageChart(countryId: number): void {
-    let chart_url =
+    const chart_url =
       environment.baseUrlCountryAPI +
       `/assessment/methologyCount?countryId=${countryId}`;
-    console.log('countryId', countryId);
+
     this.http.get<any[]>(chart_url).subscribe((res) => {
-      console.log('res', res);
-      let labels: any[] = [];
-      let data: any[] = [];
+      const labels: any[] = [];
+      const data: any[] = [];
 
       if (res.length > 0) {
         this.isusemeth = false;
@@ -282,9 +242,6 @@ export class DashboardComponent implements OnInit {
         this.isusemeth = true;
       }
       res.map((a) => {
-        // if(a.name.length >10){
-        //   a.name = a.name.substring(0,20)+"..."
-        // }
         labels.push(a.name);
         data.push(a.data);
       });
@@ -315,20 +272,16 @@ export class DashboardComponent implements OnInit {
       this.methologychartOptions = {
         plugins: {
           legend: {
-            // display:false,
-            // align:'start',
             labels: {
-              // color: 'rgb(255, 99, 132)',
               generateLabels: function (chart: any) {
-                console.log('work', chart);
-                var data = chart.data;
+                const data = chart.data;
                 if (data.labels.length && data.datasets.length) {
                   return data.labels.map(function (
                     label: any,
-                    i: string | number
+                    i: string | number,
                   ) {
-                    var meta = chart.getDatasetMeta(0);
-                    var style = meta.controller.getStyle(i);
+                    const meta = chart.getDatasetMeta(0);
+                    const style = meta.controller.getStyle(i);
                     return {
                       text:
                         label.length > 25
@@ -339,7 +292,6 @@ export class DashboardComponent implements OnInit {
                       lineWidth: style.borderWidth,
                       hidden:
                         isNaN(data.datasets[0].data[i]) || meta.data[i].hidden,
-                      // Extra data used for toggling the correct item
                       index: i,
                     };
                   });
@@ -354,23 +306,15 @@ export class DashboardComponent implements OnInit {
   }
 
   errorLoading = null;
-  //   mapError(error: ChartErrorEvent): void {
-  //     this.errorLoading = error;
-  //   }
-  mapReady(): void {
-    console.log('Map ready');
-  }
+  mapReady(): void {}
   onclick() {
-    console.log('Mapppppp');
     this.src = this.src1;
   }
 
   selectedCountry(event: any) {
     this.selectedCountryCode = event.country;
     if (this.selectedCountryCode != null) {
-      //  this.selectedMapCountry = this.countryList.find((obj: { code: any; })=>obj.code == this.selectedCountryCode);
-      console.log('my selcted country', this.selectedCountryCode);
-      let filter: string[] = new Array();
+      const filter: string[] = [];
       filter.push('code||$eq||' + this.selectedCountryCode);
       this.serviceproxy
         .getManyBaseCountryControllerCountry(
@@ -383,24 +327,22 @@ export class DashboardComponent implements OnInit {
           1000,
           0,
           0,
-          0
+          0,
         )
         .subscribe((res) => {
           this.selectedMapCountry = res.data.find(
-            (obj) => obj.code == this.selectedCountryCode
+            (obj) => obj.code == this.selectedCountryCode,
           );
         });
     }
 
-    console.log('my selcted country', event.country);
-    // this.displayBasic = true;
     this.position = 'right';
     this.displayPosition = true;
   }
 
   isMemberCount(): number {
     let countmem = 0;
-    let filternew1: string[] = new Array();
+    const filternew1: string[] = [];
     filternew1.push('isMember||$eq||' + 1);
     this.serviceproxy
       .getManyBaseCountryControllerCountry(
@@ -413,7 +355,7 @@ export class DashboardComponent implements OnInit {
         1000,
         0,
         0,
-        0
+        0,
       )
       .subscribe((res) => {
         countmem = res.data.length;
