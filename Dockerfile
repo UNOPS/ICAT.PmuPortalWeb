@@ -1,5 +1,5 @@
 # STEP 1 building your app
-FROM node:alpine as builder
+FROM node:16-alpine3.16 as builder
 RUN apk update && apk add --no-cache make git
 # a) Create app directory
 WORKDIR /app
@@ -13,7 +13,7 @@ RUN cd /app && npm set progress=false && npm install -f
 COPY .  /app
 RUN cd /app && npm run ng build --prod --output-path=dist
 # STEP 2 build a small nginx image
-FROM nginx:alpine
+FROM nginx:1.22.1-alpine
 # a) Remove default nginx code
 RUN rm -rf /usr/share/nginx/html/*
 # b) From 'builder' copy your site to default nginx public folder
