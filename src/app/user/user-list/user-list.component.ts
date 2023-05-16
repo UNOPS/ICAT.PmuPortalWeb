@@ -118,7 +118,7 @@ export class UserListComponent implements OnInit {
         .getManyBaseInstitutionControllerInstitution(
           undefined,
           undefined,
-          ['institution.id||$eq||' + this.userInsId],
+          ['Institution.id||$eq||' + this.userInsId],
           undefined,
           ['name,ASC'],
           undefined,
@@ -194,7 +194,7 @@ export class UserListComponent implements OnInit {
     }
 
     if (this.selctedUserType) {
-      filters.push('userType.id||$cont||' + this.selctedUserType.id);
+      filters.push('UserType.id||$cont||' + this.selctedUserType.id);
     }
 
     if (this.selctedInstuitution) {
