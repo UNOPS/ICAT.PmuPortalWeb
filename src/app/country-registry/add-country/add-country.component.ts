@@ -379,7 +379,7 @@ position:string = 'top-right';
 
         console.log("pass-cou-----", this.cou);
 
-        setTimeout(() => {
+        // setTimeout(() => {
           this.serviceProxy
             .createOneBaseCountryControllerCountry(this.cou)
             .subscribe(async (res: any) => {
@@ -391,11 +391,21 @@ position:string = 'top-right';
                 detail: 'Successfully created the country',
         
               });
-
+              setTimeout(async () => {
+                await axios.get(this.url);
+                this.router.navigate(['/country-registry']);
+              },1000)
               // await axios.get(this.url)
               // this.router.navigate(['/country-registry']);
-            });
-        }, 1000);
+            },
+            (error) => {
+              alert('An error occurred, please try again.');
+              // this.DisplayAlert('An error occurred, please try again.', AlertType.Error);
+
+              console.log('Error', error);
+            }
+            );
+        // }, 1000);
         this.onBackClick();
       } else {
 

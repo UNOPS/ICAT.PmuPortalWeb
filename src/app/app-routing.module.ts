@@ -12,7 +12,6 @@ import { ProjectInformationComponent } from './climate-action/project-informatio
 import { AddNdcComponent } from './country-ndc/add-ndc/add-ndc.component';
 import { EditNdcComponent } from './country-ndc/edit-ndc/edit-ndc.component';
 
-
 import { LoginLayoutComponent } from './login/login-layout/login-layout.component';
 
 
@@ -65,6 +64,7 @@ import { AddSectorComponent } from './sector/add-sector/add-sector.component';
 import { RoleGuardService } from './auth/role-guard.service';
 import { ViewCountryComponent } from './country-registry/view-country/view-country.component';
 import { AssignMethodologyComponent } from './methodologies/assign-methodology/assign-methodology.component';
+import { SetPasswordComponent } from './login/set-password/set-password.component';
 
 
 
@@ -95,6 +95,7 @@ const routes: Routes = [
       ],
     },
   },
+  { path: 'reset-password', component: SetPasswordComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 //  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // redirect to `first-component`
   { path: 'login', component: LoginLayoutComponent },
@@ -371,7 +372,7 @@ const routes: Routes = [
         UserRoles.PMU_USER,
       ],
     },
-  },
+  }, 
  
   // { path: 'ca-result', component: CaResultComponent},
   

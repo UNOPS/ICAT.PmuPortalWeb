@@ -2,7 +2,7 @@
   <div *ngIf="showUpload">
     <p-fileUpload
       name="file"
-      [maxFileSize]="50000000"
+      [maxFileSize]="500000000"
       (uploadHandler)="myUploader($event)"
       
       chooseLabel="Browse"

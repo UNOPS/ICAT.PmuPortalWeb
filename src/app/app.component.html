@@ -19,7 +19,7 @@
 
           <div  class="row mb-2">
             <div  class="col-6 col-md-3">
-              <img style="width:100% ; height: 100%;"   src="https://climateactiontransparency.org/wp-content/themes/custom/assets/i/logo/logo_blue.svg"  alt="logo">
+              <img style="width:100% ; height: 100%;"   src="https://climateactiontransparency.org/wp-content/themes/custom/assets/i/logo/logo_purple.svg" alt="logo">
             </div>
             <div class="col-6 col-md-9">
               <img style="width:100% ;height: 100%;"   src="https://climateactiontransparency.org/wp-content/themes/custom/assets/i/logo/logo_text.svg" alt="logo text">
@@ -199,7 +199,21 @@
         
           </div>
         </div>
-
+        <div
+        *ngIf="
+        userRole.role == 1 ||
+        userRole.role == 5 ||
+        userRole.role == 3 ||
+        userRole.role == 4 "
+              class="sidebar-items--link align-items-start "
+              [routerLink]="['/reset-password']"
+              routerLinkActive="selected"
+            >
+              <div class=""></div>
+             Reset Your Password
+             <i class="pi pi-cog pass-icon" (click)="['/reset-password']"></i>
+            </div> 
+          <!-- </div> -->
         <div class="sidebar--footer">
           <div></div>
           <div></div>
@@ -217,6 +231,7 @@
             <i class="pi pi-sign-out"></i> Logout
           </div> -->
         </div>
+        
       </div>
       <div class="main d-flex flex-column flex-grow-1">
         <div class="d-flex flex-column justify-content-end">
