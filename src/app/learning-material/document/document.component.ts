@@ -37,8 +37,9 @@ export class DocumentComponent implements OnInit,AfterViewInit {
 this.doc_name.push(this.object_array[0][7].documentName);
 this.doc_name.push(this.object_array[0][3].editedOn);
 this.doc_name.push(this.object_array[0][5].id);
-//console.log("modified item",this.doc_name)
-//console.log('Object=',this.object_array[0])  
+this.doc_name.push(this.object_array[0][13].learningMaterialUserType[0].userid);
+console.log("modified item",this.doc_name)
+console.log('Object=',this.object_array[0])  
 //console.log('object_arrayay=',this.object_array) 
 console.log("pdf----",this.object_array[0][8])
   }

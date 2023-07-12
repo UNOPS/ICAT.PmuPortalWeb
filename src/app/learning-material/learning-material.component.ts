@@ -70,6 +70,7 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
   typeList: UserType[] = [];
   // constTypeList: UserType[] = [];
   selectedSector: Sector;
+  selectedDocType: string;
   finalSector: Sector = new Sector();
   selectedType: UserType = new UserType();
   documentLists: Documents[] = [];
@@ -78,6 +79,11 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     { name: 'By Date -> Oldest to New' },
     { name: 'By Document Name -> Z to A' },
     { name: 'By Document Name -> A to Z' },
+  ];
+
+  documentTypes = [    // for sorting drop down
+      'Learning Material' ,
+     'Tools' ,
   ];
 
   constTypeList = [
@@ -270,10 +276,11 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
           let fileName = savedDoc?.fileName;
           let filePath = savedDoc?.relativePath;
           console.log("recieved doc name..", fileName);
-          console.log("selected Sector..", this.selectedSector);
+          console.log("selected Sector..", this.selectedDocType);
 
           let lm = new LearningMaterial();
-          lm.documentType = "Learning Material";
+          // if(this.selectedDocType=)
+          lm.documentType = this.selectedDocType=="Tools"? "Tools":"Learning Material";
           lm.documentName = fileName;
           // lm.document = filePath;
           lm.document = `${this.downloadURL}/attachment/${savedDoc.id}`

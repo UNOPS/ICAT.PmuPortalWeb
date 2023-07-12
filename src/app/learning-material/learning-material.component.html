@@ -28,33 +28,33 @@
     <h6 class="mt-4" style="color:#1a4f7b;">Learning Materials</h6>
     <br>
     <div class="grid">
-
       <!-- <div class="grid" fxLayout="column" fxLayoutGap="20px" > -->
       <!-- <div class="cardWrap" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px" > -->
       <div *ngFor="let item of learnigMaterials">
         <ng-container *ngIf="item.documentType =='Learning Material' ">
-
           <div class="col-4" style="color: #1a4f7b;">
-
             <app-document [documents]="item" (newItemEvent)="deleteItem($event)">
             </app-document>
-
-
           </div>
-
-
         </ng-container>
-        <!-- </div> -->
-        <!-- </div> -->
-
       </div>
-
     </div>
-
-
-
 <br>
-
+<h6 class="mt-4" style="color:#1a4f7b;">Tools</h6>
+<br>
+<div class="grid">
+  <!-- <div class="grid" fxLayout="column" fxLayoutGap="20px" > -->
+  <!-- <div class="cardWrap" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px" > -->
+  <div *ngFor="let item of learnigMaterials">
+    <ng-container *ngIf="item.documentType =='Tools' ">
+      <div class="col-4" style="color: #1a4f7b;">
+        <app-document [documents]="item" (newItemEvent)="deleteItem($event)">
+        </app-document>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<br>
 
 
     <div class="row p-2">
@@ -83,7 +83,6 @@
             </div>
           </div>
           <div class="col-md-6">
-
             <div class="col-12">
               <label for="projStatus">Select Sector </label>
               <div class="p-field">
@@ -93,8 +92,21 @@
               </div>
             </div>
 
-          </div>
+          </div>       
+        </div>
+        <div  class="row mb-3">
+          <div class="col-md-6">
 
+            <div class="col-12">
+              <label for="projStatus">Select Document Type </label>
+              <div class="p-field">
+                <p-dropdown appendTo="body"  [options]="documentTypes"  placeholder="Select Document Type "
+                  [(ngModel)]="selectedDocType" >
+                </p-dropdown>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         <br>
