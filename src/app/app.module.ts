@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms' 
-//import { NgImageSliderModule } from 'ng-image-slider';
 import {PaginatorModule} from 'primeng/paginator';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,7 +9,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditCountryComponent } from './country-profile/edit-country/edit-country.component';
 import { ClimateActionComponent } from './climate-action/climate-action/climate-action.component';
-// import { TokenInterceptor } from 'src/shared/token-interceptor ';
 import { HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CountriesMapModule } from 'countries-map';
@@ -45,9 +43,8 @@ import { GMapModule } from 'primeng/gmap';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { CarouselModule } from 'primeng/carousel';
-// import { ProposeProjectComponent } from './propose-project/propose-project.component';
 import { ViewCountryComponent } from './country-profile/view-country/view-country.component';
-import {ScrollPanelModule} from 'primeng/scrollpanel';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { environment } from '../environments/environment';
 import { CountryNdcComponent } from './country-ndc/country-ndc.component';
 import {
@@ -63,7 +60,6 @@ import {
   AuditControllerServiceProxy,
   SectorControllerServiceProxy,
   CountryControllerServiceProxy,
-  // AssesmentControllerServiceProxy,
 } from 'shared/service-proxies/service-proxies';
 import { HttpClient } from '@angular/common/http';
 import { ProjectInformationComponent } from './climate-action/project-information/project-information.component';
@@ -72,25 +68,17 @@ import { MethodologiesComponent } from './methodologies/methodologies.component'
 import { AddNdcComponent } from './country-ndc/add-ndc/add-ndc.component';
 import { EditNdcComponent } from './country-ndc/edit-ndc/edit-ndc.component';
 import { DocumentUploadComponent } from './shared/document-upload/document-upload.component';
-// import { ProposeProjectListComponent } from './propose-project-list/propose-project-list.component';
 import { AuditComponent } from './audit/audit.component';
 import { LoginLayoutComponent } from './login/login-layout/login-layout.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { LoginLayoutService } from './login/login-layout/login-layout.service';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { AllClimateActionComponent } from './all-climate-action/all-climate-action.component';
-// import { ActiveClimateActionComponent } from './active-climate-action/active-climate-action.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
-// import { GhgImpactComponent } from './assess-ca/ghg-impact/ghg-impact.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { LearningMaterialComponent } from './learning-material/learning-material.component';
 import { DocumentComponent } from './learning-material/document/document.component';
-// import { ProposedResultComponent } from './climate-action-result/proposed-result/proposed-result.component';
-// import { ActiveResultComponent } from './climate-action-result/active-result/active-result.component';
-// import { ResultComponent } from './view-climate-action-results/proposed-result/result.component';
-// import { CaResultComponent } from './view-climate-action-results/ca-result/ca-result.component';
-// import { AllResultComponent } from './climate-action-result/all-result/all-result.component';
 import {
   NbLayoutDirectionService,
   NbMenuModule,
@@ -100,17 +88,12 @@ import {
   NbPositionBuilderService,
   NbSidebarModule,
   NbThemeModule,
-  
   NbToastrModule,
   NbToastrService,
   NbLayoutModule,
 } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MessagesModule } from 'primeng/messages';
-// import { VehicalParameterComponent } from './component/vehical-parameter/vehical-parameter.component';
-// import { RouteParameterComponent } from './component/route-parameter/route-parameter.component';
-// import { FuelParameterComponent } from './component/fuel-parameter/fuel-parameter.component';
-// import { PowerPlantParameterComponent } from './component/power-plant-parameter/power-plant-parameter.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { InstitutionsComponent } from './institutions/institutions.component';
@@ -133,7 +116,6 @@ export function getRemoteServiceBaseUrl(): string {
 @NgModule({
   declarations: [
     AppComponent,
-    // ProposeProjectComponent,
     EditCountryComponent,
     ClimateActionComponent,
     ViewCountryComponent,
@@ -143,16 +125,13 @@ export function getRemoteServiceBaseUrl(): string {
     AddNdcComponent,
     EditNdcComponent,
     DocumentUploadComponent,
-    // ProposeProjectListComponent,
     AuditComponent,
     LoginLayoutComponent,
     ForgotPasswordComponent,
     LoginFormComponent,
     AllClimateActionComponent,
-    // ActiveClimateActionComponent,
     UserListComponent,
     UserFormComponent,
-    // GhgImpactComponent,
     LearningMaterialComponent,
     DocumentComponent,
     InstitutionsComponent,
@@ -164,18 +143,9 @@ export function getRemoteServiceBaseUrl(): string {
     AssignMethodologyComponent,
     SetPasswordComponent,
   
-    // ResultComponent,
-    // ProposedResultComponent,
-    // ActiveResultComponent,
-    // VehicalParameterComponent,
-    // RouteParameterComponent,
-    // FuelParameterComponent,
-    // PowerPlantParameterComponent,
-    // AllResultComponent,
     
   ],
   imports: [
-
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -220,14 +190,13 @@ export function getRemoteServiceBaseUrl(): string {
     FormsModule,
     AppRoutingModule,
     MessagesModule,
-    // MessageModule,
     ToastModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
     NbEvaIconsModule,
     CountriesMapModule,
     CarouselModule,
-    ScrollPanelModule
+    ScrollPanelModule,
   ],
   providers: [
     LoginLayoutService,
@@ -244,7 +213,6 @@ export function getRemoteServiceBaseUrl(): string {
     AuditControllerServiceProxy,
     SectorControllerServiceProxy,
     CountryControllerServiceProxy,
-    // AssesmentControllerServiceProxy,
     RoleGuardService,
     SharedDataService,
 

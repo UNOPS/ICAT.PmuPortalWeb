@@ -17557,7 +17557,7 @@ export class ResetPassword implements IResetPassword {
     email: string;
     token: string;
     password: string;
-    code:string;
+    code: string;
 
     constructor(data?: IResetPassword) {
         if (data) {

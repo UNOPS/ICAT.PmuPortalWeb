@@ -13,7 +13,6 @@ import { Country, Ndc, Sector, ServiceProxy, SubNdc } from 'shared/service-proxi
 export class AddNdcComponent implements OnInit {
   
   subndc: any;
-//  subndcs: { createdBy: any;createdOn: any;editedBy: any;editedOn: any;status: any;id: any; name: any;description: any;sortOrder: any; ndcId:any }[];
  subndcs: SubNdc[]=new Array();
   subndcval:any;
   values: { testvalue: any; }[];
@@ -38,9 +37,6 @@ export class AddNdcComponent implements OnInit {
   country: Country;
   ngOnInit(): void {
     this.newndc = new Ndc();
-    // this.subndc =[
-    //   { "testvalucreatedBy" : "test", "createdOn":new Date(), "editedBy":"ted", "editedOn":new Date(), "status":0,"id":1,"description":"test":}
-    //   ];
 
     this.activerouter.queryParams.subscribe((params=>{
       this.countryId=params['countryId'];
@@ -96,9 +92,6 @@ export class AddNdcComponent implements OnInit {
     this.newndc.country = this.country;
     this.newndc.sector = this.sector;
     this.newndc.subNdc = this.subndcs;
-    //console.log("999v",this.newndc)
-   
-    // newndc.subNdc;
    
     this.serviceproxy.createOneBaseNdcControllerNdc(this.newndc).subscribe((res=>{
       console.log(res,"99991")
@@ -121,12 +114,10 @@ export class AddNdcComponent implements OnInit {
     this.confirm4=true;
   }
      
-    // this.router.navigate(['/ndc']);
 }
 addnewsub(){
   
   let sub = new SubNdc();
-  //sub.name = this.subndc;
   sub.description="des";
   sub.createdOn = moment();
   this.subndcs.push(sub);
