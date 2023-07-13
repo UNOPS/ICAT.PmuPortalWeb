@@ -2,21 +2,19 @@
   <div *ngIf="showUpload">
     <p-fileUpload
       name="file"
-      [maxFileSize]="50000000"
+      [maxFileSize]="5000000000"
       (uploadHandler)="myUploader($event)"
-      
       chooseLabel="Browse"
       (onUpload)="onUploadComplete($event)"
-      
       [url]="uploadURL"
     >
-    <ng-template pTemplate="content">
-      <ul *ngIf="uploadedFiles.length">
-          <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-      </ul>
-  </ng-template>
+      <ng-template pTemplate="content">
+        <ul *ngIf="uploadedFiles.length">
+          <li *ngFor="let file of uploadedFiles">
+            {{ file.name }} - {{ file.size }} bytes
+          </li>
+        </ul>
+      </ng-template>
     </p-fileUpload>
   </div>
-
-  
-
+</div>

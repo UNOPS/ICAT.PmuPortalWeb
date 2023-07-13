@@ -47,17 +47,9 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
   closeResult = '';
 
   isSaving: boolean = false;
-  // project: Project = new Project();
-  // selectedcitie: any = {};
-  // ndcList: Ndc[];
   options: any;
-  // relatedItem: Project[] = [];
-  // exsistingPrpject: boolean = false;
-  // countryList: Country[] = [];
   projectOwnerList: ProjectOwner[] = [];
   projectStatusList: ProjectStatus[] = [];
-  // sectorList: Sector[] = [];
-  // financingSchemeList: FinancingScheme[] = [];
   documents: Documents[] = [];
   documentsDocumentOwner: DocumentsDocumentOwner = DocumentsDocumentOwner.LearningMaterial;
   documentOwnerId: any = 4;
@@ -68,20 +60,19 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
   checked: boolean = false;
   sectorList: Sector[] = [];
   typeList: UserType[] = [];
-  // constTypeList: UserType[] = [];
   selectedSector: Sector;
   selectedDocType: string;
   finalSector: Sector = new Sector();
   selectedType: UserType = new UserType();
   documentLists: Documents[] = [];
-  sortOptions = [    // for sorting drop down
+  sortOptions = [   
     { name: 'By Date -> New to Oldest' },
     { name: 'By Date -> Oldest to New' },
     { name: 'By Document Name -> Z to A' },
     { name: 'By Document Name -> A to Z' },
   ];
 
-  documentTypes = [    // for sorting drop down
+  documentTypes = [   
       'Learning Material' ,
      'Tools' ,
   ];
@@ -105,8 +96,8 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
 
   downloadURL: String = environment.baseUrlAPIDocdownloadAPI
 
-  userTypeId: number = 0; // should dynamically add after login system develop
-  sectorId: number = 0; // should dynamically add after login system develop
+  userTypeId: number = 0; 
+  sectorId: number = 0; 
   userrole: any;
 
   username: any;
@@ -179,7 +170,7 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
       .getManyBaseUserTypeControllerUserType(
         undefined,
         undefined,
-        filter,//['name||$eq||'+this.userrole],
+        filter,
         undefined,
         undefined,
         undefined,
@@ -190,7 +181,6 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
       )
       .subscribe((res: any) => {
         this.typeList = res.data;
-        // this.typeList.push(this.constTypeList)
         console.log('this.typeList', this.typeList);
 
       });
@@ -216,9 +206,7 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
 
 
   deleteItem(newItem: any) {
-    //this.items.push(newItem);
     console.log("hiii....", newItem);
-    //deleteOneBaseLearningMaterialControllerLearningMaterial
 
     this.serviceProxy
       .deleteOneBaseLearningMaterialControllerLearningMaterial(newItem[2])
@@ -232,7 +220,6 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
   }
 
   onStatusChange(event: any) {
-    //console.log('inside loadgrid...',this.searchBy.sortOption)
     this.onSearch();
 
   }
@@ -249,7 +236,6 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
 
 
   getDocuments() {
-    // alert('emitted');
     this.count++;
     console.log("count", this.count);
     console.log("finalyya;'''''''''''''")
@@ -279,18 +265,14 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
           console.log("selected Sector..", this.selectedDocType);
 
           let lm = new LearningMaterial();
-          // if(this.selectedDocType=)
           lm.documentType = this.selectedDocType=="Tools"? "Tools":"Learning Material";
           lm.documentName = fileName;
-          // lm.document = filePath;
           lm.document = `${this.downloadURL}/attachment/${savedDoc.id}`
           lm.isPublish = this.checked;
 
-          /////////////////////////////////////
           let learningMaterialsectr: LearningMaterialSector[] = [];
           let sct = new LearningMaterialSector();
           sct.sector.id = this.selectedSector.id;
-          // sct.learningMaterial2 = lm;
           learningMaterialsectr.push(sct);
           lm.learningMaterialsector = learningMaterialsectr;
 
@@ -299,14 +281,12 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
           ust.userType.id = this.selectedType.id;
           learningMaterialusertype.push(ust);
           lm.learningMaterialusertype = learningMaterialusertype;
-          /////////////////////////////////////////
           console.log("learning material object to backend", lm)
 
 
           this.serviceProxy
             .createOneBaseLearningMaterialControllerLearningMaterial(lm)
             .subscribe((res: any) => {
-              //alert('Saved Successfully');
               this.count = 0;
               this.loadgridData();
 
@@ -322,27 +302,21 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
 
 
 
-    //console.log('i am coming...',this.searchBy.sortOption);
-    //this.loading = true;
     if (this.searchBy.sortOption.name == 'By Date -> New to Oldest') {
       this.sortOrder = 0;
       this.sortType = 0;
-      // console.log('inside loadgrid...',this.searchBy.sortOption);
     }
     if (this.searchBy.sortOption.name == 'By Date -> Oldest to New') {
       this.sortOrder = 1;
       this.sortType = 0;
-      //console.log('inside loadgrid...',this.searchBy.sortOption);
     }
     if (this.searchBy.sortOption.name == 'By Document Name -> Z to A') {
       this.sortOrder = 0;
       this.sortType = 1;
-      //console.log('inside loadgrid...',this.searchBy.sortOption);
     }
     if (this.searchBy.sortOption.name == 'By Document Name -> A to Z') {
       this.sortOrder = 1;
       this.sortType = 1;
-      // console.log('inside loadgrid...',this.searchBy.sortOption);
     }
 
 

@@ -83,8 +83,6 @@
         </div>
       </div>
     </div>
-    -->
-    <!-- <div> {{climateactions|json}} </div> -->
     <div class="row p-2">
       <p-table
         #table
@@ -101,52 +99,6 @@
         [loading]="loading"
         [responsive]="true"
       >
-        <!-- Table header start search -->
-
-        <!-- <p-table #tt [value]="climateactions" [columns]="cols" placeholder="Global Filter" [filter]="true" filterMatchMode="contains" >                                                          
-      <ng-template pTemplate="caption">
-          <div style="text-align: right">        
-              <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-              <input type="text" pInputText size="50" style="width:auto">
-          </div>
-      </ng-template> -->
-
-        <!-- Table header END Search -->
-
-        <!-- <ng-template pTemplate="header">
-          <tr> 
-          <th *ngFor="let col of columns" [ngSwitch]="col.field">
-            <input *ngSwitchCase="'climateActionName'" pInputText type="text"
-              (input)="dt.filter($event.target.value, col.field, 'contains')" />
-          </th>
-        </tr>
-
-          <tr>
-            <th>
-              <div class="col-sm-2" style="width: 70.666667%">
-                <button
-                  pRipple
-                  class="fas fa-plus"
-                  pButton
-                  type="button"
-                  style="background-color: #c6cfd7; border-color: transparent"
-                  (click)="addproject()"
-                >
-                  <i
-                    class="pi pi-plus"
-                    style="font-size: 1rem; color: #000"
-                  ></i>
-                </button>
-              </div>
-            </th>
-            <th>Climate Action</th>
-            <th>Sector</th>
-            <th>Type of Mitigation Action</th>
-            <th>Status of the Project</th>
-            <th>Project Proponent</th>
-            <th>Date Updated</th>
-          </tr>
-        </ng-template> -->
         <ng-template pTemplate="body" let-climateactions>
           <tr>
             <td>

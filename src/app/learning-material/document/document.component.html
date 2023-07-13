@@ -1,24 +1,3 @@
-<!--
-<p-table 
-class="table-doc"
-[value]="doc_name"
-[lazy]="true"
->
-<ng-template pTemplate="header" >
-  <tr>
-    <th>FILE NAME</th>
-  </tr>
-</ng-template>
-<ng-template pTemplate="body"let-docs >
-  <tr>
-        <td (click)= "onDownload()">
-        {{docs.documentName}}
-        
-        </td>
- </tr>
-</ng-template>
-</p-table>
--->
 <div>
   <p-toast></p-toast>
 
@@ -39,5 +18,4 @@ class="table-doc"
     rejectButtonStyleClass="p-button-text"
   >
   </p-confirmDialog>
-
 </div>

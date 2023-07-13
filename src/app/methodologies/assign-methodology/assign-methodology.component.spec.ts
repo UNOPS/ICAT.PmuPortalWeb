@@ -8,9 +8,8 @@ describe('AssignMethodologyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AssignMethodologyComponent ]
-    })
-    .compileComponents();
+      declarations: [AssignMethodologyComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

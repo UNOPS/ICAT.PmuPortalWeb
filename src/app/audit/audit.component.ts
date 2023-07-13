@@ -50,51 +50,12 @@ export class AuditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     const token = localStorage.getItem('access_token')!;
     const tokenPayload = decode<any>(token);
     const username = tokenPayload.usr;
-    console.log('username=========', tokenPayload.usr);
 
-    let filters: string[] = [];
+    const filters: string[] = [];
     filters.push('username||$eq||' + username);
-
-
-
-
-
-    // this.serviceProxy
-    //   .getManyBaseAuditControllerAudit(
-    //     undefined,
-    //     undefined,
-    //     undefined,
-    //     undefined,
-    //     ['editedOn,DESC'],
-    //     undefined,
-    //     1000,
-    //     0,
-    //     0,
-    //     0
-    //   )
-    //   .subscribe((res) => {
-    //    this.activities = res.data;
-
-    //     console.log("activiiessss----",this.activities)
-    //     // this.totalRecords = res.totalRecords;
-    //     // if (res.totalRecords !== null) {
-    //     //   this.last = res.count;
-    //     // } else {
-    //     //   this.last = 0;
-    //     // }
-    //     for (let d of res.data) {
-    //       this.activityList.push(d.action);
-    //       this.dateList.push(d.editedOn.toDate());
-    //       this.userTypeList.push(d.userType);
-    //       console.log(this.dateList);
-    //     }
-    //     console.log('activities', this.activityList);
-    //   });
-
 
     this.serviceProxy
       .getManyBaseUsersControllerUser(
@@ -107,18 +68,13 @@ export class AuditComponent implements OnInit {
         1000,
         0,
         0,
-        0
-
+        0,
       )
       .subscribe((res) => {
         this.loggedusers = res.data;
-        console.log("loggeduser-----", this.loggedusers)
+
         this.institutionId = this.loggedusers[0].institution.id;
-        console.log("institutionId-----", this.institutionId)
       });
-
-
-
   }
 
   onactivityChange(event: any) {
@@ -149,7 +105,6 @@ export class AuditComponent implements OnInit {
     let usertype = this.searchBy.usertype ? this.searchBy.usertype : '';
     let action = this.searchBy.activity ? this.searchBy.activity : '';
     let filtertext = this.searchBy.text ? this.searchBy.text : '';
-    console.log("iiiiiiiii", this.institutionId)
 
 
 
@@ -181,13 +136,10 @@ export class AuditComponent implements OnInit {
         .subscribe((a) => {
           this.activities = a.items;
 
-          console.log("aaaaasssss--", this.activities)
-
-          console.log(a, 'kk');
           this.totalRecords = a.meta.totalItems;
           this.loading = false;
 
-          for (let d of a.items) {
+          for (const d of a.items) {
             if (!this.status.includes(d.actionStatus)) {
               this.status.push(d.actionStatus);
             }
