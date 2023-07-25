@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Country } from './country';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CountryService {
 
-  private baseURL = "http://localhost:7080/country-profile";
+  private baseURL = environment.countryServiceUrl;
 
   constructor(private httpClient: HttpClient) { }
 

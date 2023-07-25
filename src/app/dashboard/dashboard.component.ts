@@ -1,17 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartErrorEvent } from 'countries-map';
 import { } from 'googlemaps';
 import { CountriesData } from 'countries-map';
 import {
   Country,
   ServiceProxy,
-  UserType,
 } from 'shared/service-proxies/service-proxies';
 import decode from 'jwt-decode';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { catchError, reduce, tap } from 'rxjs/operators';
-import { Chart } from 'chart.js';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -113,25 +109,17 @@ export class DashboardComponent implements OnInit {
       0
     ).subscribe((res => {
       this.countryList = res.data;
-      console.log("country-list====", this.countryList)
       let count = 0;
       for (let c of res.data) {
 
         this.src1 = c.flagPath;
-        //   this.mapData1 = {
-
-        //       [c.code] : {value : 1, extra : {'sectorname': 'Transport', 'registeredDate' : String([c.createdOn])}}
-        //   }
-
         this.mapData2[c.code] = { value: 1 };
 
         count++;
       }
 
-
       let countmem = 0;
       let filternew1: string[] = new Array();
-
 
       filternew1.push('isMember||$eq||' + 1);
       this.serviceproxy.getManyBaseCountryControllerCountry(
@@ -148,12 +136,9 @@ export class DashboardComponent implements OnInit {
       ).subscribe((res => {
         countmem = res.data.length;
         this.res(countmem);
-        console.log('resss', countmem);
         this.basicData = {
           labels: [''],
           datasets: [
-
-
             {
               label: 'Total number of ICAT member countries',
               backgroundColor: '#42A5F5',
@@ -164,16 +149,12 @@ export class DashboardComponent implements OnInit {
               backgroundColor: '#1a069e',
               data: [count],
             },
-
           ]
         }
       }));
 
-
-
       let membercount = this.isMemberCount();
       this.mapData1 = this.mapData2;
-
 
     }))
     let filter1: string[] = new Array();
@@ -190,22 +171,13 @@ export class DashboardComponent implements OnInit {
       0,
       0)
       .subscribe(res => {
-        console.log('res333333', res)
         this.countries = res.data;
       })
-
-
-
   }
-
 
   getUserUsageChart(countryId: number): void {
     let chart_url = environment.baseUrlCountryAPI + `/audit/userCount?countryId=${countryId}`;
-    console.log('chart_url', chart_url)
     this.http.get<any[]>(chart_url).subscribe(res => {
-      console.log('res=====', res)
-      // this.userChartData = res;
-
       if (res.length > 0) {
         this.isuse = false
       }
@@ -213,13 +185,11 @@ export class DashboardComponent implements OnInit {
         this.isuse = true
       }
 
-
       let labels: any[] = []
       let data: any[] = []
       res.map(a => {
         labels.push(a.au_userType)
         data.push(a.data)
-
       });
 
       this.userChartData = {
@@ -242,23 +212,16 @@ export class DashboardComponent implements OnInit {
 
             hoverBackgroundColor: [
               "#F0FFFF",
-
             ]
           }
         ]
       };
-
-
     });
-
-
   }
 
   getMethologyUsageChart(countryId: number): void {
-    let chart_url = environment.baseUrlCountryAPI + `/assesment/methologyCount?countryId=${countryId}`;
-    console.log('countryId', countryId)
+    let chart_url = environment.baseUrlCountryAPI + `/assessment/methologyCount?countryId=${countryId}`;
     this.http.get<any[]>(chart_url).subscribe(res => {
-      console.log('res', res)
       let labels: any[] = []
       let data: any[] = []
 
@@ -294,18 +257,14 @@ export class DashboardComponent implements OnInit {
 
             hoverBackgroundColor: [
               "#F0FFFF",
-
             ]
           }
         ]
       };
 
       this.methologychartOptions = {
-
         plugins: {
-
           legend: {
-
             labels: {
               generateLabels: function (chart: any) {
                 var data = chart.data;
@@ -337,6 +296,7 @@ export class DashboardComponent implements OnInit {
 
   mapReady(): void {
   }
+
   onclick() {
     this.src = this.src1;
   }
@@ -367,7 +327,6 @@ export class DashboardComponent implements OnInit {
     this.displayPosition = true;
 
   }
-
 
   isMemberCount(): number {
     let countmem = 0;

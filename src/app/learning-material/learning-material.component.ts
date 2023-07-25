@@ -33,8 +33,8 @@ import * as moment from 'moment';
 export class LearningMaterialComponent implements OnInit, AfterViewInit {
 
   learnigMaterials: LearningMaterial[];
-  sortOrder: number = 1; //1
-  sortType: number = 0; //0
+  sortOrder: number = 1; 
+  sortType: number = 0; 
   event: any;
   searchBy: any = {
     text: null,
@@ -114,24 +114,15 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     this.cdr.detectChanges();
   }
 
-
   onChangeSector() {
     this.finalSector = this.selectedSector;
   }
 
   ngOnInit(): void {
-
     const token = localStorage.getItem('access_token')!;
     const tokenPayload = decode<any>(token);
     this.userrole = tokenPayload.roles[0];
-
     this.username = tokenPayload.usr;
-    console.log('user-tokenPayload=========', tokenPayload);
-    console.log("urole====", this.userrole)
-
-
-
-
     this.serviceProxy
       .getManyBaseSectorControllerSector(
         undefined,
@@ -147,24 +138,18 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
       )
       .subscribe((res: any) => {
         this.sectorList = res.data;
-        console.log('this.sectorList', this.sectorList);
-
       });
 
     let filter: string[] = [];
     if (this.userrole == "PMU Admin") {
       filter.push('name||$in||' + ["PMU Admin", "PMU User", "Country Admin"]);
-
     }
     if (this.userrole == "PMU User") {
       filter.push('name||$in||' + ["PMU User", "Country Admin"]);
-
     }
     if (this.userrole == "ICAT User") {
       filter.push('name||$in||' + ["ICAT User", "PMU User", "Country Admin"]);
-
     }
-
 
     this.serviceProxy
       .getManyBaseUserTypeControllerUserType(
@@ -181,16 +166,11 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
       )
       .subscribe((res: any) => {
         this.typeList = res.data;
-        console.log('this.typeList', this.typeList);
-
       });
-
     this.loadgridData();
-
   }
 
   onSearch() {
-
     this.loadgridData();
   }
 
@@ -204,24 +184,18 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     await axios.get(url)
   }
 
-
   deleteItem(newItem: any) {
-    console.log("hiii....", newItem);
-
     this.serviceProxy
       .deleteOneBaseLearningMaterialControllerLearningMaterial(newItem[2])
       .subscribe((res => {
-        console.log("111....deleted response", res);
         setTimeout(() => {
           this.loadgridData();
         }, 1000);
-
       }))
   }
 
   onStatusChange(event: any) {
     this.onSearch();
-
   }
   count: number = 0
 
@@ -233,13 +207,8 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     this.checked = !this.checked
   }
 
-
-
   getDocuments() {
     this.count++;
-    console.log("count", this.count);
-    console.log("finalyya;'''''''''''''")
-
     setTimeout(() => {
       this.serviceProxy
         .getManyBaseDocumentControllerDocuments(
@@ -256,13 +225,10 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
         )
         .subscribe((res: any) => {
           this.documentLists = res.data;
-          console.log('documentLists', res.data);
 
           let savedDoc = this.documentLists[0];
           let fileName = savedDoc?.fileName;
           let filePath = savedDoc?.relativePath;
-          console.log("recieved doc name..", fileName);
-          console.log("selected Sector..", this.selectedDocType);
 
           let lm = new LearningMaterial();
           lm.documentType = this.selectedDocType=="Tools"? "Tools":"Learning Material";
@@ -281,27 +247,18 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
           ust.userType.id = this.selectedType.id;
           learningMaterialusertype.push(ust);
           lm.learningMaterialusertype = learningMaterialusertype;
-          console.log("learning material object to backend", lm)
-
 
           this.serviceProxy
             .createOneBaseLearningMaterialControllerLearningMaterial(lm)
             .subscribe((res: any) => {
               this.count = 0;
               this.loadgridData();
-
             });
-
         });
     }, 1000);
-
   }
 
-
   loadgridData = () => {
-
-
-
     if (this.searchBy.sortOption.name == 'By Date -> New to Oldest') {
       this.sortOrder = 0;
       this.sortType = 0;
@@ -319,10 +276,7 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
       this.sortType = 1;
     }
 
-
-
     let filtertext = this.searchBy.text ? this.searchBy.text : '';
-
     let pageNumber = 1;
     let rows = 1000;
 
@@ -335,14 +289,11 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
         this.sectorId,
         this.sortOrder,
         this.sortType,
-
       )
         .subscribe((a) => {
           this.learnigMaterials = a.items;
-          console.log("learnigMaterials..", this.learnigMaterials);
         });
     });
-
   };
 
 }

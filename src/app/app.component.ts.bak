@@ -44,7 +44,6 @@ export class AppComponent {
     ];
 
     this.router.events.subscribe((event: any) => {
-      console.log('my....event', event);
       if (event) {
         if (event.url == '/login') {
           this.showLeftMenu = false;
