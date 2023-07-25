@@ -12,7 +12,6 @@
               <label for="countryname" readonly
                 ><b>{{ country?.name }}</b></label
               >
-
               <textarea
                 name="countryname"
                 pattern="^[a-zA-Z0-9 ]{1,64}$"
@@ -102,7 +101,6 @@
       (click)="saveCountry(country)"
       style="margin-left: 93%"
     ></button>
-
     <div class="card">
       <p-tabView>
         <p-tabPanel *ngFor="let sector of sectors; let i = index">
@@ -118,7 +116,6 @@
                     <label for="sector"
                       ><b>{{ sector?.name }}</b></label
                     >
-
                     <textarea
                       name="{{ 'sector' + i }}"
                       pattern="^[a-zA-Z0-9 ]{1,64}$"
@@ -171,8 +168,7 @@
       style="margin-left: 93%"
     ></button>
   </form>
-
   <button pRipple pButton type="button" (click)="back()" label="Back"></button>
-
-  <div class="d-flex flex-row-reverse mt-2 mb-2"></div>
+  <div class="d-flex flex-row-reverse mt-2 mb-2">
+  </div>
 </div>

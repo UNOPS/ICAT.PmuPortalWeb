@@ -1,24 +1,18 @@
 <div>
   <p-toast></p-toast>
 
-  <p-card
-    header="{{ doc_name[0] }}"
-    [style]="{
-      width: '15rem',
-      height: '10rem',
-      'margin-right': '1rem',
-      border: '2px solid skyblue'
-    }"
-    (click)="onRedirect()"
-    styleClass="p-card-shadow"
-  >
+<p-card header={{doc_name[0]}} [style]="{'width': '15rem','height':'15rem', 'margin-right': '1rem','border': '2px solid skyblue'}"  (click)="onRedirect()" styleClass="p-card-shadow" >
     <ng-template pTemplate="header">
-      <img alt="" src="" />
+        <img alt="" src="">
     </ng-template>
-    <p>Updated Date {{ doc_name[1] | date: 'yyyy-MM-dd' }}</p>
-  </p-card>
+    <p>Assign To : {{doc_name[3] ==1 ?"PMU Admin": doc_name[3] ==2 ?"Country Admin": doc_name[3] ==3 ?"PMU User":doc_name[3] ==4 ?"ICAT Admin":doc_name[3] ==5 ?"ICAT User":
+      doc_name[3] ==6 ?"Verifier":doc_name[3] ==7 ?"Sector Admin":doc_name[3] ==8 ?"MRV Admin":doc_name[3] ==9 ?"Technical Team":
+      doc_name[3] ==10 ?"Data Collection Team":doc_name[3] ==11 ?"QC Team":doc_name[3] ==12 ?"Institution Admin":doc_name[3] ==13 ?"Data Entry Operator":""}}  </p>
+    <p>Updated Date {{doc_name[1] | date: "yyyy-MM-dd" }}</p>
+    
+</p-card>
 
-  <p-confirmDialog
+<p-confirmDialog
     [style]="{ width: '25vw' }"
     [baseZIndex]="10000"
     rejectButtonStyleClass="p-button-text"

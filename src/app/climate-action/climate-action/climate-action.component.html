@@ -57,6 +57,7 @@
             placeholder="Select .."
             [showClear]="true"
             [filter]="true"
+            
             optionLabel="name"
             (ngModelChange)="onSectorChange($event)"
           >
@@ -113,7 +114,7 @@
             <td>{{ climateactions.mitigationAction?.name }}</td>
             <td>{{ climateactions.projectStatus?.name }}</td>
             <td>{{ climateactions.contactPersoFullName }}</td>
-            <td>{{ climateactions.editedOn | date: 'dd-MM-yyyy ' }}</td>
+            <td>{{ climateactions.editedOn | date: "dd-MM-yyyy " }}</td>
           </tr>
         </ng-template>
       </p-table>

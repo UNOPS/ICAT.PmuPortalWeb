@@ -43,8 +43,8 @@ export class ClimateActionComponent implements OnInit, AfterViewInit {
   searchText: string;
 
   loading: boolean;
-  totalRecords = 0;
-  rows = 10;
+  totalRecords: number = 0;
+  rows: number = 10;
   last: number;
   event: any;
 
@@ -251,7 +251,7 @@ export class ClimateActionComponent implements OnInit, AfterViewInit {
           statusId,
           mitTypeId,
           editedOn,
-          filtertext,
+          filtertext
         )
         .subscribe((a) => {
           this.climateactions = a.items;

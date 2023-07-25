@@ -66,6 +66,12 @@ export class AppComponent {
           this.showLeftMenu = false;
           return;
         }
+        if (event.url == '/reset-password') {
+          this.showLeftMenu = false;
+          this.showTopMenu = false;
+          return;
+        }
+        
       }
     });
   }

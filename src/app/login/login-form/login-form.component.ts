@@ -22,7 +22,7 @@ export class LoginFormComponent implements OnInit {
   showLoginForm = true;
   showForgotPassword = false;
   showSetPassword = false;
-  display = false;
+  display: boolean = false;
 
   isLoggedIn = false;
   hideSideBar = true;

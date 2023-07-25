@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { PaginatorModule } from 'primeng/paginator';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ReactiveFormsModule} from '@angular/forms' 
+import {PaginatorModule} from 'primeng/paginator';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -107,6 +108,7 @@ import { SharedDataService } from 'shared/shared-data-services';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { AssignMethodologyComponent } from './methodologies/assign-methodology/assign-methodology.component';
+import { SetPasswordComponent } from './login/set-password/set-password.component';
 
 export function getRemoteServiceBaseUrl(): string {
   return environment.baseUrlAPI;
@@ -139,12 +141,16 @@ export function getRemoteServiceBaseUrl(): string {
     SectorComponent,
     AddSectorComponent,
     AssignMethodologyComponent,
+    SetPasswordComponent,
+  
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     DashboardModule,
     PaginatorModule,

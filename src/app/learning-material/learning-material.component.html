@@ -95,30 +95,35 @@
             <div class="col-12">
               <label for="projStatus">Select Sector </label>
               <div class="p-field">
-                <p-dropdown
-                  appendTo="body"
-                  [options]="sectorList"
-                  optionLabel="name"
-                  placeholder="Select Sector"
-                  [(ngModel)]="selectedSector"
-                  (ngModelChange)="onChangeSector()"
-                >
+                <p-dropdown appendTo="body"  [options]="sectorList" optionLabel="name" placeholder="Select Sector"
+                  [(ngModel)]="selectedSector" (ngModelChange)="onChangeSector()">
                 </p-dropdown>
               </div>
             </div>
+
+          </div>       
+        </div>
+        <div  class="row mb-3">
+          <div class="col-md-6">
+
+            <div class="col-12">
+              <label for="projStatus">Select Document Type </label>
+              <div class="p-field">
+                <p-dropdown appendTo="body"  [options]="documentTypes"  placeholder="Select Document Type "
+                  [(ngModel)]="selectedDocType" >
+                </p-dropdown>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <br />
-        <br />
-
+        <br>
+        <br>
         <div class="row mb-3">
-          <ng-container
-            *ngIf="
-              selectedSector !== null && selectedType !== null;
-              else elseBlock
-            "
-          >
+
+          <ng-container *ngIf=" selectedSector != null && selectedType != null; else elseBlock ">
+
             <div class="row mb-3">
               <div class="col-md-5">
                 <p><b>Do you want to publish this document?</b></p>

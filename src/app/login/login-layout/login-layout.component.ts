@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginLayoutService } from './login-layout.service';
 @Component({
   selector: 'app-login-layout',
@@ -14,10 +14,7 @@ export class LoginLayoutComponent implements OnInit {
   isLoggedIn = false;
   hideSideBar = true;
 
-  constructor(
-    private logLayoutService: LoginLayoutService,
-    private route: ActivatedRoute,
-  ) {}
+  constructor(private logLayoutService: LoginLayoutService, private route: ActivatedRoute ,private router: Router) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -37,5 +34,9 @@ export class LoginLayoutComponent implements OnInit {
     this.logLayoutService.showSetPassword.subscribe((showSetPassword) => {
       this.showSetPassword = showSetPassword;
     });
+  }
+
+  toLanding() {
+    this.router.navigate(['/landing-page'])
   }
 }

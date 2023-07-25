@@ -25,5 +25,6 @@ export class LoginLayoutService {
   ) {
     this.showForgotPassword.next(showForgotPassword);
     this.showLoginForm.next(showLoginForm);
+    this.showSetPassword.next(showSetPassword);
   }
 }

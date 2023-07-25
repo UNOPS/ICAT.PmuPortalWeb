@@ -30,6 +30,7 @@ import { AddSectorComponent } from './sector/add-sector/add-sector.component';
 import { RoleGuardService } from './auth/role-guard.service';
 import { ViewCountryComponent } from './country-registry/view-country/view-country.component';
 import { AssignMethodologyComponent } from './methodologies/assign-methodology/assign-methodology.component';
+import { SetPasswordComponent } from './login/set-password/set-password.component';
 
 export enum UserRoles {
   ICAT_ADMIN = 'ICAT Admin',
@@ -51,6 +52,7 @@ const routes: Routes = [
       ],
     },
   },
+  { path: 'reset-password', component: SetPasswordComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginLayoutComponent },
   {
@@ -256,7 +258,6 @@ const routes: Routes = [
       ],
     },
   },
-
   {
     path: 'learning-material',
     component: LearningMaterialComponent,

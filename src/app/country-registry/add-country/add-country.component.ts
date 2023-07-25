@@ -82,7 +82,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private countryProxy: CountryControllerServiceProxy,
-  ) {}
+  ) { }
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
@@ -221,7 +221,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  selectmod(event: any) {}
+  selectmod(event: any) { }
 
   async saveCountry(userForm: NgForm) {
     {
@@ -273,17 +273,24 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
         }
         this.cou.countrysector = countrysectr;
 
-        setTimeout(() => {
-          this.serviceProxy
-            .createOneBaseCountryControllerCountry(this.cou)
-            .subscribe(async (res: any) => {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success.',
-                detail: 'Successfully created the country',
-              });
+        this.serviceProxy
+          .createOneBaseCountryControllerCountry(this.cou)
+          .subscribe(async (res: any) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success.',
+              detail: 'Successfully created the country',
+
             });
-        }, 1000);
+            setTimeout(async () => {
+              await axios.get(this.url);
+              this.router.navigate(['/country-registry']);
+            }, 1000);
+          },
+            (error) => {
+              alert('An error occurred, please try again.');
+            }
+          );
         this.onBackClick();
       } else {
         for (let x = 0; x < this.selectedModules.length; x++) {
@@ -384,7 +391,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
               this.onBackClick();
             },
 
-            reject: () => {},
+            reject: () => { },
           });
           await axios.get(this.url);
         },

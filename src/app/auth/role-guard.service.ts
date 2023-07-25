@@ -3,7 +3,9 @@ import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import decode from 'jwt-decode';
 @Injectable()
 export class RoleGuardService implements CanActivate {
-  constructor(public router: Router) {}
+  constructor(
+    public router: Router
+  ) {}
   canActivate(route: ActivatedRouteSnapshot): boolean {
     let grant = false;
     let roles: any[] = [];

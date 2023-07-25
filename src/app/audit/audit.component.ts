@@ -17,11 +17,11 @@ import {
 })
 export class AuditComponent implements OnInit {
   loading: boolean;
-  totalRecords = 0;
-  rows = 10;
+  totalRecords: number = 0;
+  rows: number = 10;
   last: number;
   event: any;
-  Date = new Date();
+  Date =new Date();
   searchText: string;
   status: string[] = [];
   activityList: string[] = [];
@@ -43,8 +43,8 @@ export class AuditComponent implements OnInit {
     private router: Router,
     private serviceProxy: ServiceProxy,
     private auditproxy: AuditControllerServiceProxy,
-    private cdr: ChangeDetectorRef,
-  ) {}
+    private cdr: ChangeDetectorRef
+  ) { }
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
   }
@@ -88,25 +88,27 @@ export class AuditComponent implements OnInit {
   }
 
   onSearch() {
-    const event: any = {};
+    let event: any = {};
     event.rows = this.rows;
     event.first = 0;
 
     this.loadgridData(event);
   }
 
+
   loadgridData = (event: LazyLoadEvent) => {
     this.loading = true;
     this.totalRecords = 0;
 
-    const usertype = this.searchBy.usertype ? this.searchBy.usertype : '';
-    const action = this.searchBy.activity ? this.searchBy.activity : '';
-    const filtertext = this.searchBy.text ? this.searchBy.text : '';
-    const editedOn = this.searchBy.editedOn
+    let usertype = this.searchBy.usertype ? this.searchBy.usertype : '';
+    let action = this.searchBy.activity ? this.searchBy.activity : '';
+    let filtertext = this.searchBy.text ? this.searchBy.text : '';
+
+    let editedOn = this.searchBy.editedOn
       ? moment(this.searchBy.editedOn).format('YYYY-MM-DD')
       : '';
 
-    const pageNumber =
+    let pageNumber =
       event.first === 0 || event.first === undefined
         ? 1
         : event.first / (event.rows === undefined ? 1 : event.rows) + 1;
@@ -120,12 +122,10 @@ export class AuditComponent implements OnInit {
           action,
           editedOn,
           filtertext,
-          this.institutionId,
+          this.institutionId
         )
-
         .subscribe((a) => {
           this.activities = a.items;
-
           this.totalRecords = a.meta.totalItems;
           this.loading = false;
 
@@ -133,7 +133,6 @@ export class AuditComponent implements OnInit {
             if (!this.status.includes(d.actionStatus)) {
               this.status.push(d.actionStatus);
             }
-
             if (!this.userTypeList.includes(d.userType)) {
               this.userTypeList.push(d.userType);
             }

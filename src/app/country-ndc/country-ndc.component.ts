@@ -21,32 +21,32 @@ import {
   providers: [MessageService],
 })
 export class CountryNdcComponent implements OnInit {
-  xy = true;
+  xy: boolean = true;
   flights: any;
   value7: any;
   cities: any;
   data1: Ndc = new Ndc();
   data: Ndc[];
-  defoultNDC = false;
-  addNDC = false;
-  ndcsector = false;
+  defoultNDC: boolean = false;
+  addNDC: boolean = false;
+  ndcsector: boolean = false;
   name: any;
   des: any;
   id: any;
   dec: any;
   newndc: any;
   span: HTMLElement;
-  editndc = false;
+  editndc: boolean = false;
   tbdata: any;
   test: any;
   setno: any;
-  display = false;
+  display: boolean = false;
   check: any;
   selectedValues: string[] = [];
-  activendcdialog = false;
-  active = true;
-  confirm1 = false;
-  confirm2 = false;
+  activendcdialog: boolean = false;
+  active: boolean = true;
+  confirm1: boolean = false;
+  confirm2: boolean = false;
   countryId: any = 1;
   sectorId: any = 1;
   set: any;
@@ -56,31 +56,25 @@ export class CountryNdcComponent implements OnInit {
   value: any;
   latestset: NdcSet = new NdcSet();
   sector: Sector;
-  selectedndc = true;
+  selectedndc: boolean = true;
   count: any;
-  isChangeAssignData = true;
-  selectedndcIdsArry: any = [];
-  checkboxdis = false;
+  isChangeAssignData: boolean = true;
+  selectedndcIdsArry: any = new Array();
+  checkboxdis: boolean = false;
   submitdate: any;
-  confirm3 = false;
-  confirm4 = false;
-  display1 = false;
-  display2 = false;
+  confirm3: boolean = false;
+  confirm4: boolean = false;
+  display1: boolean = false;
+  display2: boolean = false;
   year = '';
   baEmission = 0;
   unCEmission = 0;
   CEmission = 0;
   targetYear = '';
   targetYearEmission = 0;
-  display3 = false;
-  display4 = false;
-  constructor(
-    private messageService: MessageService,
-    private serviceproxy: ServiceProxy,
-    private confirmationService: ConfirmationService,
-    private router: Router,
-    private activerouter: ActivatedRoute,
-  ) {}
+  display3: boolean = false;
+  display4: boolean = false;
+  constructor(private messageService: MessageService, private serviceproxy: ServiceProxy, private confirmationService: ConfirmationService, private router: Router, private activerouter: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.serviceproxy
@@ -88,7 +82,7 @@ export class CountryNdcComponent implements OnInit {
         this.sectorId,
         undefined,
         undefined,
-        undefined,
+        undefined
       )
       .subscribe((res) => {
         this.sector = res;
@@ -97,16 +91,15 @@ export class CountryNdcComponent implements OnInit {
     if (!this.ndcsector) {
       this.defoultNDC = true;
     }
-    const filter: string[] = [];
+    let filter: string[] = new Array();
     filter.push('country.id||$eq||' + this.countryId);
     filter.push('sector.id||$eq||' + this.sectorId);
-    const ndcFilter: string[] = [];
+    let ndcFilter: string[] = new Array();
     ndcFilter.push('country.id||$eq||' + this.countryId);
     ndcFilter.push('set.name||$eq||' + this.selectedtype.name);
 
-    const countryFilter: string[] = [];
+    let countryFilter: string[] = new Array();
     countryFilter.push('country.id||$eq||' + this.countryId);
-
     this.serviceproxy
       .getManyBaseNdcSetControllerNdcSet(
         undefined,
@@ -118,15 +111,14 @@ export class CountryNdcComponent implements OnInit {
         1000,
         0,
         0,
-        0,
+        0
       )
       .subscribe((res) => {
         this.selectedtype = res.data[0];
-        const ndcFilter: string[] = [];
+        let ndcFilter: string[] = new Array();
         ndcFilter.push('country.id||$eq||' + this.countryId);
         ndcFilter.push('set.id||$eq||' + this.selectedtype.id);
         ndcFilter.push('sector.id||$eq||' + this.sectorId);
-
         this.serviceproxy
           .getManyBaseNdcControllerNdc(
             undefined,
@@ -138,7 +130,7 @@ export class CountryNdcComponent implements OnInit {
             1000,
             0,
             0,
-            0,
+            0
           )
           .subscribe((res: any) => {
             this.id = res.data[0]?.id;
@@ -148,13 +140,12 @@ export class CountryNdcComponent implements OnInit {
             this.data = res.data;
           });
       });
-
     this.serviceproxy
       .getOneBaseCountryControllerCountry(
         this.countryId,
         undefined,
         undefined,
-        undefined,
+        undefined
       )
       .subscribe((res) => {
         this.country = res;
@@ -171,14 +162,12 @@ export class CountryNdcComponent implements OnInit {
         1000,
         0,
         0,
-        0,
+        0
       )
       .subscribe((res: any) => {
         this.setno = res.data;
       });
-
     this.newndc = [{ one: ' ' }, { one: ' ' }];
-
     this.value = this.selectedtype;
   }
 
@@ -195,19 +184,19 @@ export class CountryNdcComponent implements OnInit {
   }
 
   addNew() {
-    const el = document.createElement(
-      '<input type="text" class="p-inputtext" pInputText placeholder="NDC name" style = "width:100%"/>',
+    var el = document.createElement(
+      '<input type="text" class="p-inputtext" pInputText placeholder="NDC name" style = "width:100%"/>'
     );
     this.newndc.push(el);
   }
-  selectset(r: any) {}
+  selectset(r: any) { }
 
   selectSector(sector: any) {
     this.addNDC = true;
   }
 
   addsub() {
-    const row = document.createElement('div');
+    let row = document.createElement('div');
     row.className = 'row';
     row.innerHTML = `
       <br>
@@ -251,7 +240,7 @@ export class CountryNdcComponent implements OnInit {
         this.active = true;
         this.confirm1 = true;
         this.selectedndc = true;
-        for (const ndcid of this.selectedndcIdsArry) {
+        for (let ndcid of this.selectedndcIdsArry) {
           this.serviceproxy
             .getOneBaseNdcControllerNdc(ndcid, undefined, undefined, undefined)
             .subscribe((res) => {
@@ -270,14 +259,14 @@ export class CountryNdcComponent implements OnInit {
                       1000,
                       0,
                       0,
-                      0,
+                      0
                     )
                     .subscribe((res) => {
-                      for (const sub of res.data) {
+                      for (let sub of res.data) {
                         sub.status = 1;
                         this.serviceproxy
                           .updateOneBaseSubNdcControllerSubNdc(sub.id, sub)
-                          .subscribe((res) => {});
+                          .subscribe((res) => { });
                       }
                     });
                 });
@@ -287,8 +276,8 @@ export class CountryNdcComponent implements OnInit {
     });
   }
 
-  onRowEditInit(rowData: any) {}
-  onRowEditCancel(rowData: any) {}
+  onRowEditInit(rowData: any) { }
+  onRowEditCancel(rowData: any) { }
 
   ActivateNDCs() {
     this.activendcdialog = true;
@@ -301,8 +290,8 @@ export class CountryNdcComponent implements OnInit {
   saveSetofNDcs() {
     this.ndcsetDto.country = this.country;
     this.ndcsetDto.name = this.set;
-    const dateObj = new Date(this.submitdate);
-    const momentObj = moment(dateObj);
+    var dateObj = new Date(this.submitdate);
+    var momentObj = moment(dateObj);
     this.ndcsetDto.submissionDate = momentObj;
     this.confirm2 = true;
 
@@ -316,11 +305,12 @@ export class CountryNdcComponent implements OnInit {
     } else {
       this.confirm4 = true;
     }
+
   }
 
   saveTargets() {
     this.display2 = true;
-    const emissionDraftData = new EmissionReductioDraftDataEntity();
+    let emissionDraftData = new EmissionReductioDraftDataEntity();
     emissionDraftData.sector = this.sector;
     emissionDraftData.country = this.country;
     emissionDraftData.baseYear = this.year;
@@ -330,37 +320,29 @@ export class CountryNdcComponent implements OnInit {
     emissionDraftData.unconditionaltco2 = this.unCEmission;
     emissionDraftData.conditionaltco2 = this.CEmission;
 
-    if (
-      !this.year ||
-      this.year.length == 0 ||
-      this.year == ' ' ||
-      !/^-?\d+$/.test(this.year) ||
-      !this.baEmission ||
-      !this.targetYear ||
-      this.targetYear.length == 0 ||
-      this.targetYear == ' ' ||
-      !/^-?\d+$/.test(this.targetYear)
-    ) {
+    if (!this.year || this.year.length == 0 || this.year == ' ' || !(/^-?\d+$/.test(this.year))
+      || !this.baEmission
+      || !this.targetYear || this.targetYear.length == 0
+      || this.targetYear == ' ' || !(/^-?\d+$/.test(this.targetYear))) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error in Saving!!',
+
       });
     } else if (this.year.length != 4 || this.targetYear.length != 4) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error in Saving!!',
-        detail: 'year sould have 4 digits',
+        detail: 'year sould have 4 digits'
+
       });
-    } else {
-      this.serviceproxy
-        .createOneBaseEmissionReductionDraftdataControllerEmissionReductioDraftDataEntity(
-          emissionDraftData,
-        )
-        .subscribe((res) => {
+    }
+    else {
+      this.serviceproxy.createOneBaseEmissionReductionDraftdataControllerEmissionReductioDraftDataEntity(emissionDraftData).
+        subscribe((res => {
           if (res == null) {
             this.display3 = true;
           }
-
           if (res != undefined && res != null) {
             this.messageService.add({
               severity: 'success',
@@ -372,16 +354,15 @@ export class CountryNdcComponent implements OnInit {
               summary: 'Error in Saving!!',
             });
           }
-        });
+        }))
     }
   }
 
   onSetChange(event: any) {
-    const ndcFilter: string[] = [];
+    let ndcFilter: string[] = new Array();
     ndcFilter.push('country.id||$eq||' + this.countryId);
     ndcFilter.push('set.id||$eq||' + this.selectedtype.id);
     ndcFilter.push('sector.id||$eq||' + this.sectorId);
-
     this.serviceproxy
       .getManyBaseNdcControllerNdc(
         undefined,
@@ -393,7 +374,7 @@ export class CountryNdcComponent implements OnInit {
         1000,
         0,
         0,
-        0,
+        0
       )
       .subscribe((res: any) => {
         this.id = res.data[0]?.id;
@@ -403,15 +384,16 @@ export class CountryNdcComponent implements OnInit {
         this.data = res.data;
       });
   }
-  addndc() {}
+  addndc() { }
   close() {
     window.location.reload();
   }
 
-  close1() {}
+  close1() { }
 
   targets() {
     this.display1 = true;
   }
-  closeDialog() {}
+  closeDialog() { }
+
 }

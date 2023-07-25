@@ -228,18 +228,25 @@ export class ViewCountryComponent implements OnInit, AfterViewInit {
               this.onBackClick();
             },
 
-            reject: () => {},
+            reject: () => { },
           });
-          await axios.get(this.url);
-        },
+          if(this.cou.isSingleCountry == 1){
+            let ur = this.cou.domain +"/sync-api/singlecountry?id=" +this.cou.id
+            await axios.get(ur);
+
+          }
+          else{
+            await axios.get(this.url);
+          }
+      },
         (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error.',
-            detail: 'Failed Deactiavted, please try again.',
-            sticky: true,
-          });
-        },
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error.',
+              detail: 'Failed Deactiavted, please try again.',
+              sticky: true,
+            });
+        }
       );
   }
 

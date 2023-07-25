@@ -6,13 +6,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { LazyLoadEvent } from 'primeng/api';
+import {
+  LazyLoadEvent,
+} from 'primeng/api';
 
 import {
   Project,
   ProjectApprovalStatus,
   ProjectControllerServiceProxy,
-  ProjectOwner,
   ProjectStatus,
   Sector,
   ServiceProxy,
@@ -21,7 +22,7 @@ import {
 @Component({
   selector: 'app-all-climate-action',
   templateUrl: './all-climate-action.component.html',
-  styleUrls: ['./all-climate-action.component.css'],
+  styleUrls: ['./all-climate-action.component.css']
 })
 export class AllClimateActionComponent implements OnInit, AfterViewInit {
   climateactions: Project[];
@@ -41,31 +42,33 @@ export class AllClimateActionComponent implements OnInit, AfterViewInit {
   selectedstatustype: ProjectStatus;
   searchText: string;
   loading: boolean;
-  totalRecords = 0;
-  rows = 10;
+  totalRecords: number = 0;
+  rows: number = 10;
   last: number;
   event: any;
   searchBy: any = {
     text: null,
     status: null,
     ApprovalStatus: null,
+
   };
 
-  countryId = 0;
-  sectorId = 0;
+  countryId: number = 0;
+  sectorId: number = 0;
 
   selectedProject: Project;
   @ViewChild('op') overlay: any;
 
   first = 0;
-  statusList: string[] = [];
+  statusList: string[] = new Array();
 
   constructor(
     private router: Router,
     private serviceProxy: ServiceProxy,
     private projectProxy: ProjectControllerServiceProxy,
     private cdr: ChangeDetectorRef,
-  ) {}
+
+  ) { }
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
@@ -80,8 +83,8 @@ export class AllClimateActionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.serviceProxy
-      .getManyBaseProjectStatusControllerProjectStatus(
+    this.serviceProxy.
+      getManyBaseProjectStatusControllerProjectStatus(
         undefined,
         undefined,
         undefined,
@@ -91,9 +94,8 @@ export class AllClimateActionComponent implements OnInit, AfterViewInit {
         1000,
         0,
         0,
-        0,
-      )
-      .subscribe((res: any) => {
+        0
+      ).subscribe((res: any) => {
         this.projectStatusList = res.data;
       });
 
@@ -108,37 +110,28 @@ export class AllClimateActionComponent implements OnInit, AfterViewInit {
         1000,
         0,
         0,
-        0,
+        0
       )
       .subscribe((res: any) => {
         this.projectApprovalStatus = res.data;
       });
 
-    const statusId = this.searchBy.status ? this.searchBy.status.id : 0;
-    const projectApprovalStatusId = this.searchBy.ApprovalStatus
-      ? this.searchBy.ApprovalStatus.id
-      : 0;
-    const filtertext = this.searchBy.text ? this.searchBy.text : '';
-    const pageNumber = 1;
-    const Active = 1;
+    let statusId = this.searchBy.status ? this.searchBy.status.id : 0;
+    let projectApprovalStatusId = this.searchBy.ApprovalStatus ? this.searchBy.ApprovalStatus.id : 0;
+    let filtertext = this.searchBy.text ? this.searchBy.text : '';
+    let pageNumber = 1
+    let Active = 1;
     this.projectProxy
-      .getAllClimateActionList(
-        pageNumber,
-        this.rows,
-        filtertext,
-        statusId,
-        projectApprovalStatusId,
-        this.countryId,
-        this.sectorId,
-      )
+      .getAllClimateActionList(pageNumber, this.rows, filtertext, statusId, projectApprovalStatusId, this.countryId, this.sectorId)
       .subscribe((a) => {
         this.climateactions = a.items;
         this.totalRecords = a.meta.totalItems;
       });
+
   }
 
   onSearch() {
-    const event: any = {};
+    let event: any = {};
     event.rows = this.rows;
     event.first = 0;
     this.loadgridData(event);
@@ -146,28 +139,18 @@ export class AllClimateActionComponent implements OnInit, AfterViewInit {
 
   loadgridData = (event: LazyLoadEvent) => {
     this.totalRecords = 0;
-    const statusId = this.searchBy.status ? this.searchBy.status.id : 0;
-    const projectApprovalStatusId = this.searchBy.ApprovalStatus
-      ? this.searchBy.ApprovalStatus.id
-      : 0;
-    const filtertext = this.searchBy.text ? this.searchBy.text : '';
-    const pageNumber =
+    let statusId = this.searchBy.status ? this.searchBy.status.id : 0;
+    let projectApprovalStatusId = this.searchBy.ApprovalStatus ? this.searchBy.ApprovalStatus.id : 0;
+    let filtertext = this.searchBy.text ? this.searchBy.text : '';
+    let pageNumber =
       event.first === 0 || event.first === undefined
         ? 1
         : event.first / (event.rows === undefined ? 1 : event.rows) + 1;
     this.rows = event.rows === undefined ? 10 : event.rows;
-    const Active = 1;
+    let Active = 1;
     setTimeout(() => {
       this.projectProxy
-        .getAllClimateActionList(
-          pageNumber,
-          this.rows,
-          filtertext,
-          statusId,
-          projectApprovalStatusId,
-          this.countryId,
-          this.sectorId,
-        )
+        .getAllClimateActionList(pageNumber, this.rows, filtertext, statusId, projectApprovalStatusId, this.countryId, this.sectorId)
         .subscribe((a) => {
           this.climateactions = a.items;
           this.totalRecords = a.meta.totalItems;

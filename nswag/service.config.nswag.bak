@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "http://localhost:7081/api-json",
+      "url": "http://localhost:7080/api-json",
       "output": null
     }
   },
@@ -18,7 +18,7 @@
       "httpClass": "HttpClient",
       "useSingletonProvider": false,
       "injectionTokenType": "InjectionToken",
-      "rxJsVersion": 7.0,
+      "rxJsVersion": 6.0,
       "dateTimeType": "MomentJS",
       "nullValue": "Undefined",
       "generateClientClasses": true,

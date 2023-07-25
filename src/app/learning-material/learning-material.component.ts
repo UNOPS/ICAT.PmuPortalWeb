@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import axios from 'axios';
+import axios from "axios";
 import {
   LearningMaterialControllerServiceProxy,
   ServiceProxy,
@@ -28,68 +28,76 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-learning-material',
   templateUrl: './learning-material.component.html',
-  styleUrls: ['./learning-material.component.css'],
+  styleUrls: ['./learning-material.component.css']
 })
 export class LearningMaterialComponent implements OnInit, AfterViewInit {
+
   learnigMaterials: LearningMaterial[];
-  sortOrder = 1;
-  sortType = 0;
+  sortOrder: number = 1; 
+  sortType: number = 0; 
   event: any;
   searchBy: any = {
     text: null,
     sortOption: '',
   };
-  display = false;
+  display: boolean = false;
+
 
   @Output() newItemEvent = new EventEmitter<string>();
   closeResult = '';
 
-  isSaving = false;
+  isSaving: boolean = false;
   options: any;
   projectOwnerList: ProjectOwner[] = [];
   projectStatusList: ProjectStatus[] = [];
   documents: Documents[] = [];
-  documentsDocumentOwner: DocumentsDocumentOwner =
-    DocumentsDocumentOwner.LearningMaterial;
+  documentsDocumentOwner: DocumentsDocumentOwner = DocumentsDocumentOwner.LearningMaterial;
   documentOwnerId: any = 4;
-  editEntytyId = 0;
+  editEntytyId: number = 0;
   proposeDateofCommence: Date;
-  isLoading = false;
+  isLoading: boolean = false;
 
-  checked = false;
+  checked: boolean = false;
   sectorList: Sector[] = [];
   typeList: UserType[] = [];
   selectedSector: Sector;
+  selectedDocType: string;
   finalSector: Sector = new Sector();
   selectedType: UserType = new UserType();
   documentLists: Documents[] = [];
-  sortOptions = [
+  sortOptions = [   
     { name: 'By Date -> New to Oldest' },
     { name: 'By Date -> Oldest to New' },
     { name: 'By Document Name -> Z to A' },
     { name: 'By Document Name -> A to Z' },
   ];
 
-  constTypeList = [
-    { id: 1, name: 'PMU Admin' },
-    { id: 2, name: 'Country Admin' },
-    { id: 3, name: 'PMU User' },
-    { id: 4, name: 'ICAT Admin' },
-    { id: 5, name: 'ICAT User' },
-    { id: 6, name: 'Verifier' },
-    { id: 7, name: 'Sector Admin' },
-    { id: 8, name: 'MRV Admin' },
-    { id: 9, name: 'Technical Team' },
-    { id: 10, name: 'Data Collection Team' },
-    { id: 11, name: 'QC Team' },
-    { id: 12, name: 'Institution Admin' },
-    { id: 13, name: 'Data Entry Operator' },
+  documentTypes = [   
+      'Learning Material' ,
+     'Tools' ,
   ];
 
-  downloadURL: string = environment.baseUrlAPIDocdownloadAPI;
+  constTypeList = [
+    { id: 1, name: "PMU Admin",   },
+    { id: 2, name: "Country Admin",   },
+    { id: 3, name: "PMU User",   },
+    { id: 4, name: "ICAT Admin",   },
+    { id: 5, name: "ICAT User",   },
+    { id: 6, name: "Verifier",   },
+    { id: 7, name: "Sector Admin",  },
+    { id: 8, name: "MRV Admin",  },
+    { id: 9, name: "Technical Team",  },
+    { id: 10, name: "Data Collection Team",   },
+    { id: 11, name: "QC Team",   },
+    { id: 12, name: "Institution Admin",   },
+    { id: 13, name: "Data Entry Operator", },
+  ];
 
-  userTypeId = 0;
-  sectorId = 0;
+
+  downloadURL: String = environment.baseUrlAPIDocdownloadAPI
+
+  userTypeId: number = 0; 
+  sectorId: number = 0; 
   userrole: any;
 
   username: any;
@@ -97,8 +105,10 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     private LearningMaterialProxy: LearningMaterialControllerServiceProxy,
     private cdr: ChangeDetectorRef,
     private serviceProxy: ServiceProxy,
-    private messageService: MessageService,
-  ) {}
+    private messageService: MessageService
+  ) {
+    
+  }
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
@@ -112,9 +122,7 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     const token = localStorage.getItem('access_token')!;
     const tokenPayload = decode<any>(token);
     this.userrole = tokenPayload.roles[0];
-
     this.username = tokenPayload.usr;
-
     this.serviceProxy
       .getManyBaseSectorControllerSector(
         undefined,
@@ -126,21 +134,21 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
         1000,
         0,
         0,
-        0,
+        0
       )
       .subscribe((res: any) => {
         this.sectorList = res.data;
       });
 
-    const filter: string[] = [];
-    if (this.userrole == 'PMU Admin') {
-      filter.push('name||$in||' + ['PMU Admin', 'PMU User', 'Country Admin']);
+    let filter: string[] = [];
+    if (this.userrole == "PMU Admin") {
+      filter.push('name||$in||' + ["PMU Admin", "PMU User", "Country Admin"]);
     }
-    if (this.userrole == 'PMU User') {
-      filter.push('name||$in||' + ['PMU User', 'Country Admin']);
+    if (this.userrole == "PMU User") {
+      filter.push('name||$in||' + ["PMU User", "Country Admin"]);
     }
-    if (this.userrole == 'ICAT User') {
-      filter.push('name||$in||' + ['ICAT User', 'PMU User', 'Country Admin']);
+    if (this.userrole == "ICAT User") {
+      filter.push('name||$in||' + ["ICAT User", "PMU User", "Country Admin"]);
     }
 
     this.serviceProxy
@@ -154,12 +162,11 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
         1000,
         0,
         0,
-        0,
+        0
       )
       .subscribe((res: any) => {
         this.typeList = res.data;
       });
-
     this.loadgridData();
   }
 
@@ -171,42 +178,37 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     this.display = true;
   }
   async closeModalDialog() {
-    const url = environment.baseSyncAPI + '/lerninigMeterial';
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Confirmed',
-      detail: 'You have successfully uploaded the document.',
-    });
+    let url = environment.baseSyncAPI + '/lerninigMeterial';
+    this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'You have successfully uploaded the document.' });
     this.display = false;
-    await axios.get(url);
+    await axios.get(url)
   }
 
   deleteItem(newItem: any) {
     this.serviceProxy
       .deleteOneBaseLearningMaterialControllerLearningMaterial(newItem[2])
-      .subscribe((res) => {
+      .subscribe((res => {
         setTimeout(() => {
           this.loadgridData();
         }, 1000);
-      });
+      }))
   }
 
   onStatusChange(event: any) {
     this.onSearch();
   }
-  count = 0;
+  count: number = 0
 
   toggele() {
-    this.checked = !this.checked;
+    this.checked = !this.checked
   }
   handleChange(e: any) {
-    const isChecked = e.checked;
-    this.checked = !this.checked;
+    var isChecked = e.checked;
+    this.checked = !this.checked
   }
 
   getDocuments() {
     this.count++;
-
     setTimeout(() => {
       this.serviceProxy
         .getManyBaseDocumentControllerDocuments(
@@ -219,29 +221,29 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
           1000,
           0,
           0,
-          0,
+          0
         )
         .subscribe((res: any) => {
           this.documentLists = res.data;
 
-          const savedDoc = this.documentLists[0];
-          const fileName = savedDoc?.fileName;
-          const filePath = savedDoc?.relativePath;
+          let savedDoc = this.documentLists[0];
+          let fileName = savedDoc?.fileName;
+          let filePath = savedDoc?.relativePath;
 
-          const lm = new LearningMaterial();
-          lm.documentType = 'Learning Material';
+          let lm = new LearningMaterial();
+          lm.documentType = this.selectedDocType=="Tools"? "Tools":"Learning Material";
           lm.documentName = fileName;
-          lm.document = `${this.downloadURL}/attachment/${savedDoc.id}`;
+          lm.document = `${this.downloadURL}/attachment/${savedDoc.id}`
           lm.isPublish = this.checked;
 
-          const learningMaterialsectr: LearningMaterialSector[] = [];
-          const sct = new LearningMaterialSector();
+          let learningMaterialsectr: LearningMaterialSector[] = [];
+          let sct = new LearningMaterialSector();
           sct.sector.id = this.selectedSector.id;
           learningMaterialsectr.push(sct);
           lm.learningMaterialsector = learningMaterialsectr;
 
-          const learningMaterialusertype: LearningMaterialUserType[] = [];
-          const ust = new LearningMaterialUserType();
+          let learningMaterialusertype: LearningMaterialUserType[] = [];
+          let ust = new LearningMaterialUserType();
           ust.userType.id = this.selectedType.id;
           learningMaterialusertype.push(ust);
           lm.learningMaterialusertype = learningMaterialusertype;
@@ -274,10 +276,9 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
       this.sortType = 1;
     }
 
-    const filtertext = this.searchBy.text ? this.searchBy.text : '';
-
-    const pageNumber = 1;
-    const rows = 1000;
+    let filtertext = this.searchBy.text ? this.searchBy.text : '';
+    let pageNumber = 1;
+    let rows = 1000;
 
     setTimeout(() => {
       this.LearningMaterialProxy.getLearningMaterialDetails(
@@ -288,12 +289,15 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
         this.sectorId,
         this.sortOrder,
         this.sortType,
-      ).subscribe((a) => {
-        this.learnigMaterials = a.items;
-      });
+      )
+        .subscribe((a) => {
+          this.learnigMaterials = a.items;
+        });
     });
   };
+
 }
 function num(num: any) {
   throw new Error('Function not implemented.');
 }
+
