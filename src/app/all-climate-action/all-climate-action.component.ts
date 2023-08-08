@@ -14,7 +14,6 @@ import {
   Project,
   ProjectApprovalStatus,
   ProjectControllerServiceProxy,
-  ProjectOwner,
   ProjectStatus,
   Sector,
   ServiceProxy,
@@ -25,7 +24,7 @@ import {
   templateUrl: './all-climate-action.component.html',
   styleUrls: ['./all-climate-action.component.css']
 })
-export class AllClimateActionComponent implements OnInit,AfterViewInit {
+export class AllClimateActionComponent implements OnInit, AfterViewInit {
   climateactions: Project[];
   selectedClimateActions: Project[];
   climateaction: Project = new Project();
@@ -51,13 +50,12 @@ export class AllClimateActionComponent implements OnInit,AfterViewInit {
     text: null,
     status: null,
     ApprovalStatus: null,
-    
+
   };
 
-  countryId: number = 0;  // should assign particular country id from login
-  sectorId: number = 0;  // should assign particular sector id from login
+  countryId: number = 0;
+  sectorId: number = 0;
 
-  
   selectedProject: Project;
   @ViewChild('op') overlay: any;
 
@@ -69,8 +67,8 @@ export class AllClimateActionComponent implements OnInit,AfterViewInit {
     private serviceProxy: ServiceProxy,
     private projectProxy: ProjectControllerServiceProxy,
     private cdr: ChangeDetectorRef,
-    
-    ) { }
+
+  ) { }
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
@@ -85,61 +83,59 @@ export class AllClimateActionComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
-      this.serviceProxy.
+    this.serviceProxy.
       getManyBaseProjectStatusControllerProjectStatus(
-       undefined,
-       undefined,
-       undefined,
-       undefined,
-       undefined,
-       undefined,
-       1000,
-       0,
-       0,
-       0
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        1000,
+        0,
+        0,
+        0
       ).subscribe((res: any) => {
-       this.projectStatusList = res.data;
-     });
+        this.projectStatusList = res.data;
+      });
 
-   this.serviceProxy
-     .getManyBaseProjectApprovalStatusControllerProjectApprovalStatus(
-       undefined,
-       undefined,
-       undefined,
-       undefined,
-       undefined,
-       undefined,
-       1000,
-       0,
-       0,
-       0
-     )
-     .subscribe((res: any) => {
-       this.projectApprovalStatus = res.data;
-     });
- 
+    this.serviceProxy
+      .getManyBaseProjectApprovalStatusControllerProjectApprovalStatus(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        1000,
+        0,
+        0,
+        0
+      )
+      .subscribe((res: any) => {
+        this.projectApprovalStatus = res.data;
+      });
+
     let statusId = this.searchBy.status ? this.searchBy.status.id : 0;
     let projectApprovalStatusId = this.searchBy.ApprovalStatus ? this.searchBy.ApprovalStatus.id : 0;
     let filtertext = this.searchBy.text ? this.searchBy.text : '';
     let pageNumber = 1
-    let Active= 1;
+    let Active = 1;
     this.projectProxy
-      .getAllClimateActionList(pageNumber, this.rows, filtertext, statusId,projectApprovalStatusId,this.countryId,this.sectorId)
+      .getAllClimateActionList(pageNumber, this.rows, filtertext, statusId, projectApprovalStatusId, this.countryId, this.sectorId)
       .subscribe((a) => {
         this.climateactions = a.items;
         this.totalRecords = a.meta.totalItems;
-        console.log('first time climation',this.climateactions);
       });
-    
+
   }
- 
+
   onSearch() {
     let event: any = {};
     event.rows = this.rows;
     event.first = 0;
     this.loadgridData(event);
   }
-
 
   loadgridData = (event: LazyLoadEvent) => {
     this.totalRecords = 0;
@@ -151,25 +147,18 @@ export class AllClimateActionComponent implements OnInit,AfterViewInit {
         ? 1
         : event.first / (event.rows === undefined ? 1 : event.rows) + 1;
     this.rows = event.rows === undefined ? 10 : event.rows;
-    let Active= 1;
+    let Active = 1;
     setTimeout(() => {
       this.projectProxy
-      .getAllClimateActionList(pageNumber, this.rows,filtertext,statusId,projectApprovalStatusId,this.countryId,this.sectorId)
-      .subscribe((a) => {
-        this.climateactions = a.items;
-        this.totalRecords = a.meta.totalItems;
-        console.log('first time climation',this.climateactions);
-      });
+        .getAllClimateActionList(pageNumber, this.rows, filtertext, statusId, projectApprovalStatusId, this.countryId, this.sectorId)
+        .subscribe((a) => {
+          this.climateactions = a.items;
+          this.totalRecords = a.meta.totalItems;
+        });
     });
   };
-  
-  projectSummery() {
-    this.router.navigate(['']);  //should insert summery page link
-  }
 
-  // detail(climateactions: Project) {
-  //   this.router.navigate(['/propose-project'], {
-  //     queryParams: { id: climateactions.id },
-  //   });
-  // } 
+  projectSummery() {
+    this.router.navigate(['']);
+  }
 }

@@ -11,16 +11,16 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class EditCountryComponent implements OnInit {
 
- country: Country = new Country();
- sector: Sector = new Sector();
- sectors: Sector[];
- sectorUpdated: any;
- countryId: number;
- isSaving: boolean = false;
- sectorList: Sector[];
- value: any;
- confirm: boolean = false;
- confirmSector: boolean = false;
+  country: Country = new Country();
+  sector: Sector = new Sector();
+  sectors: Sector[];
+  sectorUpdated: any;
+  countryId: number;
+  isSaving: boolean = false;
+  sectorList: Sector[];
+  value: any;
+  confirm: boolean = false;
+  confirmSector: boolean = false;
 
   constructor(private route: Router,
     private serviceProxy: ServiceProxy,
@@ -28,218 +28,59 @@ export class EditCountryComponent implements OnInit {
 
   ngOnInit(): void {
     this.serviceProxy
-    .getOneBaseCountryControllerCountry(
-      1,                        // country ID is request
-      undefined,
-      undefined,
-      0,
-    ).subscribe((res: any) => {
-      this.country = res;
-      // console.log(this.country);
-      this.countryId = this.country.id;
-      // console.log('########333');
-      // console.log(this.countryId);
-    });
+      .getOneBaseCountryControllerCountry(
+        1,
+        undefined,
+        undefined,
+        0,
+      ).subscribe((res: any) => {
+        this.country = res;
+        this.countryId = this.country.id;
+      });
 
     let countryFilter: string[] = new Array();
-    // countryFilter.push(this.countryId);
-  
     countryFilter.push('country.id||$eq||' + 1);
 
-
-
     this.serviceProxy
-    .getManyBaseSectorControllerSector(
-      undefined,
-      undefined,
-      countryFilter,
-      undefined,
-      undefined,
-      ['country'],
-      1000,
-      0,
-      0,
-      0
-    ).subscribe((res) => {
-      console.log("sec",res);
-      this.sectors=res.data;
-      // this.sectors = res.data;
-      // console.log(this.sectors);
-    });
-    }
-
-  // saveForm(formData: NgForm) {
-  //   if (formData.valid) {
-  //     // console.log("new country"+this.country);
-    
-  //     this.serviceProxy
-  //       .updateOneBaseCountryControllerCountry(1, this.country)
-  //       .subscribe(
-  //         (res) => {
-  //           this.country = res;
-  //           console.log("new country"+this.country);
-  //           this.isSaving = false;
-  //         }
-  //       );
-
-  //     console.log(formData);
-  //   }
-  // }
-
-
-
-  // Update start merge requets
-  
-  // saveForm(formData: NgForm) {
-    
-        
-
-  //     console.log(formData);
-    
-  // }
-  
-  //END
-
-  saveCountry(country: Country){
-
-    this.serviceProxy
-    .updateOneBaseCountryControllerCountry(1, country)
-    .subscribe((res) => {
-      this.country = res;
-      this.confirm = true;
-
-    })
-    console.log("aceepted")
-    // if(this.confirm==true){
-    //   this.route.navigate(['/view-country'])
-    // }
+      .getManyBaseSectorControllerSector(
+        undefined,
+        undefined,
+        countryFilter,
+        undefined,
+        undefined,
+        ['country'],
+        1000,
+        0,
+        0,
+        0
+      ).subscribe((res) => {
+        this.sectors = res.data;
+      });
   }
 
-  saveSector(sector: Sector[]){
+  saveCountry(country: Country) {
+    this.serviceProxy
+      .updateOneBaseCountryControllerCountry(1, country)
+      .subscribe((res) => {
+        this.country = res;
+        this.confirm = true;
 
-    for(let sector of this.sectors){
-      // console.log("aaaaaaaa",sector)
-
-      this.serviceProxy
-      .updateOneBaseSectorControllerSector(sector.id, sector)
-      .subscribe((res)=>{
-        // console.log("backend.", sector2)
-        // sector = res;
-        console.log("final sector id",sector.id)
-        console.log("res",res)
-        this.confirmSector = true;
-        // this.route.navigate(['/view-country'])
-        // sectors.push(res)
-        // console.log("sectors list",sectors)
-        // console.log("final sector",sector2)
       })
-      
-      
-       };   
-  
   }
-  // console.log("sector list",this.sectors)
-  // console.log
 
-  //   this.serviceProxy
-  //   .updateOneBaseSectorControllerSector(1, sector)
-  //   .subscribe((res) => {
-  //     this.sector = res;
-  //     console.log("sectorUpdate", sector.description)
-  //     this.route.navigate(['/view-country'])
-      
-  //   })
-  //   // console.log("aceepted sector")
-  // }
-  // }
+  saveSector(sector: Sector[]) {
 
-    //   this.confirmationService.confirm({
-    //     message: 'Save success !',
-    //     header: 'Save',
-    //     acceptIcon: 'icon-not-visible',
-    //     rejectIcon: 'icon-not-visible',
-    //     rejectButtonStyleClass: 'p-button-text',
-    //     rejectVisible: false,
-    //     acceptLabel: 'Ok',
-    //     accept: () => {
-    //     },
-    //     reject: () => {},
-    //   });
+    for (let sector of this.sectors) {
+      this.serviceProxy
+        .updateOneBaseSectorControllerSector(sector.id, sector)
+        .subscribe((res) => {
+          this.confirmSector = true;
+        })
+    };
+  }
 
-     
-    // },
-    // (error) => {
-    //   this.confirmationService.confirm({
-    //     message: 'An error occurred, please try again.',
-    //     header: 'Error',
-    //     acceptIcon: 'icon-not-visible',
-    //     rejectIcon: 'icon-not-visible',
-    //     rejectButtonStyleClass: 'p-button-text',
-    //     rejectVisible: false,
-    //     acceptLabel: 'Ok',
-    //     accept: () => {
-    //       //this.onBackClick();
-    //     },
-    //     reject: () => {},
-    //   });
-  
-      
-    //   console.log('Error', error);
-    //   this.isSaving = false;
-    // }
-  // );
-
-
-
-  // saveSector(sector: Sector){
-
-  //   console.log("update", sector)
-  //   this.serviceProxy
-  //   .updateOneBaseSectorControllerSector(1, sector)
-  //   .subscribe((res)=>{
-  //     this.confirmationService.confirm({
-  //       message: 'Save success !',
-  //       header: 'Save',
-  //       acceptIcon: 'icon-not-visible',
-  //       rejectIcon: 'icon-not-visible',
-  //       rejectButtonStyleClass: 'p-button-text',
-  //       rejectVisible: false,
-  //       acceptLabel: 'Ok',
-  //       accept: () => {
-  //       },
-  //       reject: () => {},
-  //     });
-
-  //     console.log("aceepted sector")
-  //   },
-  //   (error) => {
-  //     this.confirmationService.confirm({
-  //       message: 'An error occurred, please try again.',
-  //       header: 'Error',
-  //       acceptIcon: 'icon-not-visible',
-  //       rejectIcon: 'icon-not-visible',
-  //       rejectButtonStyleClass: 'p-button-text',
-  //       rejectVisible: false,
-  //       acceptLabel: 'Ok',
-  //       accept: () => {
-  //         //this.onBackClick();
-  //       },
-  //       reject: () => {},
-  //     });
-  
-      
-  //     console.log('Error', error);
-  //     this.isSaving = false;
-  //   }
-  // );
-  // }
-
-
-  back(){
+  back() {
     this.route.navigate(['/view-country'])
   }
-
-  
-      
 }
-  
+

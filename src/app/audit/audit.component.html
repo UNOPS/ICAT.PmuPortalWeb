@@ -59,18 +59,6 @@
                 (ngModelChange)="ondateChange($event)"
                 appendTo="body"
               ></p-calendar>
-            <!-- <p-dropdown
-              name="date"
-              [options]="dateList"
-              [(ngModel)]="searchBy.date"
-              #fsector="ngModel"
-              [showClear]="true"
-              [filter]="true"
-              placeholder="Select .."
-            
-              (ngModelChange)="ondateChange($event)"
-            >
-            </p-dropdown> -->
           </div>
         </div>
   
@@ -109,28 +97,8 @@
           [loading]="loading"
           [responsive]="true"
         >
-          <!-- Table header start search -->
-  
-          <!-- <p-table #tt [value]="climateactions" [columns]="cols" placeholder="Global Filter" [filter]="true" filterMatchMode="contains" >                                                          
-        <ng-template pTemplate="caption">
-            <div style="text-align: right">        
-                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-                <input type="text" pInputText size="50" style="width:auto">
-            </div>
-        </ng-template> -->
-  
-          <!-- Table header END Search -->
-  
           <ng-template pTemplate="header">
-            <!-- <tr> 
-            <th *ngFor="let col of columns" [ngSwitch]="col.field">
-              <input *ngSwitchCase="'climateActionName'" pInputText type="text"
-                (input)="dt.filter($event.target.value, col.field, 'contains')" />
-            </th>
-          </tr> -->
-  
             <tr>
-              
               <th>NAME</th>
               <th>USER TYPE</th>
               <th>ACTIVITY</th>
@@ -141,8 +109,6 @@
           </ng-template>
           <ng-template pTemplate="body" let-activities>
             <tr>
-             
-  
               <td>{{ activities.user.username }}</td>
               <td>{{ activities.userType }}</td>
               <td>{{ activities.action }}</td>

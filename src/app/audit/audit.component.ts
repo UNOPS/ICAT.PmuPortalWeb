@@ -97,21 +97,13 @@ export class AuditComponent implements OnInit {
 
 
   loadgridData = (event: LazyLoadEvent) => {
-    console.log('event Date', event);
     this.loading = true;
     this.totalRecords = 0;
-
 
     let usertype = this.searchBy.usertype ? this.searchBy.usertype : '';
     let action = this.searchBy.activity ? this.searchBy.activity : '';
     let filtertext = this.searchBy.text ? this.searchBy.text : '';
 
-
-
-    console.log(
-      moment(this.searchBy.editedOn).format('YYYY-MM-DD'),
-      'jjjjjjjjjjjjjjjj'
-    );
     let editedOn = this.searchBy.editedOn
       ? moment(this.searchBy.editedOn).format('YYYY-MM-DD')
       : '';
@@ -132,10 +124,8 @@ export class AuditComponent implements OnInit {
           filtertext,
           this.institutionId
         )
-
         .subscribe((a) => {
           this.activities = a.items;
-
           this.totalRecords = a.meta.totalItems;
           this.loading = false;
 
@@ -143,12 +133,9 @@ export class AuditComponent implements OnInit {
             if (!this.status.includes(d.actionStatus)) {
               this.status.push(d.actionStatus);
             }
-
             if (!this.userTypeList.includes(d.userType)) {
               this.userTypeList.push(d.userType);
             }
-
-            console.log(this.dateList);
           }
         });
     }, 1000);
