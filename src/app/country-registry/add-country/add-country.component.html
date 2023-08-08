@@ -94,6 +94,58 @@
               </div>
             </div>
           </div>
+          <div class="p-grid p-fluid col-md-9 col-sm-12">
+            <div class="row p-2">
+              <div class="col-12 col-md-12">
+                <div type="button"  class="pi pi-info-circle" pTooltip="This is a mandatory field. Please check whether it has correctly mapped or not." ></div>
+                <label > Install the tool in country specific server*</label>
+                <!-- <div class="p-field"> -->
+                 
+                 <!-- </div> -->
+
+              </div>
+              <div class="col-12 col-md-3" >
+                <div class="p-field-radiobutton col-3 col-md-3">
+                  <p-radioButton
+                  name="isSingle"
+                  value="1"
+                  [disabled]="!isNewCountry"
+                  [(ngModel)]="cou.isSingleCountry"
+                ></p-radioButton>
+                </div>
+                <div class="col-12 col-md-3">
+                  <label >Yes</label>
+                </div>
+              </div>
+    
+              <div class="col-12 col-md-3">
+                <div class="p-field-radiobutton col-3 col-md-3">
+                  <p-radioButton
+                  name="isSingle"
+                  value="0"
+                  [disabled]="!isNewCountry"
+                  [(ngModel)]="cou.isSingleCountry"
+                ></p-radioButton><label >No</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-grid p-fluid col-md-9 col-sm-12" *ngIf="cou.isSingleCountry==1">
+            <div class="row p-2">
+              <div class="col-12 col-md-10">
+                <div class="p-field">
+                  <label for="projApprovelStatus">Enter Domain*</label>
+                  <textarea rows="5" name="domain" cols="30" [(ngModel)]="cou.domain" class="form-control"  [disabled]="!isNewCountry"
+                    pInputTextarea>
+    
+                            </textarea>
+    
+                </div>
+    
+              </div>
+            </div>
+          </div>
 
           <div class="p-grid p-fluid col-md-9 col-sm-12">
             <div class="row p-2">
