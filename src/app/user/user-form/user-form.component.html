@@ -9,24 +9,14 @@
           <div class="col-12 col-md-8">
             <div class="p-field">
               <label for="contatname">User Type *</label>
-              <p-dropdown
-                [disabled]="!isNewUser"
-                [options]="userTypes"
-                name="usertype"
-                [(ngModel)]="user.userType"
-                placeholder="Select .."
-                optionLabel="name"
-                #fut="ngModel"
-                (ngModelChange)="utypeid($event)"
-              ></p-dropdown>
+              <p-dropdown [disabled]="!isNewUser" [options]="userTypes" name="usertype" [(ngModel)]="user.userType"
+                placeholder="Select .." optionLabel="name" #fut="ngModel"
+                (ngModelChange)="utypeid($event)"></p-dropdown>
 
-              <p
-                class="info-message text-danger"
-                *ngIf="
+              <p class="info-message text-danger" *ngIf="
                   !user.userType?.id &&
                   (fLogin.submitted || fut.touched || fut.dirty)
-                "
-              >
+                ">
                 This is a mandatory field
               </p>
             </div>
@@ -34,32 +24,19 @@
         </div>
       </div>
 
-      <div
-        class="p-grid p-fluid col-md-9 col-sm-12"
-        *ngIf="user.userType?.id === 2"
-      >
+      <div class="p-grid p-fluid col-md-9 col-sm-12" *ngIf="user.userType?.id == 2">
         <div class="row p-2">
           <div class="col-12 col-md-8">
             <div class="p-field">
               <label for="country">Select Country *</label>
-              <p-dropdown
-                name="name"
-                [options]="countryList"
-                [(ngModel)]="user.country"
-                #fname="ngModel"
-                [filter]="true"
-                placeholder="Select .."
-                optionLabel="name"
-                (ngModelChange)="onChangeCountry($event)"
-              ></p-dropdown>
+              <p-dropdown name="name" [options]="countryList" [(ngModel)]="user.country" #fname="ngModel"
+                [filter]="true" placeholder="Select .." optionLabel="name"
+                (ngModelChange)="onChangeCountry($event)"></p-dropdown>
 
-              <p
-                class="info-message text-danger"
-                *ngIf="
+              <p class="info-message text-danger" *ngIf="
                   !user.country?.id &&
                   (fLogin.submitted || fname.touched || fname.dirty)
-                "
-              >
+                ">
                 This is a mandatory field
               </p>
             </div>
@@ -72,22 +49,12 @@
           <div class="col-12 col-md-8">
             <div class="p-field">
               <label for="firstname">First Name *</label>
-              <input
-                type="text"
-                name="firstname"
-                class="form-control"
-                [(ngModel)]="user.firstName"
-                #ffn="ngModel"
-                placeholder="Enter the first name"
-                required
-              />
-              <p
-                class="info-message text-danger"
-                *ngIf="
+              <input type="text" name="firstname" class="form-control" [(ngModel)]="user.firstName" #ffn="ngModel"
+                placeholder="Enter the first name" required />
+              <p class="info-message text-danger" *ngIf="
                   !user.firstName &&
                   (fLogin.submitted || ffn.touched || ffn.dirty)
-                "
-              >
+                ">
                 This is a mandatory field
               </p>
             </div>
@@ -101,22 +68,12 @@
             <div class="p-field">
               <label for="lastname">Last Name *</label>
 
-              <input
-                type="text"
-                name="lastname"
-                class="form-control"
-                [(ngModel)]="user.lastName"
-                #fln="ngModel"
-                placeholder="Enter the last name"
-                required
-              />
-              <p
-                class="info-message text-danger"
-                *ngIf="
+              <input type="text" name="lastname" class="form-control" [(ngModel)]="user.lastName" #fln="ngModel"
+                placeholder="Enter the last name" required />
+              <p class="info-message text-danger" *ngIf="
                   !user.lastName &&
                   (fLogin.submitted || fln.touched || fln.dirty)
-                "
-              >
+                ">
                 This is a mandatory field
               </p>
             </div>
@@ -130,24 +87,12 @@
             <div class="p-field">
               <label for="email">Email *</label>
 
-              <input
-                [disabled]="!isNewUser"
-                type="email"
-                name="email"
-                class="form-control"
-                [(ngModel)]="user.email"
-                #femail="ngModel"
-                placeholder="Enter the email"
-                pattern="[\w-\.]+@([\w-]+\.)+[\w-]{1,20}$"
-                required
-              />
-              <p
-                class="info-message text-danger"
-                *ngIf="
+              <input [disabled]="!isNewUser" type="email" name="email" class="form-control" [(ngModel)]="user.email"
+                #femail="ngModel" placeholder="Enter the email" pattern="[\w-\.]+@([\w-]+\.)+[\w-]{1,20}$" required />
+              <p class="info-message text-danger" *ngIf="
                   (!user.email || femail.invalid) &&
                   (fLogin.submitted || femail.touched || femail.dirty)
-                "
-              >
+                ">
                 This is a mandatory field
               </p>
               <p class="info-message text-danger" *ngIf="isEmailUsed">
@@ -159,34 +104,21 @@
         </div>
       </div>
 
-      <div
-        class="p-grid p-fluid col-md-9 col-sm-12"
-        *ngIf="user.userType?.id === 2"
-      >
+      <div class="p-grid p-fluid col-md-9 col-sm-12" *ngIf="user.userType?.id == 2">
         <div class="row p-2">
           <div class="col-12 col-md-8">
             <div class="p-field">
               <label for="mrvInstitution">MRV Institution *</label>
 
-              <input
-                [disabled]="!isNewUser"
-                type="text"
-                name="mrvInstitution"
-                class="form-control"
-                [(ngModel)]="user.mrvInstitution"
-                #fmrvInstitution="ngModel"
-                placeholder="Enter the Designation"
-                required
-              />
-              <p
-                class="info-message text-danger"
-                *ngIf="
+              <input [disabled]="!isNewUser" type="text" name="mrvInstitution" class="form-control"
+                [(ngModel)]="user.mrvInstitution" #fmrvInstitution="ngModel" placeholder="Enter the Designation"
+                required />
+              <p class="info-message text-danger" *ngIf="
                   (!user.mrvInstitution || fmrvInstitution.invalid) &&
                   (fLogin.submitted ||
                     fmrvInstitution.touched ||
                     fmrvInstitution.dirty)
-                "
-              >
+                ">
                 This is a mandatory field
               </p>
             </div>
@@ -194,35 +126,20 @@
         </div>
       </div>
 
-      <div
-        class="p-grid p-fluid col-md-9 col-sm-12"
-        *ngIf="user.userType?.id !== 2"
-      >
+      <div class="p-grid p-fluid col-md-9 col-sm-12" *ngIf="user.userType?.id !== 2">
         <div class="row p-2">
           <div class="col-12 col-md-8">
             <div class="p-field">
               <label for="institution">Assign Institution *</label>
-              <p-dropdown
-                name="institution"
-                appendTo="body"
-                [options]="institutions"
-                [(ngModel)]="user.institution"
-                #finstitution="ngModel"
-                [filter]="true"
-                placeholder="Select .."
-                optionLabel="name"
-                [showClear]="true"
-                (ngModelChange)="onChangeInstitutioon($event)"
-              ></p-dropdown>
-              <p
-                class="info-message text-danger"
-                *ngIf="
+              <p-dropdown name="institution" appendTo="body" [options]="institutions" [(ngModel)]="user.institution"
+                #finstitution="ngModel" [filter]="true" placeholder="Select .." optionLabel="name" [showClear]="true"
+                (ngModelChange)="onChangeInstitutioon($event)"></p-dropdown>
+              <p class="info-message text-danger" *ngIf="
                   !user.institution.id &&
                   (fLogin.submitted ||
                     finstitution.touched ||
                     finstitution.dirty)
-                "
-              >
+                ">
                 This is a mandatory field
               </p>
             </div>
@@ -235,30 +152,17 @@
           <div class="col-12 col-md-8">
             <div class="p-field">
               <label for="institution">Landline</label>
-              <p-inputMask
-                type="text"
-                name="telephone"
-                mask="+99 99-999-9999"
-                [autoClear]="false"
-                placeholder="+99 999 999-9999"
-                [(ngModel)]="user.telephone"
-                #ftelephone="ngModel"
-                [styleClass]="'form-control'"
-              >
+              <p-inputMask type="text" name="telephone" mask="+99 99-999-9999" [autoClear]="false"
+                placeholder="+99 999 999-9999" [(ngModel)]="user.telephone" #ftelephone="ngModel"
+                [styleClass]="'form-control'">
               </p-inputMask>
-              <p
-                class="info-message text-danger"
-                *ngIf="
+              <p class="info-message text-danger" *ngIf="
                   (!user.telephone || user.telephone!.length < 12) &&
                   (fLogin.submitted || ftelephone.touched || ftelephone.dirty)
-                "
-              >
+                ">
                 This is a mandatory field
               </p>
-              <p
-                class="info-message text-danger"
-                *ngIf="user.telephone!.indexOf('_') > 0"
-              >
+              <p class="info-message text-danger" *ngIf="user.telephone!.indexOf('_') > 0">
                 A valid telephone number is required.
               </p>
             </div>
@@ -272,22 +176,12 @@
             <div class="p-field">
               <label for="mobile">Mobile</label>
 
-              <p-inputMask
-                type="text"
-                name="mobile"
-                mask="+99 99-999-9999"
-                [autoClear]="false"
-                placeholder="+99 999 999-999"
-                [(ngModel)]="user.mobile"
-                [styleClass]="'form-control'"
-                #fmobile="ngModel"
-              ></p-inputMask>
-              <p
-                class="info-message text-danger"
-                *ngIf="
+              <p-inputMask type="text" name="mobile" mask="+99 99-999-9999" [autoClear]="false"
+                placeholder="+99 999 999-999" [(ngModel)]="user.mobile" [styleClass]="'form-control'"
+                #fmobile="ngModel"></p-inputMask>
+              <p class="info-message text-danger" *ngIf="
                   user.mobile !== undefined && user?.mobile!.indexOf('_') > 0
-                "
-              >
+                ">
                 A valid mobile number is required.
               </p>
             </div>
@@ -296,43 +190,25 @@
       </div>
 
       <div>
-        <p
-          class="info-message text-danger ml-5 col-6"
-          *ngIf="fLogin.submitted && !fLogin.valid"
-        >
+        <p class="info-message text-danger ml-5 col-6" *ngIf="fLogin.submitted && !fLogin.valid">
           One or more mandatory fields should be filled before save action.
         </p>
       </div>
 
       <div class="d-flex flex-row-reverse mt-2 mb-2">
-        <button
-          class="btn btn-primary btn-block text-uppercase ml-10"
-          pRipple
-          (click)="onBackClick()"
-        >
+        <button class="btn btn-primary btn-block text-uppercase ml-10" pRipple (click)="onBackClick()">
           Back
         </button>
 
-        <button
-          [disabled]="
-            coreatingUser || user.canNotDelete === true || isDisableCuzCountry
-          "
-          class="btn btn-primary btn-block text-uppercase ml-10"
-          type="submit"
-        >
+        <button [disabled]="
+            coreatingUser || user.canNotDelete == true || isDisableCuzCountry
+          " class="btn btn-primary btn-block text-uppercase ml-10" type="submit">
           Save
         </button>
 
-        <button
-          pButton
-          pRipple
-          *ngIf="!isNewUser"
-          [disabled]="user.canNotDelete === true"
-          class="btn btn-primary btn-block text-uppercase ml-10"
-          type="button"
-          (click)="onDeleteClick()"
-        >
-          {{ user.status === 0 ? 'Deactivate' : 'Activate' }}
+        <button pButton pRipple *ngIf="!isNewUser" [disabled]="user.canNotDelete == true"
+          class="btn btn-primary btn-block text-uppercase ml-10" type="button" (click)="onDeleteClick()">
+          {{ user.status == 0 ? 'Deactivate' : 'Activate' }}
         </button>
       </div>
       <div class="row">
@@ -346,10 +222,7 @@
   </form>
 </div>
 
-<p-confirmDialog
-  [style]="{ width: '50vw' }"
-  [baseZIndex]="10000"
-  rejectButtonStyleClass="p-button-text"
-></p-confirmDialog>
+<p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"></p-confirmDialog>
 
 <p-toast position="top-right"></p-toast>

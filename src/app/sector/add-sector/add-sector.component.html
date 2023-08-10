@@ -12,13 +12,7 @@
 
         <div class="col-12 col-md-7">
           <div>
-            <input
-              type="text"
-              name="sector name"
-              class="p-inputtext"
-              [(ngModel)]="typedSector"
-              pInputText
-            />
+            <input type="text" name="sector name" class="p-inputtext" [(ngModel)]="typedSector" pInputText />
           </div>
         </div>
       </div>
@@ -31,14 +25,8 @@
         </div>
         <div class="col-12 col-md-7">
           <div>
-            <textarea
-              rows="5"
-              name="sector"
-              [(ngModel)]="typedSectorDescription"
-              cols="30"
-              pInputTextarea
-              autoResize="autoResize"
-            ></textarea>
+            <textarea rows="5" name="sector" [(ngModel)]="typedSectorDescription" cols="30" pInputTextarea
+              autoResize="autoResize"></textarea>
           </div>
         </div>
       </div>
@@ -46,7 +34,7 @@
       <div class="row p-2"></div>
       <div class="row p-2"></div>
 
-      <ng-container *ngIf="hasSubSector === true">
+      <ng-container *ngIf="hasSubSector == true">
         <div class="row p-2">
           <div class="col-12 col-md-3">
             <div></div>
@@ -66,13 +54,7 @@
           </div>
           <div class="col-12 col-md-7">
             <div>
-              <input
-                type="text"
-                name="subsector"
-                class="p-inputtext"
-                [(ngModel)]="typedSubSector"
-                pInputText
-              />
+              <input type="text" name="subsector" class="p-inputtext" [(ngModel)]="typedSubSector" pInputText />
             </div>
           </div>
         </div>
@@ -85,14 +67,8 @@
           </div>
           <div class="col-12 col-md-7">
             <div>
-              <textarea
-                rows="5"
-                name="subsector"
-                [(ngModel)]="typedSubSectorDescription"
-                cols="30"
-                pInputTextarea
-                autoResize="autoResize"
-              ></textarea>
+              <textarea rows="5" name="subsector" [(ngModel)]="typedSubSectorDescription" cols="30" pInputTextarea
+                autoResize="autoResize"></textarea>
             </div>
           </div>
         </div>
@@ -103,14 +79,8 @@
           </div>
           <div class="col-12 col-md-3">
             <div>
-              <button
-                pButton
-                pRipple
-                type="button"
-                label="Add a Sub Sector"
-                class="p-button-info"
-                (click)="addSubsSectors()"
-              ></button>
+              <button pButton pRipple type="button" label="Add a Sub Sector" class="p-button-info"
+                (click)="addSubsSectors()"></button>
             </div>
           </div>
         </div>
@@ -119,18 +89,10 @@
       <div class="row p-2">
         <div class="col-12 col-md-2">
           <p><b>Add Sub Sectors</b></p>
-          <button
-            class="ml-4"
-            type="button"
-            pButton
-            pRipple
-            icon="pi pi-plus"
-            styleClass="p-button-warn"
-            (click)="addSubSector()"
-            [disabled]="
-              typedSector.length === 0 || typedSectorDescription.length === 0
-            "
-          ></button>
+          <button class="ml-4" type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn"
+            (click)="addSubSector()" [disabled]="
+              typedSector.length == 0 || typedSectorDescription.length == 0
+            "></button>
         </div>
         <div class="col-12 col-md-2"></div>
       </div>
@@ -139,14 +101,7 @@
         <div class="col-12 col-md-2"></div>
         <div class="col-12 col-md-2"></div>
         <div class="col-12 col-md-2">
-          <button
-            pButton
-            pRipple
-            type="button"
-            label="Save"
-            class="p-button-info"
-            (click)="sendData()"
-          ></button>
+          <button pButton pRipple type="button" label="Save" class="p-button-info" (click)="sendData()"></button>
         </div>
         <div class="col-12 col-md-2"></div>
       </div>
