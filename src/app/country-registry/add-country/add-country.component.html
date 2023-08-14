@@ -12,26 +12,13 @@
               <div class="col-12 col-md-10">
                 <div class="p-field">
                   <label for="countryName">Country Name*</label>
-                  <p-dropdown
-                    *ngIf="isNewCountry"
-                    name="cname"
-                    [options]="countryList"
-                    optionLabel="name"
-                    [(ngModel)]="cou"
-                    (ngModelChange)="onStatusChange($event)"
-                    [showClear]="true"
-                    placeholder="{{ selectCountry }}"
-                  >
+                  <p-dropdown *ngIf="isNewCountry" name="cname" [options]="countryList" optionLabel="name"
+                    [(ngModel)]="cou" (ngModelChange)="onStatusChange($event)" [showClear]="true"
+                    placeholder="{{ selectCountry }}">
                   </p-dropdown>
 
-                  <p-dropdown
-                    *ngIf="!isNewCountry"
-                    name="cname"
-                    optionLabel="name"
-                    [disabled]="!isNewCountry"
-                    [showClear]="true"
-                    placeholder="{{ cou.name }}"
-                    >>
+                  <p-dropdown *ngIf="!isNewCountry" name="cname" optionLabel="name" [disabled]="!isNewCountry"
+                    [showClear]="true" placeholder="{{ cou.name }}">>
                   </p-dropdown>
                 </div>
               </div>
@@ -40,13 +27,7 @@
               <div class="col-12 col-md-10">
                 <div class="p-field">
                   <label for="fRegione">Region*</label>
-                  <input
-                    type="text"
-                    name="Regionme"
-                    [(ngModel)]="cou.region"
-                    readonly
-                    class="form-control"
-                  />
+                  <input type="text" name="Regionme" [(ngModel)]="cou.region" readonly class="form-control" />
                 </div>
               </div>
             </div>
@@ -54,21 +35,12 @@
             <div class="row p-2">
               <div class="col-12 col-md-10">
                 <div class="p-field">
-                  <label for="projApprovelStatus" class="col-md-"
-                    >Country Flag * </label
-                  ><label> </label>
-                  <ng-container
-                    *ngIf="
+                  <label for="projApprovelStatus" class="col-md-">Country Flag * </label><label> </label>
+                  <ng-container *ngIf="
                       cou.flagPath !== null || cou.flagPath !== '';
                       else elseBlock
-                    "
-                    class="form-control"
-                  >
-                    <img
-                      src="{{ cou.flagPath }}"
-                      alt="img"
-                      style="height: 150px; width: 250px"
-                    />
+                    " class="form-control">
+                    <img src="{{ cou.flagPath }}" alt="img" style="height: 150px; width: 250px" />
                   </ng-container>
                   <ng-template #elseBlock> </ng-template>
                 </div>
@@ -81,14 +53,8 @@
               <div class="col-12 col-md-10">
                 <div class="p-field">
                   <label for="projApprovelStatus">Description*</label>
-                  <textarea
-                    rows="5"
-                    name="description"
-                    cols="30"
-                    [(ngModel)]="cou.description"
-                    class="form-control"
-                    pInputTextarea
-                  >
+                  <textarea rows="5" name="description" cols="30" [(ngModel)]="cou.description" class="form-control"
+                    pInputTextarea>
                   </textarea>
                 </div>
               </div>
@@ -152,17 +118,9 @@
               <div class="col-12 col-md-10">
                 <div class="p-field">
                   <label for="AssignSectors">Assign Sectors*</label>
-                  <p-multiSelect
-                    appendTo="body"
-                    name="sectors"
-                    #fmodules="ngModel"
-                    [options]="sectorList"
-                    optionLabel="name"
-                    [(ngModel)]="selectedSectors"
-                    (ngModelChange)="selectmod($event)"
-                    [filter]="true"
-                    placeholder="Select Sector"
-                  >
+                  <p-multiSelect appendTo="body" name="sectors" #fmodules="ngModel" [options]="sectorList"
+                    optionLabel="name" [(ngModel)]="selectedSectors" (ngModelChange)="selectmod($event)" [filter]="true"
+                    placeholder="Select Sector">
                   </p-multiSelect>
                 </div>
               </div>
@@ -174,17 +132,9 @@
               <div class="col-12 col-md-10">
                 <div class="p-field">
                   <label for="AssignSectors">Assign Modules*</label>
-                  <p-multiSelect
-                    appendTo="body"
-                    name="modules"
-                    #fmodules="ngModel"
-                    [options]="accessmodules"
-                    optionLabel="name"
-                    [(ngModel)]="selectedModules"
-                    (ngModelChange)="selectmod($event)"
-                    [filter]="true"
-                    placeholder="select modules"
-                  >
+                  <p-multiSelect appendTo="body" name="modules" #fmodules="ngModel" [options]="accessmodules"
+                    optionLabel="name" [(ngModel)]="selectedModules" (ngModelChange)="selectmod($event)" [filter]="true"
+                    placeholder="select modules">
                   </p-multiSelect>
                 </div>
               </div>
@@ -196,14 +146,8 @@
               <div class="row p-2">
                 <div class="col-8 col-md-8">
                   <div class="p-field">
-                    <button
-                      pButton
-                      p-2
-                      class="btn btn-primary btn-block text-uppercase"
-                      type="button"
-                      label="Save"
-                      type="submit"
-                    ></button>
+                    <button pButton p-2 class="btn btn-primary btn-block text-uppercase" type="button" label="Save"
+                      type="submit"></button>
                   </div>
                 </div>
               </div>
@@ -212,15 +156,9 @@
               <div class="row p-2">
                 <div class="col-8 col-md-8">
                   <div class="p-field" *ngIf="!isNewCountry">
-                    <button
-                      pButton
-                      pRipple
-                      p-2
-                      class="btn btn-primary btn-block text-uppercase"
-                      type="button"
-                      (click)="activateCountry(cou)"
-                    >
-                      {{ cstaus === 0 ? 'Activate' : 'Deactivate' }}
+                    <button pButton pRipple p-2 class="btn btn-primary btn-block text-uppercase" type="button"
+                      (click)="activateCountry(cou)">
+                      {{ cstaus == 0 ? 'Activate' : 'Deactivate' }}
                     </button>
                   </div>
                 </div>
@@ -229,14 +167,8 @@
           </div>
         </div>
         <div class="col-6">
-          <countries-map
-            [data]="mapData1"
-            maxColor="#046312"
-            noDataColor="grey"
-            backgroundColor="white"
-            minColor="blue"
-            [showCaption]="false"
-          >
+          <countries-map [data]="mapData1" maxColor="#046312" noDataColor="grey" backgroundColor="white" minColor="blue"
+            [showCaption]="false">
           </countries-map>
         </div>
       </div>
@@ -244,9 +176,5 @@
   </form>
 </div>
 <p-toast position="top-right"></p-toast>
-<p-confirmDialog
-  [style]="{ width: '50vw' }"
-  [baseZIndex]="10000"
-  rejectButtonStyleClass="p-button-text"
->
+<p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
 </p-confirmDialog>

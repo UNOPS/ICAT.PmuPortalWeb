@@ -12,13 +12,7 @@
           <div class="col-12 col-md-8">
             <div class="p-field">
               <label for="countryName">Country Name*</label>
-              <input
-                type="text"
-                name="assignsec"
-                placeholder="{{ selectCountry }}"
-                readonly
-                class="form-control"
-              />
+              <input type="text" name="assignsec" placeholder="{{ selectCountry }}" readonly class="form-control" />
             </div>
           </div>
         </div>
@@ -26,13 +20,7 @@
           <div class="col-12 col-md-8">
             <div class="p-field">
               <label for="fRegione">Region*</label>
-              <input
-                type="text"
-                name="Regionme"
-                placeholder="{{ cou.region }}"
-                readonly
-                class="form-control"
-              />
+              <input type="text" name="Regionme" placeholder="{{ cou.region }}" readonly class="form-control" />
             </div>
           </div>
         </div>
@@ -42,11 +30,7 @@
         <div class="row p-2">
           <div class="col-12 col-md-8">
             <div class="p-field">
-              <img
-                src="{{ cou.flagPath }}"
-                alt="img"
-                style="height: 150px; width: 250px"
-              />
+              <img src="{{ cou.flagPath }}" alt="img" style="height: 150px; width: 250px" />
             </div>
           </div>
         </div>
@@ -58,14 +42,8 @@
         <div class="col-12 col-md-8">
           <div class="p-field">
             <label for="projApprovelStatus">Description*</label>
-            <input
-              rows="5"
-              name="description"
-              cols="30"
-              class="form-control"
-              readonly
-              placeholder="{{ cou.description }}"
-            />
+            <input rows="5" name="description" cols="30" class="form-control" readonly
+              placeholder="{{ cou.description }}" />
           </div>
         </div>
       </div>
@@ -76,13 +54,7 @@
         <div class="col-12 col-md-8">
           <div class="p-field">
             <label for="AssignSectors">Assign Sectors*</label>
-            <input
-              type="text"
-              name="assignsec"
-              placeholder="{{ secNames }}"
-              readonly
-              class="form-control"
-            />
+            <input type="text" name="assignsec" placeholder="{{ secNames }}" readonly class="form-control" />
           </div>
         </div>
       </div>
@@ -93,13 +65,7 @@
         <div class="col-12 col-md-8">
           <div class="p-field">
             <label for="AssignSectors">Assign Modules*</label>
-            <input
-              type="text"
-              name="assingmod"
-              placeholder="{{ modNames }}"
-              readonly
-              class="form-control"
-            />
+            <input type="text" name="assingmod" placeholder="{{ modNames }}" readonly class="form-control" />
           </div>
         </div>
       </div>
@@ -116,26 +82,14 @@
     <div class="d-flex flex-row-reverse mt-2 mb-2">
       <div *ngIf="!isNewCountry">
         <div style="padding-left: 0.2%">
-          <button
-            p-1
-            pButton
-            pRipple
-            class="btn btn-primary btn-block text-uppercase"
-            type="button"
-            (click)="activateCountry(cou)"
-          >
-            {{ cstaus === 0 ? 'Activate' : 'Deactivate' }}
+          <button p-1 pButton pRipple class="btn btn-primary btn-block text-uppercase" type="button"
+            (click)="activateCountry(cou)">
+            {{ cstaus == 0 ? 'Activate' : 'Deactivate' }}
           </button>
         </div>
       </div>
       <div>
-        <button
-          pButton
-          pRipple
-          class="btn btn-primary btn-block text-uppercase"
-          type="button"
-          (click)="onBackClick()"
-        >
+        <button pButton pRipple class="btn btn-primary btn-block text-uppercase" type="button" (click)="onBackClick()">
           Back
         </button>
       </div>

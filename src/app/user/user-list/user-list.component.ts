@@ -25,7 +25,7 @@ export class UserListComponent implements OnInit {
   customers: User[];
   users: User[];
 
-  totalRecords: number;
+  totalRecords: number =0;
 
   searchText = '';
   searchEmailText: string;
@@ -45,6 +45,7 @@ export class UserListComponent implements OnInit {
   institutionId: number;
   filter2: string[] | undefined;
   pmuFilter: string[] = [];
+  last: number;
 
   constructor(
     private serviceProxy: ServiceProxy,
@@ -223,7 +224,7 @@ export class UserListComponent implements OnInit {
 
   loadCustomers(event: LazyLoadEvent) {
     this.loading = true;
-
+    this.totalRecords = 0;
     const orFilter: string[] = [];
     const andFilter: string[] = this.getFilterand();
 
@@ -237,7 +238,8 @@ export class UserListComponent implements OnInit {
         'country.id||$in||' + this.userCountries,
       );
     }
-
+    const pageNumber = event.first === 0 || event.first == undefined ? 1 : event.first / (event.rows == undefined ? 1 : event.rows) + 1;
+    this.rows = event.rows === undefined ? 10 : event.rows;
     this.serviceProxy
       .getManyBaseUsersControllerUser(
         undefined,
@@ -247,14 +249,14 @@ export class UserListComponent implements OnInit {
         ['firstName,ASC'],
         ['institution'],
         event.rows,
-        event.first,
         0,
+        pageNumber,
         0,
       )
       .subscribe((res) => {
         this.totalRecords = res.total;
         this.customers = res.data;
-        this.loading = false;
+        this.loading = false; 
       });
   }
 
