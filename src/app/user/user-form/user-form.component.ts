@@ -293,7 +293,7 @@ export class UserFormComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.instituteUserList = res.data;
-        if (this.instituteUserList.length > 0) {
+        if (this.instituteUserList.length > 0 && this.uid.id ==1) {
           this.message =
             'Already have, You can not add more than one PMU Admin for ' +
             this.instituteUserList[0]?.institution?.name;
