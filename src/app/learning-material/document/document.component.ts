@@ -39,7 +39,6 @@ export class DocumentComponent implements OnInit, AfterViewInit {
 
       return this.object_array;
     });
-console.log(this.object_array)
     this.doc_name.push(this.object_array[0][7].documentName);
     this.doc_name.push(this.object_array[0][3].editedOn);
     this.doc_name.push(this.object_array[0][5].id);
