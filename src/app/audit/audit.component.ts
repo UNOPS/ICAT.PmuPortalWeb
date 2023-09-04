@@ -73,7 +73,7 @@ export class AuditComponent implements OnInit {
       .subscribe((res) => {
         this.loggedusers = res.data;
 
-        this.institutionId = this.loggedusers[0].institution.id;
+        this.institutionId = this.loggedusers[0].institution?.id;
       });
   }
 
