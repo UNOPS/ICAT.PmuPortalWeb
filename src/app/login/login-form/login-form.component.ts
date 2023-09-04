@@ -77,7 +77,6 @@ export class LoginFormComponent implements OnInit {
             this.isLoggedIn = true;
             this.hideSideBar = false;
             this.WMServiceService.steToken(token.access_token);
-            console.log(token)
             localStorage.setItem('access_token', token.access_token);
             localStorage.setItem(
               'user_name',
