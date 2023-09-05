@@ -102,7 +102,7 @@ This application depends on PMUPortalService, PMUScheduler and CountryPortalServ
 The complete dependency diagram of TraCAD Country and PMU applications:
 
 <p align="left">
-  <img src="https://lucid.app/publicSegments/view/6759900a-26b3-4d4c-aac6-7eafef38c9b6/image.png" width="800" alt="TraCAD Diagram" /></a>
+  <img src="https://lucid.app/publicSegments/view/7e56ab6c-3c14-428b-be1d-63dfd33760be/image.png" width="800" alt="TraCAD Diagram" /></a>
 </p>
 
 ## License
