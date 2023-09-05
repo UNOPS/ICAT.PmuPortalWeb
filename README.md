@@ -81,9 +81,8 @@ The environment variables should be declared in the files `environment.prod.ts` 
 | `baseUrlAPIDocdownloadAPI` | PMU Portal Service API URL + `/document/downloadDocument` |
 | `baseUrlAPIDocUploadAPI`   | PMU Portal Service API URL + `/document/upload2`          |
 | `countryServiceUrl`        | PMU Portal Service API URL + `/country-profile`           |
-| `baseSyncAPI`              | Country Scheduler URL                                         |
+| `baseSyncAPI`              | Country Scheduler URL                                     |
 | `baseUrlCountryAPI`        | Country Portal Service API URL                            |
-| `countryWebUrl`            | Country Portal Web URL + `/landing-page`                  |
 
 ## Default Users
 
