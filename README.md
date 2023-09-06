@@ -81,9 +81,8 @@ The environment variables should be declared in the files `environment.prod.ts` 
 | `baseUrlAPIDocdownloadAPI` | PMU Portal Service API URL + `/document/downloadDocument` |
 | `baseUrlAPIDocUploadAPI`   | PMU Portal Service API URL + `/document/upload2`          |
 | `countryServiceUrl`        | PMU Portal Service API URL + `/country-profile`           |
-| `baseSyncAPI`              | Country Scheduler URL                                         |
+| `baseSyncAPI`              | Country Scheduler URL                                     |
 | `baseUrlCountryAPI`        | Country Portal Service API URL                            |
-| `countryWebUrl`            | Country Portal Web URL + `/landing-page`                  |
 
 ## Default Users
 
@@ -103,7 +102,7 @@ This application depends on PMUPortalService, PMUScheduler and CountryPortalServ
 The complete dependency diagram of TraCAD Country and PMU applications:
 
 <p align="left">
-  <img src="https://lucid.app/publicSegments/view/9a6fb822-be5a-47d7-ad67-0434a4025234/image.png" width="800" alt="TraCAD Diagram" /></a>
+  <img src="https://lucid.app/publicSegments/view/7e56ab6c-3c14-428b-be1d-63dfd33760be/image.png" width="800" alt="TraCAD Diagram" /></a>
 </p>
 
 ## License
