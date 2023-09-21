@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import {
   Country,
+  CountryControllerServiceProxy,
   Institution,
   InstitutionControllerServiceProxy,
   InstitutionType,
@@ -23,7 +24,8 @@ export class InstitutionFormComponent implements OnInit {
 
   country: Country = new Country();
 
-  countryList: Country[];
+  countryList: Country[] = [];
+  oldCountryList: Country[] = [];
 
   listc: Country[] = [];
 
@@ -40,6 +42,7 @@ export class InstitutionFormComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private route: ActivatedRoute,
     private institutionProxy: InstitutionControllerServiceProxy,
+    private countryProxy:CountryControllerServiceProxy,
     private router: Router,
     private messageService: MessageService,
   ) {}
@@ -84,7 +87,7 @@ export class InstitutionFormComponent implements OnInit {
         this.countryList = res.data;
 
         for (const i in this.countryList) {
-          if (this.countryList[i].institution?.id == null) {
+          if (this.countryList[i].institution?.id == this.editInstitutionId && this.editInstitutionId > 0) {
             this.listc.push(this.countryList[i]);
           }
         }
@@ -96,25 +99,27 @@ export class InstitutionFormComponent implements OnInit {
       if (this.editInstitutionId > 0) {
         this.isNewInstitution = false;
 
-        this.serviceProxy
-          .getOneBaseInstitutionControllerInstitution(
-            this.editInstitutionId,
-            undefined,
-            undefined,
-            0,
-          )
-          .subscribe((res) => {
-            this.institution = res;
+        this.institutionProxy.getInstitutionDetails(
+          this.editInstitutionId
 
-            this.listc = res.countries;
-          });
+        ).subscribe((res) => {
+          this.institution = res;
+          this.oldCountryList =res.countries;
+          this.listc = res.countries;
+
+          for (let co in this.listc) {
+            this.countryList.push(this.listc[co]);
+          }
+        });
+
       }
     });
   }
 
-  saveForm(formData: NgForm) {
+  async saveForm(formData: NgForm) {
     if (formData.valid) {
       if (this.isNewInstitution) {
+        this.institution.countries =this.listc
         this.serviceProxy
           .createOneBaseInstitutionControllerInstitution(this.institution)
           .subscribe(
@@ -137,6 +142,23 @@ export class InstitutionFormComponent implements OnInit {
             },
           );
       } else {
+        this.institution.countries =this.listc
+        await this.oldCountryList.forEach(async (old) => {
+          this.serviceProxy.getOneBaseCountryControllerCountry(
+            old.id,
+            undefined,
+            undefined,
+            undefined).subscribe((res => {
+              old = res;
+            }))
+          let ins= new Institution();
+          let co =new Array();
+          ins.countries=co;
+          ins.type =new InstitutionType()
+
+          old.institution = null;
+          this.countryProxy.updatecountry(old);
+        });
         this.serviceProxy
           .updateOneBaseInstitutionControllerInstitution(
             this.institution.id,

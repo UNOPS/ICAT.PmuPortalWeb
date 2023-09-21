@@ -43,11 +43,22 @@
           </div>
         </div>
 
-        <div class="row p-2">
+        <div  *ngIf="isNewInstitution" class="row p-2">
           <div class="col-12 col-md-12">
             <div class="p-field">
               <label for="objective">Assign countries</label>
-              <p-multiSelect name="countries" [options]="listc" [(ngModel)]="institution.countries"
+              <p-multiSelect appendTo="body" name="countries" [options]="countryList" [(ngModel)]="listc"
+                #fcountries="ngModel" [filter]="true" optionLabel="name" (ngModelChange)="getSelectedApproach()">
+              </p-multiSelect>
+            </div>
+          </div>
+        </div>
+
+        <div  *ngIf="!isNewInstitution" class="row p-2">
+          <div class="col-12 col-md-12">
+            <div class="p-field">
+              <label for="objective">Assign countries</label>
+              <p-multiSelect appendTo="body" name="countries" [options]="countryList" [(ngModel)]="listc"
                 #fcountries="ngModel" [filter]="true" optionLabel="name" (ngModelChange)="getSelectedApproach()">
               </p-multiSelect>
             </div>

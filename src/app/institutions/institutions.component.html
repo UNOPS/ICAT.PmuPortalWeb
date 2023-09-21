@@ -60,13 +60,8 @@
             <td>{{ institution.name }}</td>
 
             <td>
-              {{
-              institution.countries !== undefined
-              ? institution.countries.length !== 0
-              ? institution.countries[0].name
-              : 'Not Applicable'
-              : ''
-              }}
+              {{getCountryname(institution)}}
+              {{institution.countries !== undefined? institution.countries.length !== 0 ?  this.countryName : "Not Applicable":""}}
 
               <div *ngIf="institution.countries == undefined" type="button" class="has-details"
                 (mouseenter)="getCountries(institution.id)">
@@ -98,11 +93,14 @@
 
     <td>{{ institution.address }}</td>
 
-    <td>
+    <!-- <td>
       <ng-container *ngFor="let usr of institution.user">
     <td>
-      {{ usr?.firstName + ' ' }}{{ usr?.lastName }}
+      {{ usr?.firstName + ' ' }}{{ usr?.lastName + ', '  }}
     </td></ng-container>
+    </td> -->
+    <td>
+      {{ institution.user[0]? (institution.user[0].firstName + ' ' + institution.user[0].lastName)  :"" }}
     </td>
 
     <td>{{ institution.status == 0 ? 'Active' : 'Deactive' }}</td>
