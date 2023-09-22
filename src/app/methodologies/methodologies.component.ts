@@ -151,7 +151,6 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
         .getMethoDetails(
           pageNumber,
           this.rows,
-
           filtertext,
           sectorId,
           developedBy,
