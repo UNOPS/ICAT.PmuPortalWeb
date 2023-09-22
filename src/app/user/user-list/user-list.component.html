@@ -181,6 +181,7 @@
           <th>Telephone</th>
           <th>Mobile</th>
           <th>Email</th>
+          <th>Status</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-customer>
@@ -198,18 +199,12 @@
           <td>{{ customer.lastName }}</td>
 
           <td
-            pTooltip="{{ customer.institution?.name }}"
+            pTooltip="{{ customer.institution ? customer.institution.name : customer.country?.name}}"
             tooltipPosition="top"
             class="tbl-cell-description"
-            *ngIf="customer.institution !== undefined; else loggedOut"
           >
-            {{ customer.institution?.name }}
+            {{ customer.institution ? customer.institution.name : customer.country?.name}}
           </td>
-          <ng-template #loggedOut>
-            <td>
-              {{ customer.country?.name }}
-            </td>
-          </ng-template>
 
           <td>{{ customer.telephone }}</td>
           <td>{{ customer.mobile }}</td>
@@ -220,6 +215,7 @@
           >
             <a href="mailto:{{ customer.email }}">{{ customer.email }}</a>
           </td>
+          <td>{{ customer.status== 1 ? 'DEACTIVATE' :'ACTIVE'}}</td>
         </tr>
       </ng-template>
     </p-table>

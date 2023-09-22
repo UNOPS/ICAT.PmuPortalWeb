@@ -11641,6 +11641,54 @@ export class CountryControllerServiceProxy {
         return _observableOf(<any>null);
     }
 
+    updatecountry(body: Country): Observable<void> {
+        let url_ = this.baseUrl + "/country/oneCountry";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdatecountry(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdatecountry(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdatecountry(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 201) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(<any>null);
+    }
+
     getCountrySector(): Observable<any> {
         let url_ = this.baseUrl + "/country/country-sector";
         url_ = url_.replace(/[?&]$/, "");
@@ -12755,6 +12803,59 @@ export class InstitutionControllerServiceProxy {
         }
         return _observableOf(<any>null);
     }
+
+    getInstitutionDetails(countryId: number): Observable<any> {
+        let url_ = this.baseUrl + "/institution/institution/institutiId?";
+        if (countryId === undefined || countryId === null)
+            throw new Error("The parameter 'countryId' must be defined and cannot be null.");
+        else
+            url_ += "countryId=" + encodeURIComponent("" + countryId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetInstitutionDetails(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetInstitutionDetails(<any>response_);
+                } catch (e) {
+                    return <Observable<any>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<any>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetInstitutionDetails(response: HttpResponseBase): Observable<any> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(<any>null);
+    }
 }
 
 @Injectable()
@@ -13768,18 +13869,18 @@ export class Country implements ICountry {
     flagPath: string;
     registeredDate: moment.Moment;
     isMember: boolean;
-    countryStatus: CountryStatus;
+    isSingleCountry: boolean;
     region: string;
+    countryStatus: CountryStatus;
+    domain: string;
     uniqueIdentification: string;
     countrysector: CountrySector[];
-    institution: Institution;
+    institution: Institution | null;
     climateActionModule: boolean;
     ghgModule: boolean;
     macModule: boolean;
     dataCollectionModule: boolean;
     dataCollectionGhgModule: boolean;
-    isSingleCountry: number;
-    domain: string;
 
     constructor(data?: ICountry) {
         if (data) {
@@ -13811,22 +13912,22 @@ export class Country implements ICountry {
             this.flagPath = _data["flagPath"];
             this.registeredDate = _data["registeredDate"] ? moment(_data["registeredDate"].toString()) : <any>undefined;
             this.isMember = _data["isMember"];
-            this.countryStatus = _data["countryStatus"];
+            this.isSingleCountry = _data["isSingleCountry"];
             this.region = _data["region"];
+            this.countryStatus = _data["countryStatus"];
+            this.domain = _data["domain"];
             this.uniqueIdentification = _data["uniqueIdentification"];
             if (Array.isArray(_data["countrysector"])) {
                 this.countrysector = [] as any;
                 for (let item of _data["countrysector"])
                     this.countrysector.push(CountrySector.fromJS(item));
             }
-            this.institution = _data["institution"] ? Institution.fromJS(_data["institution"]) : <any>undefined;
+            this.institution = _data["institution"] ? Institution.fromJS(_data["institution"]) : <any>null;
             this.climateActionModule = _data["climateActionModule"];
             this.ghgModule = _data["ghgModule"];
             this.macModule = _data["macModule"];
             this.dataCollectionModule = _data["dataCollectionModule"];
             this.dataCollectionGhgModule = _data["dataCollectionGhgModule"];
-            this.isSingleCountry = _data["isSingleCountry"];
-            this.domain = _data["domain"];
         }
     }
 
@@ -13855,22 +13956,22 @@ export class Country implements ICountry {
         data["flagPath"] = this.flagPath;
         data["registeredDate"] = this.registeredDate ? this.registeredDate.toISOString() : <any>undefined;
         data["isMember"] = this.isMember;
-        data["countryStatus"] = this.countryStatus;
+        data["isSingleCountry"] = this.isSingleCountry;
         data["region"] = this.region;
+        data["countryStatus"] = this.countryStatus;
+        data["domain"] = this.domain;
         data["uniqueIdentification"] = this.uniqueIdentification;
         if (Array.isArray(this.countrysector)) {
             data["countrysector"] = [];
             for (let item of this.countrysector)
                 data["countrysector"].push(item.toJSON());
         }
-        data["institution"] = this.institution ? this.institution.toJSON() : <any>undefined;
+        data["institution"] = this.institution ? this.institution.toJSON() : <any>null;
         data["climateActionModule"] = this.climateActionModule;
         data["ghgModule"] = this.ghgModule;
         data["macModule"] = this.macModule;
         data["dataCollectionModule"] = this.dataCollectionModule;
         data["dataCollectionGhgModule"] = this.dataCollectionGhgModule;
-        data["isSingleCountry"] = this.isSingleCountry;
-        data["domain"] = this.domain;
         return data;
     }
 
@@ -13899,18 +14000,18 @@ export interface ICountry {
     flagPath: string;
     registeredDate: moment.Moment;
     isMember: boolean;
-    countryStatus: CountryStatus;
+    isSingleCountry: boolean;
     region: string;
+    countryStatus: CountryStatus;
+    domain: string;
     uniqueIdentification: string;
     countrysector: CountrySector[];
-    institution: Institution;
+    institution: Institution | null;
     climateActionModule: boolean;
     ghgModule: boolean;
     macModule: boolean;
     dataCollectionModule: boolean;
     dataCollectionGhgModule: boolean;
-    isSingleCountry: number;
-    domain: string;
 }
 
 export class CountrySector implements ICountrySector {

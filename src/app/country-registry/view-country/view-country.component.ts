@@ -230,7 +230,7 @@ export class ViewCountryComponent implements OnInit, AfterViewInit {
 
             reject: () => { },
           });
-          if(this.cou.isSingleCountry == 1){
+          if(this.cou.isSingleCountry){
             let ur = this.cou.domain +"/sync-api/singlecountry?id=" +this.cou.id
             await axios.get(ur);
 

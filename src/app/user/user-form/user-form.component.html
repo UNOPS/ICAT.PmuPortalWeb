@@ -135,7 +135,7 @@
                 #finstitution="ngModel" [filter]="true" placeholder="Select .." optionLabel="name" [showClear]="true"
                 (ngModelChange)="onChangeInstitutioon($event)"></p-dropdown>
               <p class="info-message text-danger" *ngIf="
-                  !user.institution.id &&
+                  !user.institution?.id &&
                   (fLogin.submitted ||
                     finstitution.touched ||
                     finstitution.dirty)

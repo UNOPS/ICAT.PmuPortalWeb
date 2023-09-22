@@ -177,8 +177,14 @@ export class UserListComponent implements OnInit {
       if (this.selectedCountry) {
         filters.push(...this.pmuFilter);
       } else {
-        filters.push(...this.pmuFilter) &
+        filters.push(...this.pmuFilter) 
+        if(this.selctedUserType?.id != 2){
           filters.push('institution.id||$eq||' + this.userInsId);
+        }
+        else{
+          filters.push('country.id||$in||' + this.userCountries);
+        }
+        // & f
       }
     }
 
@@ -261,7 +267,10 @@ export class UserListComponent implements OnInit {
   }
 
   editUser(user: User) {
-    this.router.navigate(['/user'], { queryParams: { id: user.id } });
+    this.router.navigate(['/user'], { queryParams: { id: user.id } }).then(()=>{
+      window.location.reload();
+    }); 
+    // window.location.reload();
   }
 
   new() {

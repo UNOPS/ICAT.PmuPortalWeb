@@ -29,7 +29,7 @@ export class InstitutionsComponent implements OnInit, AfterViewInit {
 
   countryList: Country[];
   insCountryList: Country[];
-
+  countryName : string;
   loading: boolean;
   totalRecords = 0;
   rows = 10;
@@ -105,8 +105,9 @@ export class InstitutionsComponent implements OnInit, AfterViewInit {
       this.institutionProxy
         .getInstiDetails(pageNumber, this.rows, filtertext, countryId)
         .subscribe((a) => {
-          this.institutions = a.items;
-          this.totalRecords = a.meta.totalItems;
+          this.institutions = a["1"];
+          
+          this.totalRecords = a["0"];
 
           this.loading = false;
         });
@@ -140,6 +141,16 @@ export class InstitutionsComponent implements OnInit, AfterViewInit {
 
   new() {
     this.router.navigate(['/instituion-new']);
+  }
+  getCountryname(institution:Institution){
+    this.countryName=""
+    for(let co of institution.countries){
+      if(this.countryName){
+        this.countryName = this.countryName + ", ";
+      }     
+      let name = co.name;
+      this.countryName = this.countryName + name;
+    }
   }
 
   editInstitution(institution: Institution) {

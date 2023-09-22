@@ -74,7 +74,7 @@ export class UserFormComponent implements OnInit {
     private router: Router,
     private confirmationService: ConfirmationService,
     private userProxy: UsersControllerServiceProxy,
-  ) {}
+  ) { }
 
   utypeid(event: any) {
     const token = localStorage.getItem('access_token')!;
@@ -85,7 +85,7 @@ export class UserFormComponent implements OnInit {
 
     this.filter = [];
 
-    if (this.uid.id === 5) {
+    if (this.uid?.id === 5) {
       this.filter.push('id||$eq||' + 6);
     } else {
       if (institutionId) {
@@ -117,14 +117,39 @@ export class UserFormComponent implements OnInit {
               if (['PMU Admin'].includes(tokenPayload.roles[0])) {
                 this.institutions = [ins];
               }
-              this.user.institution = ins;
+              // this.user.institution = ins;
             }
           });
         }
       });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+
+   await this.serviceProxy
+      .getManyBaseInstitutionControllerInstitution(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        1000,
+        0,
+        1,
+        0,
+      )
+      .subscribe((res) => {
+        this.institutions = res.data;
+        if (this.user?.institution) {
+          this.institutions.forEach((ins) => {
+            if (ins.id == this.user.institution.id) {
+              this.user.institution = ins;
+            }
+          });
+        }
+      });
+
     this.user.userType = undefined!;
     this.user.mobile = '';
     this.user.telephone = '';
@@ -147,11 +172,12 @@ export class UserFormComponent implements OnInit {
       this.filter2.push('id||$ne||' + 4);
     }
 
-    this.route.queryParams.subscribe((params) => {
+    await this.route.queryParams.subscribe((params) => {
       this.editUserId = params['id'];
+      this.uid = this.editUserId;
       if (this.editUserId && this.editUserId > 0) {
         this.isNewUser = false;
-        this.serviceProxy
+         this.serviceProxy
           .getOneBaseUsersControllerUser(
             this.editUserId,
             undefined,
@@ -160,9 +186,9 @@ export class UserFormComponent implements OnInit {
           )
           .subscribe((res: any) => {
             this.user = res;
-
             this.institutions.forEach((ins) => {
-              if (ins.id == this.user.institution.id) {
+              
+              if (ins.id == res.institution.id) {
                 this.user.institution = ins;
               }
             });
@@ -187,29 +213,7 @@ export class UserFormComponent implements OnInit {
         this.userTypes = res.data;
       });
 
-    this.serviceProxy
-      .getManyBaseInstitutionControllerInstitution(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        1000,
-        0,
-        1,
-        0,
-      )
-      .subscribe((res) => {
-        this.institutions = res.data;
-        if (this.user?.institution) {
-          this.institutions.forEach((ins) => {
-            if (ins.id == this.user.institution.id) {
-              this.user.institution = ins;
-            }
-          });
-        }
-      });
+    
 
     const countryFilter: string[] = [];
     countryFilter.push('Country.IsSystemUse||$eq||' + 1);
@@ -237,7 +241,7 @@ export class UserFormComponent implements OnInit {
       });
   }
 
-  onChangeUser(event: any) {}
+  onChangeUser(event: any) { }
 
   onChangeCountry(event: any) {
     const countryAndUserFilter: string[] = [];
@@ -275,38 +279,41 @@ export class UserFormComponent implements OnInit {
   }
 
   onChangeInstitutioon(event: any) {
-    const instituteAndUserFilter: string[] = [];
-    instituteAndUserFilter.push('institution.id||$eq||' + event.id) &
-      instituteAndUserFilter.push('userType.id||$eq||' + this.uid.id);
-    this.serviceProxy
-      .getManyBaseUsersControllerUser(
-        undefined,
-        undefined,
-        instituteAndUserFilter,
-        undefined,
-        undefined,
-        undefined,
-        1000,
-        0,
-        0,
-        0,
-      )
-      .subscribe((res: any) => {
-        this.instituteUserList = res.data;
-        if (this.instituteUserList.length > 0 && this.uid.id ==1) {
-          this.message =
-            'Already have, You can not add more than one PMU Admin for ' +
-            this.instituteUserList[0]?.institution?.name;
-          this.isDisableCuzCountry = true;
-          this.messageService.add({
-            severity: 'info',
-            summary: 'Info.',
-            detail: this.message,
-          });
-        } else {
-          this.isDisableCuzCountry = false;
-        }
-      });
+    if (event) {
+      const instituteAndUserFilter: string[] = [];
+      instituteAndUserFilter.push('institution.id||$eq||' + event.id) &
+        instituteAndUserFilter.push('userType.id||$eq||' + this.uid.id);
+      this.serviceProxy
+        .getManyBaseUsersControllerUser(
+          undefined,
+          undefined,
+          instituteAndUserFilter,
+          undefined,
+          undefined,
+          undefined,
+          1000,
+          0,
+          0,
+          0,
+        )
+        .subscribe((res: any) => {
+          this.instituteUserList = res.data;
+          if (this.instituteUserList.length > 0 && this.uid.id == 1) {
+            this.message =
+              'Already have, You can not add more than one PMU Admin for ' +
+              this.instituteUserList[0]?.institution?.name;
+            this.isDisableCuzCountry = true;
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Info.',
+              detail: this.message,
+            });
+          } else {
+            this.isDisableCuzCountry = false;
+          }
+        });
+    }
+
   }
 
   async saveUser(userForm: NgForm) {
@@ -339,9 +346,9 @@ export class UserFormComponent implements OnInit {
                 rejectIcon: 'icon-not-visible',
                 rejectVisible: false,
                 acceptLabel: 'Ok',
-                accept: () => {},
+                accept: () => { },
 
-                reject: () => {},
+                reject: () => { },
               });
             } else {
               this.user.username = this.user.email;
@@ -427,7 +434,7 @@ export class UserFormComponent implements OnInit {
       accept: () => {
         this.deactivateUser();
       },
-      reject: () => {},
+      reject: () => { },
     });
   }
 
@@ -445,26 +452,28 @@ export class UserFormComponent implements OnInit {
             this.onBackClick();
           },
 
-          reject: () => {},
+          reject: () => { },
         });
       });
   }
 
   async deactivateUser() {
     const url = environment.baseSyncAPI + '/user';
-    this.userProxy
+    await this.userProxy
       .changeStatus(this.user.id, this.user.status == 0 ? 1 : 0)
       .subscribe((res) => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: `Successfully ${
-            this.user.status == 0 ? 'deactivated' : 'activated'
-          }`,
+          detail: `Successfully ${this.user.status == 0 ? 'deactivated' : 'activated'
+            }`,
         });
         this.user = res;
       });
 
-    await axios.get(url);
+      if(this.user.userType.id==2){
+        await axios.get(url);
+      }
+   
   }
 }
