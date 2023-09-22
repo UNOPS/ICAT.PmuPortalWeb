@@ -10,6 +10,7 @@ import axios from 'axios';
 import { environment } from 'environments/environment';
 import { TreeNode } from 'primeng/api';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import decode from 'jwt-decode';
 import {
   Country,
   CountryControllerServiceProxy,
@@ -53,6 +54,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
   sector: Sector;
   countryId: number;
   sectorId: number;
+  userrole:string;
 
   constructor(
     private serviceProxy: ServiceProxy,
@@ -211,8 +213,15 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    const token = localStorage.getItem('access_token')!;
+    const tokenPayload = decode<any>(token);
+    this.userrole = tokenPayload.roles[0];
+    
     let countryFilter: string[] = [];
     countryFilter.push('Country.IsSystemUse||$eq||' + 1);
+    if (this.userrole == 'PMU Admin' || this.userrole == 'PMU User' ) {
+      countryFilter.push('institution.id||$eq||' + tokenPayload.institutionId);
+    }
 
     this.serviceProxy
       .getManyBaseCountryControllerCountry(
@@ -220,7 +229,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
         undefined,
         countryFilter,
         undefined,
-        ['editedOn,DESC'],
+        ['name,ASC'],
         undefined,
         1000,
         0,
