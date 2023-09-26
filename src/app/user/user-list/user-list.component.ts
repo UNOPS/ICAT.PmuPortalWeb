@@ -58,7 +58,7 @@ export class UserListComponent implements OnInit {
   }
   @ViewChild('dt') table: Table;
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const token = localStorage.getItem('access_token')!;
     const tokenPayload = decode<any>(token);
     this.userrole = tokenPayload.roles[0];
@@ -152,11 +152,17 @@ export class UserListComponent implements OnInit {
         this.userTypes = res.data;
       });
 
-    this.serviceProxy
+      let countryFilter: string[] = [];
+      countryFilter.push('Country.IsSystemUse||$eq||' + 1);
+      if (this.userrole == 'PMU Admin' || this.userrole == 'PMU User' ) {
+        countryFilter.push('institution.id||$eq||' + tokenPayload.institutionId);
+      }
+
+   await  this.serviceProxy
       .getManyBaseCountryControllerCountry(
         undefined,
         undefined,
-        ['isSystemUse||eq||1'],
+        countryFilter,
         undefined,
         ['name,ASC'],
         undefined,
@@ -165,9 +171,11 @@ export class UserListComponent implements OnInit {
         1,
         0,
       )
-      .subscribe((res) => {
+      .subscribe(async (res) => {
         this.countrylists = res.data;
       });
+      const a: any = {};
+      this.loadCustomers(a);
   }
 
   getFilterand() {
@@ -266,11 +274,9 @@ export class UserListComponent implements OnInit {
       });
   }
 
-  editUser(user: User) {
-    this.router.navigate(['/user'], { queryParams: { id: user.id } }).then(()=>{
-      window.location.reload();
+  async editUser(user: User) {
+    await this.router.navigate(['/user'], { queryParams: { id: user.id } }).then(()=>{
     }); 
-    // window.location.reload();
   }
 
   new() {

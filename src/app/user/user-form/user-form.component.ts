@@ -116,6 +116,7 @@ export class UserFormComponent implements OnInit {
             if (ins.id == this.user.institution.id) {
               if (['PMU Admin'].includes(tokenPayload.roles[0])) {
                 this.institutions = [ins];
+                console.log(this.institutions)
               }
               // this.user.institution = ins;
             }
@@ -126,7 +127,33 @@ export class UserFormComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-   await this.serviceProxy
+    await this.serviceProxy
+    .getManyBaseInstitutionControllerInstitution(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      1000,
+      0,
+      1,
+      0,
+    )
+    .subscribe((res) => {
+      this.institutions = res.data;
+      if (this.user?.institution) {
+        this.institutions.forEach((ins) => {
+          if (ins.id == this.user.institution.id) {
+            this.user.institution = ins;
+            console.log(ins)
+          }
+        });
+      }
+    });
+
+    await this.route.queryParams.subscribe(async (params) => {
+      await this.serviceProxy
       .getManyBaseInstitutionControllerInstitution(
         undefined,
         undefined,
@@ -150,6 +177,32 @@ export class UserFormComponent implements OnInit {
         }
       });
 
+      this.editUserId = params['id'];
+      
+      this.uid = this.editUserId;
+      if (this.editUserId && this.editUserId > 0) {
+        
+        this.isNewUser = false;
+         this.serviceProxy
+          .getOneBaseUsersControllerUser(
+            this.editUserId,
+            undefined,
+            undefined,
+            0,
+          )
+          .subscribe((res: any) => {
+            this.user = res;
+            this.user.institution = res.institution
+            this.institutions.forEach((ins) => {              
+              if (ins.id == res.institution.id) {
+                this.user.institution = ins;
+              }
+            });
+          });
+      }
+    });
+
+
     this.user.userType = undefined!;
     this.user.mobile = '';
     this.user.telephone = '';
@@ -172,29 +225,7 @@ export class UserFormComponent implements OnInit {
       this.filter2.push('id||$ne||' + 4);
     }
 
-    await this.route.queryParams.subscribe((params) => {
-      this.editUserId = params['id'];
-      this.uid = this.editUserId;
-      if (this.editUserId && this.editUserId > 0) {
-        this.isNewUser = false;
-         this.serviceProxy
-          .getOneBaseUsersControllerUser(
-            this.editUserId,
-            undefined,
-            undefined,
-            0,
-          )
-          .subscribe((res: any) => {
-            this.user = res;
-            this.institutions.forEach((ins) => {
-              
-              if (ins.id == res.institution.id) {
-                this.user.institution = ins;
-              }
-            });
-          });
-      }
-    });
+   
 
     this.serviceProxy
       .getManyBaseUserTypeControllerUserType(
