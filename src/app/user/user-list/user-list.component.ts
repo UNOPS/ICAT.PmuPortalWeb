@@ -276,9 +276,7 @@ export class UserListComponent implements OnInit {
 
   async editUser(user: User) {
     await this.router.navigate(['/user'], { queryParams: { id: user.id } }).then(()=>{
-      // window.location.reload();
     }); 
-    // window.location.reload();
   }
 
   new() {
