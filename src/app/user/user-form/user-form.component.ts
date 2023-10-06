@@ -17,6 +17,7 @@ import { flatten } from '@angular/compiler';
 import decode from 'jwt-decode';
 import { environment } from 'environments/environment';
 import axios from 'axios';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-form',
@@ -74,6 +75,7 @@ export class UserFormComponent implements OnInit {
     private router: Router,
     private confirmationService: ConfirmationService,
     private userProxy: UsersControllerServiceProxy,
+    private http: HttpClient,
   ) { }
 
   utypeid(event: any) {
@@ -391,7 +393,7 @@ export class UserFormComponent implements OnInit {
               this.user.userType = userType;
 
               this.coreatingUser = true;
-              const url = environment.baseSyncAPI + '/user';
+              const url = environment.baseSyncAPI + '/userone';
               this.serviceProxy
                 .createOneBaseUsersControllerUser(this.user)
                 .subscribe(
@@ -406,7 +408,7 @@ export class UserFormComponent implements OnInit {
                     }, 2000);
 
                     if (this.user.userType.id === 2) {
-                      await axios.get(url);
+                      await this.http.post<any[]>(url, res).subscribe();
                     }
                   },
                   (error) => {
@@ -489,10 +491,10 @@ export class UserFormComponent implements OnInit {
   }
 
   async deactivateUser() {
-    const url = environment.baseSyncAPI + '/user';
+    const url = environment.baseSyncAPI + '/userone';
     await this.userProxy
       .changeStatus(this.user.id, this.user.status == 0 ? 1 : 0)
-      .subscribe((res) => {
+      .subscribe(async (res) => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -500,11 +502,12 @@ export class UserFormComponent implements OnInit {
             }`,
         });
         this.user = res;
+        if(this.user.userType.id==2){
+          await this.http.post<any[]>(url, res).subscribe();
+        }
       });
 
-      if(this.user.userType.id==2){
-        await axios.get(url);
-      }
+     
    
   }
 }
