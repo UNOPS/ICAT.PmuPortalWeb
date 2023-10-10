@@ -33,6 +33,7 @@ import {
   Sector,
   ServiceProxy,
 } from 'shared/service-proxies/service-proxies';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-view-country',
@@ -59,7 +60,7 @@ export class ViewCountryComponent implements OnInit, AfterViewInit {
   editCountryId: any;
   isNewCountry = true;
   arr: any[] = [];
-  url = environment.baseSyncAPI + '/country';
+  url = environment.baseSyncAPI + '/countryone';
   selectCountry = 'Select a Country';
 
   cou: Country = new Country();
@@ -71,7 +72,7 @@ export class ViewCountryComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-
+    private http: HttpClient,
     private serviceProxy: ServiceProxy,
     private projectProxy: ProjectControllerServiceProxy,
     private cdr: ChangeDetectorRef,
@@ -236,7 +237,7 @@ export class ViewCountryComponent implements OnInit, AfterViewInit {
 
           }
           else{
-            await axios.get(this.url);
+            await this.http.post<any[]>(this.url, res).subscribe();
           }
       },
         (err) => {

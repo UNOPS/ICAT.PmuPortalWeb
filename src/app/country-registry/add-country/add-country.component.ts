@@ -33,6 +33,7 @@ import {
   ServiceProxy,
 } from 'shared/service-proxies/service-proxies';
 import { ThrowStmt } from '@angular/compiler';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-country',
@@ -61,7 +62,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
   editCountryId: any;
   isNewCountry = true;
   arr: any[] = [];
-  url = environment.baseSyncAPI + '/country';
+  url = environment.baseSyncAPI + '/countryone';
   selectCountry = 'Select a Country';
   selectedCountryCode: string;
   selectedMapCountry: any;
@@ -82,6 +83,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private countryProxy: CountryControllerServiceProxy,
+    private http: HttpClient,
   ) { }
 
   ngAfterViewInit(): void {
@@ -283,7 +285,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
 
             });
             setTimeout(async () => {
-              await axios.get(this.url);
+              await this.http.post<any[]>(this.url, res).subscribe();
               this.router.navigate(['/country-registry']);
             }, 1000);
           },
@@ -355,7 +357,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
                 detail: 'Successfully updated the country',
               });
               setTimeout(async () => {
-                await axios.get(this.url);
+                await this.http.post<any[]>(this.url, res).subscribe();
                 this.onBackClick();
               }, 1000);
             },
@@ -393,7 +395,7 @@ export class AddCountryComponent implements OnInit, AfterViewInit {
 
             reject: () => { },
           });
-          await axios.get(this.url);
+          await this.http.post<any[]>(this.url, res).subscribe();
         },
         (err) => {
           this.messageService.add({
