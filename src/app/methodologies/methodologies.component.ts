@@ -22,6 +22,7 @@ import {
 import decode from 'jwt-decode';
 import axios from 'axios';
 import { environment } from 'environments/environment';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-methodologies',
   templateUrl: './methodologies.component.html',
@@ -67,6 +68,7 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private cdr: ChangeDetectorRef,
+    private http: HttpClient,
   ) {}
 
   ngAfterViewInit(): void {
@@ -165,7 +167,7 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
   };
 
   async updateMethodologyStatus(meth: Methodology, aprovalStatus: number) {
-    const url = environment.baseSyncAPI + '/methodology';
+   
     if (aprovalStatus === 1) {
       await this.confirmationService.confirm({
         message: 'Are you sure to activate' + ' ?',
@@ -176,8 +178,7 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
         },
         reject: () => {},
       });
-
-      await axios.get(url);
+      
     } else if (aprovalStatus === 2) {
       await this.confirmationService.confirm({
         message: 'Are you sure to deactivate' + ' ?',
@@ -188,14 +189,11 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
         },
         reject: () => {},
       });
-      await axios.get(url);
     }
-    await axios.get(url);
   }
 
   async updateStatus(meth: Methodology, aprovalStatus: number) {
-    const url = environment.baseSyncAPI + '/methodology';
-
+    const url = environment.baseSyncAPI + '/methodologyone';
     await this.serviceProxy
       .updateOneBaseMethodologyControllerMethodology(meth.id, meth)
       .subscribe(
@@ -211,7 +209,7 @@ export class MethodologiesComponent implements OnInit, AfterViewInit {
                 : 'Data request sent successfully.',
             closable: true,
           });
-          await axios.get(url);
+          await this.http.post<any[]>(url, meth).subscribe();
         },
         (err) => {
           this.messageService.add({

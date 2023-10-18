@@ -26,6 +26,7 @@ import {
   Sector,
   ServiceProxy,
 } from 'shared/service-proxies/service-proxies';
+import { HttpClient } from '@angular/common/http';
 
 interface City {
   name: string;
@@ -62,6 +63,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private router: Router,
     private messageService: MessageService,
+    private http: HttpClient,
   ) {}
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
@@ -152,7 +154,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
   }
 
   async saveClick() {
-    let url = environment.baseSyncAPI + '/methodology';
+    let url = environment.baseSyncAPI + '/methodologies';
 
     await this.oldCountryMeth.forEach(async (old) => {
       old.isActive = 2;
@@ -207,7 +209,7 @@ export class AssignMethodologyComponent implements OnInit, AfterViewInit {
       });
       setTimeout(async () => {
         this.router.navigate(['/methodologies']);
-        await axios.get(url);
+        await this.http.post<any[]>(url, this.country).subscribe();
       }, 750);
     }, 1000);
   }
