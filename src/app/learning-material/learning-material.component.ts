@@ -25,6 +25,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { environment } from 'environments/environment';
 import decode from 'jwt-decode';
 import * as moment from 'moment';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-learning-material',
   templateUrl: './learning-material.component.html',
@@ -56,6 +57,8 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
   editEntytyId: number = 0;
   proposeDateofCommence: Date;
   isLoading: boolean = false;
+
+  url = environment.baseSyncAPI + '/lerninigMeterialOne';
 
   checked: boolean = false;
   sectorList: Sector[] = [];
@@ -105,7 +108,8 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     private LearningMaterialProxy: LearningMaterialControllerServiceProxy,
     private cdr: ChangeDetectorRef,
     private serviceProxy: ServiceProxy,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private http: HttpClient,
   ) {
     
   }
@@ -178,10 +182,8 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
     this.display = true;
   }
   async closeModalDialog() {
-    let url = environment.baseSyncAPI + '/lerninigMeterial';
     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'You have successfully uploaded the document.' });
     this.display = false;
-    await axios.get(url)
   }
 
   deleteItem(newItem: any) {
@@ -225,7 +227,6 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
         )
         .subscribe((res: any) => {
           this.documentLists = res.data;
-
           let savedDoc = this.documentLists[0];
           let fileName = savedDoc?.fileName;
           let filePath = savedDoc?.relativePath;
@@ -250,7 +251,8 @@ export class LearningMaterialComponent implements OnInit, AfterViewInit {
 
           this.serviceProxy
             .createOneBaseLearningMaterialControllerLearningMaterial(lm)
-            .subscribe((res: any) => {
+            .subscribe(async (res: any) => {
+              await this.http.post<any[]>(this.url, res).subscribe();
               this.count = 0;
               this.loadgridData();
             });
