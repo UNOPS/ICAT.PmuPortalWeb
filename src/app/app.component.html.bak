@@ -1,0 +1,231 @@
+<nb-layout>
+  <nb-layout-column class="p-0">
+    <div class="wrapper d-flex flex-row flex-grow-1">
+      <div
+        *ngIf="showLeftMenu"
+        class="sidebar d-flex flex-column customSB d-print-none"
+        [ngClass]="{ open: togglemenu || innerWidth > 1280 }"
+      >
+        <div
+          class="sidebar--button selectable"
+          (click)="togglemenu = !togglemenu"
+        >
+          <i class="pi pi-arrow-right" *ngIf="!togglemenu"></i>
+          <i class="pi pi-arrow-left" *ngIf="togglemenu"></i>
+        </div>
+        <div class="sidebar--header">
+          <!-- <img src="../../../assets/images/logo.png" width="33" />  -->
+          <img src="../../../assets/images/logo-new.png" />
+        </div>
+        <!-- <div class="m-0 ml-2">
+          <div class="p-text-left p-text-nowrap p-text-truncate m-1">
+            <p class="m-0"><small>{{userType}}</small></p>
+          </div>    
+        </div> -->
+        <div class="sidebar-items flex-grow-1">
+          <!-- <div data-ccs-admin-menu *ngIf="userRole.role == 1"> -->
+          <div data-ccs-admin-menu>
+            <div
+              *ngIf="
+                userRole.role == 1 ||
+                userRole.role == 2 ||
+                userRole.role == 3 ||
+                userRole.role == 4 
+              "
+              class="sidebar-items--link align-items-start"
+              [routerLink]="['/dashboard']"
+              routerLinkActive="selected"
+            >
+              <div class=""></div>
+              Dashboard
+            </div>
+
+            <!-- <div
+              class="sidebar-items--link align-items-start"
+              [routerLink]="['/landing-page']"
+              routerLinkActive="selected"
+            >
+              <div class=""></div>
+              Landing Page
+            </div> -->
+
+            <div
+            *ngIf="
+            userRole.role == 1 ||
+            userRole.role == 2 ||
+            userRole.role == 3 ||
+            userRole.role == 4 
+          "
+              class="sidebar-items--link align-items-start"
+              [routerLink]="['/country-registry']"
+              routerLinkActive="selected"
+            >
+              <div class=""></div>
+              Country Registry
+            </div>
+
+            <div
+            *ngIf="
+            userRole.role == 1 ||
+            userRole.role == 2 
+           
+          "
+              class="sidebar-items--link align-items-start"
+              [routerLink]="['/instituion']"
+              routerLinkActive="selected"
+            >
+              <div class=""></div>
+              Institution
+            </div>
+
+
+            <div
+            *ngIf="
+                userRole.role == 1 ||
+                userRole.role == 2 ||
+                userRole.role == 3 ||
+                userRole.role == 4 
+              "
+            class="sidebar-items--link align-items-start"
+            [routerLink]="['/user-list']"
+            routerLinkActive="selected"
+          >
+            <div class=""></div>
+            Users
+          </div>
+
+
+
+
+
+
+
+            <div
+            *ngIf="
+            userRole.role == 1 ||
+            userRole.role == 2 ||
+            userRole.role == 3 ||
+            userRole.role == 4 
+          "
+              class="sidebar-items--link align-items-start"
+              [routerLink]="['/view-sectors']"
+              routerLinkActive="selected"
+            >
+              <div class=""></div>
+              Sector
+            </div>
+
+
+            <div
+            *ngIf="
+                userRole.role == 1 ||
+                userRole.role == 2 ||
+                userRole.role == 3 ||
+                userRole.role == 4 
+              "
+            class="sidebar-items--link align-items-start"
+            [routerLink]="['/methodologies']"
+            routerLinkActive="selected"
+          >
+            <div class=""></div>
+            Methodologies
+          </div>
+
+
+          <div
+          *ngIf="
+                userRole.role == 1 ||
+                userRole.role == 2 ||
+                userRole.role == 3 ||
+                userRole.role == 4 
+              "
+          class="sidebar-items--link align-items-start"
+          [routerLink]="['/learning-material']"
+          routerLinkActive="selected"
+        >
+          <div class=""></div>
+          Learning Material
+        </div>
+
+
+
+
+        <div
+        *ngIf="
+        userRole.role == 1 ||
+        userRole.role == 2 ||
+        userRole.role == 3 ||
+        userRole.role == 4 
+      "
+              class="sidebar-items--link align-items-start"
+              [routerLink]="['/activity']"
+              routerLinkActive="selected"
+            >
+              <div class=""></div>
+              Activity log
+            </div>
+            
+
+           
+
+           
+        
+          </div>
+        </div>
+
+        <div class="sidebar--footer">
+          <div></div>
+          <div></div>
+          <div></div>
+          <!-- <div class="sidebar-items--link" [routerLink]="['/settings']" routerLinkActive="router-link-active">
+            <i class="pi pi-cog"></i> Settings
+          </div> -->
+          <div class="ml-2 mr-2">
+            <!-- <p-dropdown [disabled]="true" [options]="userRoles" [(ngModel)]="userRole" placeholder="Select a City"
+              optionLabel="name">
+            </p-dropdown> -->
+          </div>
+
+          <!-- <div class="sidebar-items--link" (click)="logout()" [routerLink]="['/login']" routerLinkActive="router-link-active">
+            <i class="pi pi-sign-out"></i> Logout
+          </div> -->
+        </div>
+      </div>
+      <div class="main d-flex flex-column flex-grow-1">
+        <div class="d-flex flex-column justify-content-end">
+          <div class="p-text-nowrap p-text-truncate m-0 pr-2 text-right">
+            <!-- <small><b>{{useremail}}</b></small> -->
+            <div class="top-panel d-flex justify-content-end">
+              <div class="d-flex mt-15 mr-20">
+                <span class="mr-10">
+                  <img
+                    src="https://github.com/mdo.png"
+                    alt="mdo"
+                    width="45"
+                    height="45"
+                    class="rounded-circle"
+                /></span>
+                <span>
+                  <div class="username">User Name</div>
+                  <div class="userrole">User Role</div>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="p-text-nowrap p-text-truncate m-0 mb-1 pr-2 text-right">
+            <!-- <small><b>{{userInstitution}}</b></small> -->
+          </div>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <!-- 
+    <div  class="d-flex flex-column flex-grow-1"  *ngIf="hideSidebar">
+      <router-outlet></router-outlet>
+    </div> -->
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+    <!-- Insert footer here -->
+  </nb-layout-footer>
+</nb-layout>
