@@ -5,7 +5,7 @@ import { ResetPassword, AuthControllerServiceProxy } from 'shared/service-proxie
 import { AuthenticationService } from '../login-layout/authentication.service';
 import { LoginLayoutService } from '../login-layout/login-layout.service'
 import { } from 'shared/service-proxies/service-proxies';
-import decode from 'jwt-decode';
+
 @Component({
   selector: 'app-set-password',
   templateUrl: './set-password.component.html',
@@ -28,6 +28,7 @@ export class SetPasswordComponent implements OnInit {
   showEmail: boolean = false;
   public isSubmitted: boolean = false;
   form1: any;
+  token: string = ''; 
 
   constructor(public loginLayoutService: LoginLayoutService,
     private appServiceProxy: AuthControllerServiceProxy,
@@ -46,32 +47,31 @@ export class SetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const token = localStorage.getItem('access_token')!;
-      const tokenPayload = decode<any>(token);
-      this.email = tokenPayload.usr;
-      if (this.email) {
-        this.showEmail = true
+    this.route.queryParams.subscribe((params: any) => {
+      this.token = params['token'];
+      if (this.token) {
+        this.showEmail = true;
       }
     });
   }
 
   clickResetPassword() {
     if (this.form.valid && this.passwordConfirm == this.resetPasswordDto.password) {
-      this.resetPasswordDto.token = "";
+      this.resetPasswordDto.token = this.restToken;
       this.resetPasswordDto.email = this.email;
-      this.appServiceProxy.resetPassword(this.resetPasswordDto).subscribe(isSuccess => {
+      this.appServiceProxy.resetPassword(this.resetPasswordDto).subscribe((isSuccess: boolean) => {
         if (isSuccess) {
           this.islSuccessPopup = true;
         } else {
           this.isErrorPopup = true;
         }
       },
-        err => {
-          this.isErrorPopup = true;
-        });
+      (err: any) => {
+        this.isErrorPopup = true;
+      });
     }
   }
+  
 
   onPasswordChange(event: any) {
     let x = this.fb.group({
