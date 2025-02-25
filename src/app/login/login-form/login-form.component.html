@@ -37,13 +37,13 @@
       type="password"
       class="form-control"
       name="password"
-      #passowrd="ngModel"
+      #password="ngModel"
       [(ngModel)]="logiLayoutService.authCredentialDot.password"
       (input)="resetError()"
       [ngClass]="{
         'form-control--error':
-          (passowrd.errors && (passowrd.touched || passowrd.dirty)) ||
-          (passowrd.errors?.['required'] && isSubmitLogin)
+          (password.errors && (password.touched || password.dirty)) ||
+          (password.errors?.['required'] && isSubmitLogin)
       }"
       placeholder="Enter the Password"
       required
@@ -51,8 +51,8 @@
     <p
       class="info-message text-danger"
       *ngIf="
-        (passowrd.errors?.['required'] && (passowrd.touched || passowrd.dirty)) ||
-        (passowrd.errors?.['required'] && isSubmitLogin)
+        (password.errors?.['required'] && (password.touched || password.dirty)) ||
+        (password.errors?.['required'] && isSubmitLogin)
       "
     >
       Password is required
