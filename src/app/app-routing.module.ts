@@ -121,7 +121,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'instituion',
+    path: 'institution',
     component: InstitutionsComponent,
     canActivate: [RoleGuardService],
     data: {
@@ -135,7 +135,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'instituion-new',
+    path: 'institution-new',
     component: InstitutionFormComponent,
     canActivate: [RoleGuardService],
     data: {

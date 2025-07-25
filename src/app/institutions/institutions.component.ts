@@ -140,7 +140,7 @@ export class InstitutionsComponent implements OnInit, AfterViewInit {
   }
 
   new() {
-    this.router.navigate(['/instituion-new']);
+    this.router.navigate(['/institution-new']);
   }
   getCountryname(institution:Institution){
     this.countryName=""
@@ -154,7 +154,7 @@ export class InstitutionsComponent implements OnInit, AfterViewInit {
   }
 
   editInstitution(institution: Institution) {
-    this.router.navigate(['/instituion-new'], {
+    this.router.navigate(['/institution-new'], {
       queryParams: { id: institution.id },
     });
   }
